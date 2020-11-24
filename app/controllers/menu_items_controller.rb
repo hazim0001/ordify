@@ -1,5 +1,6 @@
 class MenuItemsController < ApplicationController
   before_action :set_menu_item, only: %i[show edit update destroy]
+  skip_before_action :authenticate_employee!, only: %i[index show]
 
   def index
     restaurant = params[:category_id].restaurant
@@ -10,10 +11,14 @@ class MenuItemsController < ApplicationController
 
   def new
     @menu_item = MenuItem.new
+    authorize @menu_item
   end
 
   def create
     @menu_item = MenuItem.new(menu_item_params)
+    @restaurant = Restaurant.find(params[:restaurant])
+    authorize @menu_item
+    @menu_item.restaurant = @restaurant
     if @menu_item.save
       redirect_to menu_items_path
     else
@@ -21,9 +26,12 @@ class MenuItemsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    authorize @menu_item
+  end
 
   def update
+    authorize @menu_item
     if @menu_item.update(menu_item_params)
       redirect_to menu_item_path(@menu_item)
     else
@@ -32,6 +40,7 @@ class MenuItemsController < ApplicationController
   end
 
   def destroy
+    authorize @menu_item
     @menu_item.destroy
     redirect_to menu_items_path
   end
@@ -43,6 +52,6 @@ class MenuItemsController < ApplicationController
   end
 
   def menu_item_params
-    params.require(:menu_item).permit(:title, :restaurant, :item_price, :description, :category, :active)
+    params.require(:menu_item).permit(:title, :restaurant, :item_price, :description, :category, :active, photos: [])
   end
 end

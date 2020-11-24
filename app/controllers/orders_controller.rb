@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  skip_before_action :authenticate_employee!, only: %i[new create]
+
   def new
     @order = Order.new
   end

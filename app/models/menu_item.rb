@@ -4,7 +4,8 @@ class MenuItem < ApplicationRecord
   has_many :tables, through: :orders
   belongs_to :restaurant
   belongs_to :category
+  has_many_attached :photos
 
-  validates :title, presence: true, length: { in: 3..150 } # uniqnesss pending research
-  validates :description, presence: true, length: { in: 10..50 } # max to be checked when we have the menu_item card
+  validates :title, presence: true, length: { in: 3..150 } #, uniqueness: { scope: restaurant_id }
+  validates :description, presence: true, length: { in: 10..500 } # max to be checked when we have the menu_item card
 end

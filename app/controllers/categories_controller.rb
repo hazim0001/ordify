@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  skip_before_action :authenticate_employee!, only: %i[index show]
+
   def create
     @category = Category.new(category_params)
     if @category.save
