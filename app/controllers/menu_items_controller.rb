@@ -1,9 +1,12 @@
 class MenuItemsController < ApplicationController
   before_action :set_menu_item, only: %i[show edit update destroy]
   skip_before_action :authenticate_employee!, only: %i[index show]
+  after_action :verify_authorized, except: %i[index show], unless: :skip_pundit?
 
   def index
-    restaurant = params[:category_id].restaurant
+    # restaurant = params[:category_id].restaurant
+    restaurant = session[:restaurant]
+    ######################
     @menu_items = MenuItem.where(restaurant: restaurant)
   end
 

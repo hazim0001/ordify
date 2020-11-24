@@ -12,7 +12,7 @@ Order.destroy_all
 LineItem.destroy_all
 MenuItem.destroy_all
 Table.destroy_all
-Menu.destroy_all
+
 
 puts 'db is now clean......Seeding in progress'
 cusine1 = Cusine.create!(name: Faker::Restaurant.type)

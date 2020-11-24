@@ -1,2 +1,4 @@
-<h1>LineItems#index</h1>
-<p>Find me in app/views/line_items/index.html.erb</p>
+<%= @line_items.last.menu_item.title %>
+<%= @line_items.last.quantity %>
+<%= link_to "Delete", line_item_path(@line_items.last), method: :delete %>
+

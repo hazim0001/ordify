@@ -1,5 +1,6 @@
 class TablesController < ApplicationController
   before_action :set_table, only: %i[show destroy]
+  after_action :verify_authorized, unless: :skip_pundit?
 
   def create
     @restaurant = Restaurant.find(params[:restaurant_id])
