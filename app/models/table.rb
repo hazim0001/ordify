@@ -5,6 +5,5 @@ class Table < ApplicationRecord
   has_many :customers, through: :orders
   belongs_to :restaurant
 
-  validates :name, presence: true, format: { with: /^(table) (\d|\w*)/i } # to be a hint when creating a table
-  # uniqness scope restaurant
+  validates :name, presence: true
 end
