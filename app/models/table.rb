@@ -5,5 +5,5 @@ class Table < ApplicationRecord
   has_many :customers, through: :orders
   belongs_to :restaurant
 
-  validates :name, presence: true
+  validates :name, presence: true, format: { with: /\b(table) (\d|\w*)\b/i }
 end
