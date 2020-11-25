@@ -3,10 +3,17 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   devise_scope :employee do
-    root to: 'orders#new'
+    root to: 'pages#home'
   end
-
-
+    # CRUD -> GET/POST/(PUT)PATCH/DELETE
+    #           PATH     -> Controller action -> HTTP verb
+    # localhost:3000/restaurants -> index -> GET
+    # localhost:3000/restaurants/:id -> show -> GET
+    # localhost:3000/restaurants/new -> new -> GET
+    # localhost:3000/restaurants -> create -> POST
+    # localhost:3000/restaurants/:id/edit -> edit -> GET
+    # localhost:3000/restaurants/:id -> update -> PATCH
+    # localhost:3000/restaurants/:id -> destroy -> DELETE
   resources :restaurants, except: %i[new create index destroy show edit update] do
     resources :tables, only: %i[create index show]
     resources :menu_items, only: %i[create edit update new]
