@@ -10,8 +10,14 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.create(order_params)
-    redirect_to categories_path
+    @table = Table.find(params[:table_id])
+    @order = Order.new(order_params)
+    @order.table = @table
+    if @order.save
+      redirect_to categories_path
+    else
+      render :new
+    end
   end
 
   def index
