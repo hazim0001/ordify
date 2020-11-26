@@ -1,95 +1,51 @@
+.main-container-splash {
+  height: 90vh;
+  background-color: rgba(244, 169, 101, 0.4);
+}
+
 .logo-holder {
-  position : relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   margin-top: 90px;
+  color: black;
+
+  img {
+  width: 400px;
+  height: 400px;
+  }
 }
+
+.splash-title {
+  font-size: 60px;
+  font-weight: bold;
+  font-family: Halant;
+  box-shadow: none;
+}
+
+.splash-subtitle {
+  font-size: 40px;
+  width: 80%;
+}
+
 .name-menu-holder {
-  position: relative;
-  /*margin-top: 35vh;*/
-  width: 85%;
-  margin: 25vh auto 0 auto;
-}
-.pn-style-rj {
-  width: 100%;
-}
-.phone-number-input {
-  position: absolute;
-  top: -20px;
-  left: 40px;
-  background-color: white;
-  padding: 2px 4px;
-  font-size: 22px;
-}
-.phone-number-form {
-  position: relative;
-  width: 100%;
-  bottom: 8px;
-  margin: 0 auto 30px auto;
-}
-/*.phone-number-form .btn {
-  position: absolute;
-  top: 8px;
-  bottom: 8px;
-  right: 8px;
-}*/
-.phone-number-form .pn-style-rj {
-  height: 3.5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  border: 1px solid #E7E7E7;
-  border-radius: 16px;
-}
-.phone-number-form .pn-style-rj:focus {
-  border: 1px solid black;
-  outline: none !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-}
-.menu-txt {
-  color: black;
-  padding: 8px 24px;
-  border-radius: 8px;
-  background: #C4C4C4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-style: none;
-  width: 100%;
-  height: 3.5rem;
-}
-.menu-txt:focus{
-  font-style: none;
-  color: black;
-}
-/*.phone-number-input {
-  text-align: center;
-  justify-content: center;
-}*/
-// Smallest device
-@media (min-width: 100px) and (max-width: 575px) {
-  .cards {
-    grid-template-columns: 1fr;
+  margin: 20vh auto;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20vh auto;
+  }
+
+  input {
+    border-radius: 32px;
+    height: 130px;
+    width: 750px;
+    font-size: 40px;
+    background: white;
+    border: none;
   }
 }
-// Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) {
-  .cards {
-    grid-template-columns: 1fr;
-  }
-}
-// Medium devices (tablets, 768px and up)
-@media (min-width: 768px) {
-  .cards {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-// Large devices (desktops, 992px and up)
-@media (min-width: 992px) {
-  .cards {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
-// Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
-  .cards {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
+

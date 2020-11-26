@@ -3,7 +3,9 @@ class CategoriesController < ApplicationController
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
 
   def index
-    @categories = Category.where(restaurant: session[:restaurant])
+    target_restaurant = Restaurant.find(session[:restaurant]["id"])
+    @categories = target_restaurant.categories
+    raise
     # authorize @categories
   end
 
