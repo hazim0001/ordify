@@ -1,18 +1,24 @@
-<% 5.times do %>
-  <div class="card-item">
-    <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
-    <div class="card-item-infos">
-      <div class="d-flex justify-content-start menu-item-title">
-        <h2><%= @menu_items.first.title %></h2>
+<div class="main-container-menu-item-index min-vh-75">
+  <% @menu_items.each do |menu_item| %>
+    <div class="card-item">
+      <div class="img-container-card">
+        <%= image_tag("https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80")%>
       </div>
-      <div class="menu-item-description">
-        <p><%= @menu_items.first.description %></p>
-      </div>
-      <div class="d-flex justify-content-between">
-        <div class="d-flex align-items-center item-price"><h2>$<%= @menu_items.first.item_price %></h2></div>
-        <button class="btn btn-outline-dark">Add</button>
+      <div class="card-item-infos">
+        <div class="d-flex justify-content-start menu-item-title">
+          <h2><%= menu_item.title %></h2>
+        </div>
+        <div class="menu-item-description">
+          <p><%= menu_item.description %></p>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex align-items-center item-price">
+            <h2 style="font-size: 35px; font-weight: normal;">$<%= menu_item.item_price %></h2>
+          </div>
+          <button class="btn btn-outline-dark">Add</button>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
 <a class="btn-call2-action btn-sticky" href="#">Go to order</a>
