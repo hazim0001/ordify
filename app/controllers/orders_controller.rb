@@ -5,7 +5,8 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     session[:table] = Table.find(params[:table_id])
-    session[:restaurant] = session[:table].restaurant
+    table = Table.find(session[:table]["id"])
+    session[:restaurant] = table.restaurant
   end
 
   def create

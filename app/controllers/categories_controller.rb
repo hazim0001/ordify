@@ -5,8 +5,6 @@ class CategoriesController < ApplicationController
   def index
     target_restaurant = Restaurant.find(session[:restaurant]["id"])
     @categories = target_restaurant.categories
-    raise
-    # authorize @categories
   end
 
   def create
