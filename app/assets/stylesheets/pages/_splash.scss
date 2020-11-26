@@ -29,20 +29,16 @@
   width: 80%;
 }
 
-.name-menu-holder {
-  margin: 20vh auto;
-
-  form {
+.form-splash {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20vh auto;
-  }
+    margin: 25vh 8vw;
 
   input {
     border-radius: 32px;
     height: 130px;
-    width: 750px;
+    width: 84vw;
     font-size: 40px;
     background: white;
     border: none;
