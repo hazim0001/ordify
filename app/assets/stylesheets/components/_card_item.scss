@@ -2,8 +2,8 @@
   overflow: hidden;
   height: 300px;
   width: 84vw;
-  margin: 10vh auto;
-  background: rgba(255, 255, 255, 0.4);
+  margin: 2vh auto;
+  background: #F7F6F6;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   display: flex;
   align-items: center;
@@ -29,11 +29,9 @@
   line-height: 1.4;
   opacity: .7;
   margin-bottom: 0;
-  // margin-top: 8px;
 }
 
 .card-item-infos {
-  // background-color: blue;
   padding: 5px 0px 5px 20px;
   height: 100%;
   width: 65%;
@@ -43,9 +41,6 @@
 
   .menu-item-title {
     height: 25%;
-    // margin-bottom: 10px;
-    // border-bottom: 1px solid blue;
-    // background-color: green;
   }
 
   .menu-item-description {
@@ -59,5 +54,16 @@
     font-size: 35px;
     font-weight: bold;
   }
+}
+
+.item_price {
+  width: 20vw;
+  height: 3.5vh;
+  font-size: 35px;
+  font-weight: normal;
+}
+
+.btn-sticky {
+  position: sticky;
 }
 
