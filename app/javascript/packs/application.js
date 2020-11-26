@@ -25,44 +25,60 @@ import intlTelInput from 'intl-tel-input';
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
-  const input = document.querySelector("#phone");
-  intlTelInput(input, {
-      // any initialisation options go here
+  // const input = document.querySelector("#phone");
+  // intlTelInput(input, {
+  //     // any initialisation options go here
+  // });
+
+
+
+// THIS CODE FOR ADD BUTTON that we r using on order summary and menu item index
+  const decrement = (event) => {
+    const btn = event.target.parentNode.parentElement.querySelector(
+      'button[data-action="decrement"]'
+    );
+    const target = btn.nextElementSibling;
+    let value = Number(target.value);
+    if (value === 0){
+      event.preventDefault();
+    } else {
+      value--;
+      target.value = value;
+    }
+  }
+
+  const increment = (event) => {
+    const btn = event.target.parentNode.parentElement.querySelector(
+      'button[data-action="decrement"]'
+    );
+    const target = btn.nextElementSibling;
+    let value = Number(target.value);
+    if (value === 10){
+      event.preventDefault();
+    } else {
+      value++;
+      target.value = value;
+    }
+  }
+
+  const decrementButtons = document.querySelectorAll(
+    `button[data-action="decrement"]`
+  );
+
+  const incrementButtons = document.querySelectorAll(
+    `button[data-action="increment"]`
+  );
+
+  decrementButtons.forEach(btn => {
+    btn.addEventListener("click", decrement);
   });
 
-
+  incrementButtons.forEach(btn => {
+    btn.addEventListener("click", increment);
+  });
 });
-$(document).ready(function(){
-
-var quantitiy=0;
-   $('.quantity-right-plus').click(function(e){
-
-        // Stop acting like a button
-        e.preventDefault();
-        // Get the field name
-        var quantity = parseInt($('#quantity').val());
-
-        // If is not undefined
-
-            $('#quantity').val(quantity + 1);
 
 
-            // Increment
 
-    });
 
-     $('.quantity-left-minus').click(function(e){
-        // Stop acting like a button
-        e.preventDefault();
-        // Get the field name
-        var quantity = parseInt($('#quantity').val());
 
-        // If is not undefined
-
-            // Increment
-            if(quantity>0){
-            $('#quantity').val(quantity - 1);
-            }
-    });
-
-});

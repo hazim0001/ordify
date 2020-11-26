@@ -22,13 +22,15 @@ Employee.create!(name:Faker::Name.name, role: "manager", restaurant: rest_one, p
 Employee.create!(name:Faker::Name.name, role: "cook", restaurant: rest_one,password: 123456, email: Faker::Internet.email )
 
 puts "#{rest_one.name} has been created"
+
 category_options = %w[sushi beef chicken pasta pizza burgers].sample
 categoryy = []
 
 5.times do
   categoryy << Category.create!(title: category_options)
-  Table.create!(name: "Table one", restaurant: rest_one)
 end
+
+Table.create!(name: "Table one", restaurant: rest_one)
 
 puts 'Categories have been created'
 
