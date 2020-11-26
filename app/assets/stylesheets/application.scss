@@ -1,13 +1,9 @@
-@import "pages/index";
-@import "components/index";
-
 @import "bootstrap/scss/bootstrap";
 @import 'intl-tel-input/build/css/intlTelInput.css';
+@import url('https://fonts.googleapis.com/css2?family=Halant:wght@400;600&display=swap');
 
-
-
-
-
+@import "pages/index";
+@import "components/button";
 
 
 // this for the country code drop down on the splash page JS setup
@@ -16,3 +12,4 @@
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .iti__flag {background-image: url("path/to/flags@2x.png");}
 }
+
