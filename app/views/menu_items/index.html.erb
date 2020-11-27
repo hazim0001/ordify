@@ -1,7 +1,45 @@
-<div class="card-product">
-  <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
-  <div class="card-product-infos">
-    <h2>Product name</h2>
-    <p>Product description with <strong>relevant info</strong> only.</p>
+<div class="main-container-menu-item-index min-vh-75">
+  <div class="back-icon">
+    <%= link_to categories_path do%>
+      <i class="fad fa-chevron-left text-fontawesome"></i>
+    <% end %>
   </div>
+  <br>
+  <%= simple_form_for :@menu_item, url: categories_path, method: :get do |f| %>
+    <div class="search-form-control form-group">
+      <input class="form-control string required height-130 b-radius-32 text-35 text-fontawesome px-4 background-shallow-grey" type="text" placeholder="&#xF002; What do you wanna eat today?" name="search[query]" id="search_query" />
+    </div>
+  <% end %>
+  <div class="card-category-title" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1582450871972-ab5ca641643d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80)">
+    <%= @menu_items.first.category.title.capitalize %>
+  </div>
+  <% @menu_items.each do |menu_item| %>
+    <div class="card-item">
+      <div class="img-container-card">
+        <%= image_tag("https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80")%>
+      </div>
+      <div class="card-item-infos">
+        <div class="d-flex justify-content-start menu-item-title">
+          <h2><%= menu_item.title %></h2>
+        </div>
+        <div class="menu-item-description">
+          <p>
+            <% if menu_item.description.chars.count > 120 %>
+              <%= menu_item.description.slice(0..120)%>...
+            <% else %>
+              <%= menu_item.description%>
+            <% end %>
+          </p>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex align-items-center item-price">
+            <h2 style="font-size: 35px; font-weight: normal;">$<%= menu_item.item_price %></h2>
+          </div>
+          <%= link_to "Add", menu_item_path(menu_item), class:"btn btn-outline-dark" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
+<%#= raise %>
+<%= link_to "Go to order", order_line_items_path(@order) , class:"btn-call2-action btn-sticky" %>
