@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(version: 2020_11_26_234059) do
   end
 
   create_table "line_items", force: :cascade do |t|
-    t.text "comment"
-    t.integer "quantity"
+    t.text "comment", default: ""
+    t.integer "quantity", default: 1
     t.boolean "sent", default: false
     t.bigint "order_id", null: false
     t.bigint "menu_item_id", null: false
@@ -95,6 +95,8 @@ ActiveRecord::Schema.define(version: 2020_11_26_234059) do
     t.bigint "table_id", null: false
     t.string "user_number"
     t.boolean "sent", default: false
+    t.string "status", default: "not paid"
+    t.string "checkout_session_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "total_price_cents", default: 0, null: false
