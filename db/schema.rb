@@ -65,9 +65,10 @@ ActiveRecord::Schema.define(version: 2020_11_26_234059) do
   end
 
   create_table "line_items", force: :cascade do |t|
-    t.text "comment", default: ""
-    t.integer "quantity", default: 1
+    t.text "comment"
+    t.integer "quantity"
     t.boolean "sent", default: false
+    t.float "total", default: 0.0
     t.bigint "order_id", null: false
     t.bigint "menu_item_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -79,6 +80,7 @@ ActiveRecord::Schema.define(version: 2020_11_26_234059) do
 
   create_table "menu_items", force: :cascade do |t|
     t.string "title"
+    t.float "item_price", default: 0.0
     t.text "description"
     t.bigint "restaurant_id", null: false
     t.bigint "category_id", null: false
@@ -91,12 +93,11 @@ ActiveRecord::Schema.define(version: 2020_11_26_234059) do
   end
 
   create_table "orders", force: :cascade do |t|
+    t.float "total_price", default: 0.0
     t.boolean "dispatched", default: false
     t.bigint "table_id", null: false
     t.string "user_number"
     t.boolean "sent", default: false
-    t.string "status", default: "not paid"
-    t.string "checkout_session_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "total_price_cents", default: 0, null: false
