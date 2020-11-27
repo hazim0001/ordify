@@ -75,13 +75,18 @@
     height: 50%;
   }
 
-  button {
+  a {
     border-radius: 16px;
     width: 20vw;
     height: 90%;
     font-size: 35px;
     font-weight: bold;
     background-color: white;
+
+    &:hover {
+      color: white;
+      background-color: black;
+    }
   }
 }
 

@@ -6,6 +6,7 @@ class MenuItemsController < ApplicationController
   def index
     restaurant = Restaurant.find(session[:restaurant]["id"])
     category = Category.find(params[:category_id])
+    @order = Order.find(session[:order]["id"])
     if current_employee.present? && current_employee.role == "manager"
       @menu_items = MenuItem.where(restaurant: restaurant).where(category: category)
     else # for restaurant users and kitchen
