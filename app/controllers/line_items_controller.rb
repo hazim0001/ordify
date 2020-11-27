@@ -1,6 +1,7 @@
 class LineItemsController < ApplicationController
   before_action :set_line_item, only: %i[update destroy]
   skip_before_action :authenticate_employee!, only: %i[index create update destroy]
+  after_action :verify_authorized, only: :destroy, unless: :skip_pundit?
 
   def create
     @line_item = LineItem.new(line_item_params)
@@ -21,9 +22,11 @@ class LineItemsController < ApplicationController
   end
 
   def destroy
-    @line_item.order.update(total_price: @line_item.order.total_price - (@line_item.total * @line_item.quantity))
+    order = @line_item.order
+    @line_item.order.update(total_price: (@line_item.order.total_price - @line_item.total))
+    authorize @line_item
     @line_item.destroy
-    redirect_to line_items_path
+    redirect_to order_line_items_path(order)
   end
 
   private

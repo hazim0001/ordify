@@ -1,10 +1,16 @@
 class MenuItemsController < ApplicationController
   before_action :set_menu_item, only: %i[show edit update destroy]
   skip_before_action :authenticate_employee!, only: %i[index show]
+  after_action :verify_authorized, except: %i[index show], unless: :skip_pundit?
 
   def index
-    restaurant = params[:category_id].restaurant
-    @menu_items = MenuItem.where(restaurant: restaurant)
+    restaurant = Restaurant.find(session[:restaurant]["id"])
+    category = Category.find(params[:category_id])
+    if current_employee.present? && current_employee.role == "manager"
+      @menu_items = MenuItem.where(restaurant: restaurant).where(category: category)
+    else # for restaurant users and kitchen
+      @menu_items = MenuItem.where(restaurant: restaurant).where(category: category).where(active: true)
+    end
   end
 
   def show; end
@@ -16,7 +22,7 @@ class MenuItemsController < ApplicationController
 
   def create
     @menu_item = MenuItem.new(menu_item_params)
-    @restaurant = Restaurant.find(params[:restaurant])
+    @restaurant = Restaurant.find(params[:restaurant_id])
     authorize @menu_item
     @menu_item.restaurant = @restaurant
     if @menu_item.save

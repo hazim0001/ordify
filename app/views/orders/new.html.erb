@@ -1,25 +1,13 @@
-<h1>Orders#new</h1>
-<p>Find me in app/views/orders/new.html.erb</p>
-
-
-<div>
- <!-- logo https://www.figma.com/file/TlnHF9gLywARIeSphHTHT3/Ordify?node-id=263%3A647 -->
-</div>
-
-
-
-<div class="mt-5">
-  <form novalidate="novalidate" class="simple_form search" action="/" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
-    <div class="search-form-control form-group">
-      <span class="name">Name</span>
-      <input class="form-control " type="text" name="search[query]" id="search_query" />
-        <i class="fas fa-search"></i>
-      </button>
-    </div>
+<div class="main-container-splash p-5">
+  <div class="logo-holder">
+    <%= image_tag "logo.png", alt: "alttext"%>
+    <div class="mt-0 splash-title">Welcome to Ordify</div>
+    <br>
+    <div class="mt-0 splash-subtitle">To continue please enter your phone number</div>
+  </div>
+  <form novalidate="novalidate" class="form-splash" action="/" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <input class="px-4" placeholder="+52 5575187010" type="text" name="search[query]" id="search_query">
+     <br><br>
+    <a class="btn-call2-action" href="#">Go to menu</a>
   </form>
-</div>
-
-
-<div class="go-button">
-    <a class="btn-flat" href="#">Menu</a>
 </div>

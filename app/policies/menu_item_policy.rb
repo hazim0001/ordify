@@ -6,22 +6,22 @@ class MenuItemPolicy < ApplicationPolicy
   end
 
   def new?
-    user.role == "manager"
+    record.restaurant == user.restaurant && user.role == "manager"
   end
 
   def create?
     new?
   end
 
-  def update?
-    record.restaurant == user.restaurant && user.role == "manager"
+  def edit?
+    new?
   end
 
-  def edit?
-    update?
+  def update?
+    new?
   end
 
   def destroy?
-    edit
+    new?
   end
 end

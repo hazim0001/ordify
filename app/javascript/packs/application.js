@@ -9,9 +9,76 @@ require("@rails/activestorage").start()
 require("channels")
 
 
+
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+// Internal imports, e.g:
+import "bootstrap";
+import intlTelInput from 'intl-tel-input';
+
+// import { initSelect2 } from '../components/init_select2';
+
+document.addEventListener('turbolinks:load', () => {
+  // Call your functions here, e.g:
+  // initSelect2();
+  // const input = document.querySelector("#phone");
+  // intlTelInput(input, {
+  //     // any initialisation options go here
+  // });
+
+
+
+// THIS CODE FOR ADD BUTTON that we r using on order summary and menu item index
+  const decrement = (event) => {
+    const btn = event.target.parentNode.parentElement.querySelector(
+      'button[data-action="decrement"]'
+    );
+    const target = btn.nextElementSibling;
+    let value = Number(target.value);
+    if (value === 0){
+      event.preventDefault();
+    } else {
+      value--;
+      target.value = value;
+    }
+  }
+
+  const increment = (event) => {
+    const btn = event.target.parentNode.parentElement.querySelector(
+      'button[data-action="decrement"]'
+    );
+    const target = btn.nextElementSibling;
+    let value = Number(target.value);
+    if (value === 10){
+      event.preventDefault();
+    } else {
+      value++;
+      target.value = value;
+    }
+  }
+
+  const decrementButtons = document.querySelectorAll(
+    `button[data-action="decrement"]`
+  );
+
+  const incrementButtons = document.querySelectorAll(
+    `button[data-action="increment"]`
+  );
+
+  decrementButtons.forEach(btn => {
+    btn.addEventListener("click", decrement);
+  });
+
+  incrementButtons.forEach(btn => {
+    btn.addEventListener("click", increment);
+  });
+});
+
+
+
+
+

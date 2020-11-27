@@ -1,0 +1,47 @@
+.main-container-splash {
+  height: 90vh;
+  background-color: rgba(244, 169, 101, 0.4);
+}
+
+.logo-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 90px;
+  color: black;
+
+  img {
+  width: 400px;
+  height: 400px;
+  }
+}
+
+.splash-title {
+  font-size: 60px;
+  font-weight: bold;
+  font-family: Halant;
+  box-shadow: none;
+}
+
+.splash-subtitle {
+  font-size: 40px;
+  width: 80%;
+}
+
+.form-splash {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25vh 8vw;
+
+  input {
+    border-radius: 32px;
+    height: 130px;
+    width: 84vw;
+    font-size: 40px;
+    background: white;
+    border: none;
+  }
+}
+

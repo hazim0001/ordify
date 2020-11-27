@@ -1,16 +1,16 @@
 class TablePolicy < ApplicationPolicy
-  # class Scope < Scope
-  #   def resolve
-  #     scope.all
-  #   end
-  # end
+  class Scope < Scope
+    def resolve
+      scope.all
+    end
+  end
 
   def index?
-    user.role == "manager" && record.restaurant == user.restaurant
+    user.restaurant == record.first.restaurant
   end
 
   def create?
-    index?
+    user.role == "manager" && record.restaurant == user.restaurant
   end
 
   def show?
@@ -18,6 +18,6 @@ class TablePolicy < ApplicationPolicy
   end
 
   def destroy?
-    index?
+    user.role == "manager" && record.restaurant == user.restaurant
   end
 end
