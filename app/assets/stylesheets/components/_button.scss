@@ -7,13 +7,13 @@
   border-radius: 32px;
   height: 130px;
   width: 84vw;
-  background-color: rgb(244, 169, 101);
+  background-color: rgb(244, 169, 101) !important;
   text-decoration: none;
   font-size: 50px;
 
-  &:hover {
-    color: white;
-    text-decoration: none;
-    background-color: black;
+  &:hover{
+    color: white !important;
+    text-decoration: none !important;
+    background-color: black !important;
   }
 }
