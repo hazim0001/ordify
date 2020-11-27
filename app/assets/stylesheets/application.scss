@@ -5,13 +5,5 @@
 @import "pages/index";
 @import "components/index";
 @import "font-awesome-sprockets";
-@import "font-awesome";
-
-
-// this for the country code drop down on the splash page JS setup
-.iti__flag {background-image: url("path/to/flags.png");}
-
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .iti__flag {background-image: url("path/to/flags@2x.png");}
-}
+@import "font-awesome"
 

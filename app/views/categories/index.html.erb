@@ -1,43 +1,19 @@
-<div class="menu-background" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1532719880791-ea2b56fdfa87?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80);">
-      <h1>Menu</h1>
+<div class="main-container-categories" style="min-height: 95vh;">
+  <div class="menu-background" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1532719880791-ea2b56fdfa87?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80);">
+      <h1 style="color: white; font-size: 60px; font-weight: bold;"><%= @target_restaurant.name %></h1>
   </div>
-​
-   <div class="category-sec">
-    <!-- Grid starts here -->
-    <div class="category-grid">
-      <div class="item-button" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://mori-sushi.com/wp-content/uploads/2017/03/appetizers.png);" >
-        <p>Appetizers</p>
-      </div>
-      <div class="item-button" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://mori-sushi.com/wp-content/uploads/2017/03/Fire.png);" >
-        <p>Sushi</p>
-      </div>
-      <div class="item-button" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://images.unsplash.com/photo-1591814468924-caf88d1232e1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80);" >
-        <p>Ramen</p>
-      </div>
-​
-      <!-- second row -->
-      <div class="item-button" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://images.immediate.co.uk/production/volatile/sites/30/2020/02/sashimi-c123df7.jpg?quality=90&resize=960,872);" >
-        <p>Sashimi</p>
-      </div>
-      <div class="item-button" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://media.istockphoto.com/photos/japanese-white-rice-picture-id978924630?k=6&m=978924630&s=612x612&w=0&h=7R7BadzW2-iCFe5JPLsQBfK6DVRonFg8oB-oVOBDE9g=);" >
-        <p>Rice Bowls</p>
-      </div>
-      <div class="item-button" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://d2wtgwi3o396m5.cloudfront.net/recipe/b9707c31-d58d-4f69-a76d-9d029c6ee8a7.jpg?d=1408x1120);" >
-        <p>Tempura</p>
-      </div>
-​
-      <!-- Third Row -->
-      <div class="item-button" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://images.wisegeek.com/temaki-sushi.jpg);" >
-        <p>Temaki</p>
-      </div>
-      <div class="item-button" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://thesmartlocal.com/japan/wp-content/uploads/2020/05/Japanese-desserts-7.jpg);" >
-        <p>Deserts</p>
-      </div>
-      <div class="item-button" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/34/2016/09/sake-beginners-guide-top-recommendations.jpg);" >
-        <p>Beverage</p>
-      </div>
-​
+
+  <div class="category-sec">
+    <div class="d-flex flex-wrap" style="margin: 2vh 8vw;">
+      <% @categories.each do |category|  %>
+        <%= link_to category_menu_items_path(category) do %>
+          <div class="d-flex justify-content-center align-items-center" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://mori-sushi.com/wp-content/uploads/2017/03/appetizers.png); background-size: cover; background-position: center; width: 240px; height: 240px; margin: 16px 16px; border-radius: 32px;" >
+              <p style="color: white; font-size: 50px;"> <%= category.title%></p>
+           </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
-​
-  <a class="button-txt" href="#">Go To Order</a>
+</div>
+<%= link_to "Go to order", order_line_items_path(@order) , class:"btn-call2-action btn-sticky" %>
+
