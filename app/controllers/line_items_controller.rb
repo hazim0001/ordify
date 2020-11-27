@@ -26,7 +26,7 @@ class LineItemsController < ApplicationController
 
   def destroy
     order = @line_item.order
-    @line_item.order.update(total_price: (@line_item.order.total_price - @line_item.total))
+    @line_item.order.update(total_price_cents: (@line_item.order.total_price_cents - @line_item.total_cents))
     authorize @line_item
     @line_item.destroy
     redirect_to order_line_items_path(order)
@@ -35,7 +35,7 @@ class LineItemsController < ApplicationController
   private
 
   def update_totals_in_line_item_and_order
-    @line_item.update(total: @line_item.menu_item.item_price * @line_item.quantity)
+    @line_item.update(total_cents: @line_item.menu_item.item_price * @line_item.quantity)
     sub_total = LineItem.where(order: @line_item.order.id).sum(:total_cents)
     @line_item.order.update(total_price_cents: sub_total)
   end
