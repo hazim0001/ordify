@@ -1,7 +1,12 @@
 <div class="main-container-menu-item-index min-vh-75">
-  <%= simple_form_for :search, url: root_path, method: :get do |f| %>
+  <div class="back-icon">
+    <%= link_to categories_path do%>
+      <i class="fad fa-chevron-left text-fontawesome"></i>
+    <% end %>
+  </div>
+  <%= simple_form_for :@menu_item, url: categories_path, method: :get do |f| %>
     <div class="search-form-control form-group">
-      <input class="form-control string required height-130 b-radius-32 text-35 px-4 background-shallow-grey" type="text" placeholder="&#xF002; What do you wanna eat today?" name="search[query]" id="search_query" style="font-family:Arial, FontAwesome" />
+      <input class="form-control string required height-130 b-radius-32 text-35 text-fontawesome px-4 background-shallow-grey" type="text" placeholder="&#xF002; What do you wanna eat today?" name="search[query]" id="search_query" />
     </div>
   <% end %>
   <div class="card-category-title" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1582450871972-ab5ca641643d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80)">
@@ -18,8 +23,8 @@
         </div>
         <div class="menu-item-description">
           <p>
-            <% if menu_item.description.chars.count > 150 %>
-              <%= menu_item.description.slice(0..150)%>...
+            <% if menu_item.description.chars.count > 120 %>
+              <%= menu_item.description.slice(0..120)%>...
             <% else %>
               <%= menu_item.description%>
             <% end %>
