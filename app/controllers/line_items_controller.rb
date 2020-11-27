@@ -8,7 +8,7 @@ class LineItemsController < ApplicationController
     @line_item.quantity = params["custom-input-number"]
     @line_item.menu_item = MenuItem.find(params["menu_item"])
     @line_item.order = Order.find(session[:order]["id"])
-    category = @line_item.menu_item.category # to be tested on console
+    category = @line_item.menu_item.category
     @line_item.save
     update_totals_in_line_item_and_order
     redirect_to category_menu_items_path(category)
