@@ -8,7 +8,7 @@
       <h5 class="text-title"><%= @menu_item.title %></h5>
     </div>
     <div>
-      <h5 class="text-title"><%= humanized_money_with_symbol(@menu_item.item_price) %></h5>
+      <h5 class="text-price"><%= humanized_money_with_symbol(@menu_item.item_price) %></h5>
     </div>
   </div>
   <!-- menu_item description -->
@@ -18,9 +18,9 @@
   <!-- comments text area -->
   <div class="cont mb-5 borderred ">
     <div class="wrapper">
-      <h4 style="font-weight: normal; font-size: 35px;">Your comments goes here</h4>
+      <h4 style="font-weight: normal; font-size: 35px;">Your comments go here</h4>
       <%= simple_form_for [@order, @line_item], url: order_line_items_path(@order) do |f| %>
-      <%= f.text_field :comment,class:"textarea-menu-item p-4", placeholder: "No onions, no tomatos, etc..............." %>
+      <%= f.text_field :comment,class:"textarea-menu-item p-4 mt-3", placeholder: "No onions, no tomatos, etc..............." %>
       <!-- <textarea  class="textarea-menu-item p-4" maxlength="150" placeholder="No onions, no tomatos, etc..............."></textarea> -->
     </div>
   </div>
@@ -32,7 +32,7 @@
            <button type="button" data-action="decrement" class=" text-gray-600 h-full w-20 outline-none pl-5 counter-white" style="border-top-left-radius: 155px;border-bottom-left-radius: 155px;border-right: none;">
              <span class="m-auto text-2xl "style="font-size: 50px;font-weight: bold; ">−</span>
            </button>
-           <input type="number" style="border-left: none; border-right: none;"class="outline-none focus:outline-none text-center w-full font-semibold text-md counter-white  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="0"></input>
+           <input type="number" style="border-left: none; border-right: none;"class="outline-none focus:outline-none text-center w-full font-semibold text-md counter-white  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="1"></input>
          <button  type="button" data-action="increment" class=" counter-white  text-gray-600 h-full w-20 pr-5" style="border-top-right-radius: 155px;border-bottom-right-radius: 155px;border-left: none;">
            <span class="m-auto text-2xl" style="font-size: 50px;font-weight: bold; ">+</span>
          </button>
