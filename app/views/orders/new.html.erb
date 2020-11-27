@@ -5,9 +5,9 @@
     <br>
     <div class="mt-0 splash-subtitle">To continue please enter your phone number</div>
   </div>
-  <form novalidate="novalidate" class="form-splash" action="/" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
-    <input class="px-4" placeholder="+52 5575187010" type="text" name="search[query]" id="search_query">
-     <br><br>
-    <a class="btn-call2-action" href="#">Go to menu</a>
-  </form>
+   <br>
+   <%= simple_form_for [@table, @order], html: { class: "form-splash"}, url: table_orders_path  do |f| %>
+   <%= f.input :user_number, label: '', class: "px-4", placeholder: "+52 5575187010" %>
+   <%= f.button :submit, 'Go to menu', class: "btn mt-5", style:"background-color: #f4a965;font-size: 50px;font-weight: bold;" %>
+   <% end %>
 </div>

@@ -5,10 +5,13 @@ class LineItemsController < ApplicationController
 
   def create
     @line_item = LineItem.new(line_item_params)
+    @line_item.quantity = params["custom-input-number"]
+    @line_item.menu_item = MenuItem.find(params["menu_item"])
+    @line_item.order = Order.find(session[:order]["id"])
     category = @line_item.menu_item.category # to be tested on console
     @line_item.save
     update_totals_in_line_item_and_order
-    redirect_to category_path(category)
+    redirect_to category_menu_items_path(category)
   end
 
   def index
@@ -33,8 +36,8 @@ class LineItemsController < ApplicationController
 
   def update_totals_in_line_item_and_order
     @line_item.update(total: @line_item.menu_item.item_price * @line_item.quantity)
-    sub_total = LineItem.where(order: @line_item.order.id).sum(:total)
-    @line_item.order.update(total_price: sub_total)
+    sub_total = LineItem.where(order: @line_item.order.id).sum(:total_cents)
+    @line_item.order.update(total_price_cents: sub_total)
   end
 
   def set_line_item
@@ -42,6 +45,6 @@ class LineItemsController < ApplicationController
   end
 
   def line_item_params
-    params.require(:line_item).permit(:menu_item, :comment, :quantity, :order)
+    params.require(:line_item).permit(:comment)
   end
 end

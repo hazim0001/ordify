@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_050954) do
+ActiveRecord::Schema.define(version: 2020_11_26_234059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,36 +67,37 @@ ActiveRecord::Schema.define(version: 2020_11_24_050954) do
   create_table "line_items", force: :cascade do |t|
     t.text "comment"
     t.integer "quantity"
-    t.float "total", default: 0.0
+    t.boolean "sent", default: false
     t.bigint "order_id", null: false
     t.bigint "menu_item_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "total_cents", default: 0, null: false
     t.index ["menu_item_id"], name: "index_line_items_on_menu_item_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
   end
 
   create_table "menu_items", force: :cascade do |t|
     t.string "title"
-    t.float "item_price", default: 0.0
     t.text "description"
     t.bigint "restaurant_id", null: false
     t.bigint "category_id", null: false
     t.boolean "active", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "item_price_cents", default: 0, null: false
     t.index ["category_id"], name: "index_menu_items_on_category_id"
     t.index ["restaurant_id"], name: "index_menu_items_on_restaurant_id"
   end
 
   create_table "orders", force: :cascade do |t|
-    t.float "total_price", default: 0.0
     t.boolean "dispatched", default: false
     t.bigint "table_id", null: false
     t.string "user_number"
     t.boolean "sent", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "total_price_cents", default: 0, null: false
     t.index ["table_id"], name: "index_orders_on_table_id"
   end
 
