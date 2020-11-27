@@ -42,7 +42,7 @@
 <!-- Modal -->
 <div class="modal fade" id="sentNotification" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="height: 35vh;">
+    <div class="modal-content" style="height: 45vh;">
       <button type="button" class="close d-flex justify-content-end" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true pr-5" style="font-size: 60px;">&times;</span>
       </button>
@@ -52,7 +52,7 @@
           <div class="mt-0 splash-subtitle">Your order has been sent to the kitchen</div>
           <br>
         </div>
-        <div class="d-flex justify-content-around mt-5">
+        <div class="d-flex justify-content-around" style="margin-top: 8vh;">
           <%= link_to "Pay Later", order_line_items_path(params[:order_id]) , class:"btn-pay pay-now" %>
           <button type="button" class="btn btn-outline-dark btn-pay">Pay Now</button>
         </div>

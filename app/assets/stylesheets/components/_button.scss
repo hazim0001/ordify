@@ -42,6 +42,8 @@
 .pay-now {
   background-color: rgb(244, 169, 101);
   color: black;
-  text-align: center;
   text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
