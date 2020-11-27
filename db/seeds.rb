@@ -37,21 +37,21 @@ puts 'Categories have been created'
 menu_items_array = []
 
 20.times do
-  menu_item_new = MenuItem.create!(title: Faker::Food.dish, item_price: rand(10.0..80.0).round(2), description: Faker::Food.description, category: categoryy.sample, restaurant: rest_one)
+  menu_item_new = MenuItem.create!(title: Faker::Food.dish, item_price_cents: rand(1050..87590), description: Faker::Food.description, category: categoryy.sample, restaurant: rest_one)
   menu_items_array << menu_item_new
   puts "#{menu_item_new.title} has been created"
 end
 
-5.times do
+3.times do
   order = Order.create!(table: Table.first, user_number: 00201112550060)
-  5.times do
-    line = LineItem.create!(menu_item: menu_items_array.sample, comment: 'No onions please', quantity: rand(1..5), order: order)
-    line.update!(total: LineItem.last.menu_item.item_price * LineItem.last.quantity)
+  2.times do
+    line = LineItem.create!(menu_item: menu_items_array.sample, comment: 'No onions please', quantity: rand(1..3), order: order)
+    line.update!(total: LineItem.last.menu_item.item_price_cents * LineItem.last.quantity)
     puts "#{line} has been created an updated"
   end
   # byebug
-  total = LineItem.where(order: order.id).sum(:total)
-  order.update!(total_price: total)
+  total = LineItem.where(order: order.id).sum(:total_cents)
+  order.update!(total_price_cents: total)
 end
 
 puts "doneee"

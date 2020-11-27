@@ -26,6 +26,9 @@ gem 'pundit'
 # authorization
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
+gem 'money-rails', '~>1.12'
+gem 'stripe'
+gem 'stripe_event'
 
 gem 'cloudinary', '~>1.16.0'
 

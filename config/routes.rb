@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :employees
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  mount StripeEvent::Engine, at: '/stripe-webhooks'
 
   devise_scope :employee do
     root to: 'pages#home'
