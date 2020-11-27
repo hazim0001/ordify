@@ -14,6 +14,11 @@ img{
 .text-title{
   font-size: 60px;
 }
+
+.text-price  {
+  font-size: 55px;
+}
+
 .text-description{
   font-size: 45px;
 }
@@ -44,7 +49,7 @@ wrapper {
   }
   &[placeholder] {
     font-style: italic;
-    font-size: 30px;
+    font-size: 45px;
   }
 }
 
@@ -64,10 +69,17 @@ wrapper {
    background-color: rgb(244, 169, 101);
    border: none;
 
+   &:hover{
+    color: white;
+    text-decoration: none;
+    background-color: black;
+  }
 }
+
 .cont{
   margin: 0 8%;
 }
+
 .margin25{
   width: 190px;
 }

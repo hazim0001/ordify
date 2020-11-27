@@ -8,7 +8,7 @@
       <h5 class="text-title"><%= @menu_item.title %></h5>
     </div>
     <div>
-      <h5 class="text-title"><%= humanized_money_with_symbol(@menu_item.item_price) %></h5>
+      <h5 class="text-price"><%= humanized_money_with_symbol(@menu_item.item_price) %></h5>
     </div>
   </div>
   <!-- menu_item description -->
@@ -18,9 +18,9 @@
   <!-- comments text area -->
   <div class="cont mb-5 borderred ">
     <div class="wrapper">
-      <h4 style="font-weight: normal; font-size: 35px;">Your comments goes here</h4>
+      <h4 style="font-weight: normal; font-size: 35px;">Your comments go here</h4>
       <%= simple_form_for [@order, @line_item], url: order_line_items_path(@order) do |f| %>
-      <%= f.text_field :comment,class:"textarea-menu-item p-4", placeholder: "No onions, no tomatos, etc..............." %>
+      <%= f.text_field :comment,class:"textarea-menu-item p-4 mt-3", placeholder: "No onions, no tomatos, etc..............." %>
       <!-- <textarea  class="textarea-menu-item p-4" maxlength="150" placeholder="No onions, no tomatos, etc..............."></textarea> -->
     </div>
   </div>
