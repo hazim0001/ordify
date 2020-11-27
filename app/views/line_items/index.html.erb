@@ -24,7 +24,7 @@
       <div class="card-item-infos">
         <div class="d-flex justify-content-between h-50 pt-4 px-4">
           <h2><%= line_item.menu_item.title %></h2>
-          <h2>$<%= line_item.total %></h2>
+          <h2><%= humanized_money_with_symbol(line_item.total) %></h2>
         </div>
         <div class="d-flex justify-content-end h-50 px-4">
           <button class="btn btn-outline-dark h-75">Toggler</button>
