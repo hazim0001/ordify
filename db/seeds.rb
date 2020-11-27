@@ -46,7 +46,7 @@ end
   order = Order.create!(table: Table.first, user_number: 00201112550060)
   2.times do
     line = LineItem.create!(menu_item: menu_items_array.sample, comment: 'No onions please', quantity: rand(1..3), order: order)
-    line.update!(total: LineItem.last.menu_item.item_price_cents * LineItem.last.quantity)
+    line.update!(total_cents: LineItem.last.menu_item.item_price_cents * LineItem.last.quantity)
     puts "#{line} has been created an updated"
   end
   # byebug
