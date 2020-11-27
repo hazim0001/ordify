@@ -1,8 +1,9 @@
 <div class="main-container-menu-item-index min-vh-75">
   <div class="back-icon">
     <%= link_to categories_path do%>
-      <i class="fad fa-chevron-left text-fontawesome"></i>
+      <i class="fad fa-chevron-left text-fontawesome mr-2"></i>
     <% end %>
+    Back to Menu
   </div>
   <br>
   <%= simple_form_for :@menu_item, url: categories_path, method: :get do |f| %>

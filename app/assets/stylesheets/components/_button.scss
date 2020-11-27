@@ -17,3 +17,31 @@
     background-color: black !important;
   }
 }
+
+.btn-sticky {
+  position: sticky;
+  bottom: 1vh;
+  left: 8vw;
+  right: 8vw;
+}
+
+.btn-pay {
+  height: 80px;
+  width: 200px;
+  border-radius: 32px;
+  font-size: 32px;
+  font-weight: bold;
+
+  &:hover{
+    color: white;
+    text-decoration: none;
+    background-color: black;
+  }
+}
+
+.pay-now {
+  background-color: rgb(244, 169, 101);
+  color: black;
+  text-align: center;
+  text-decoration: none;
+}
