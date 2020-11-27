@@ -4,4 +4,6 @@ class LineItem < ApplicationRecord
 
   validates :quantity, presence: true, inclusion: { in: (1..10) }, numericality: { only_integer: true }
   validates :comment, length: { maximum: 30 }
+
+  monetize :total_cents
 end

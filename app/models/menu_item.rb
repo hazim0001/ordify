@@ -8,4 +8,5 @@ class MenuItem < ApplicationRecord
 
   validates :title, presence: true, length: { in: 3..150 } #, uniqueness: { scope: restaurant_id }
   validates :description, presence: true, length: { in: 10..500 } # max to be checked when we have the menu_item card
+  monetize :item_price_cents
 end

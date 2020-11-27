@@ -13,7 +13,10 @@ class MenuItemsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @order = Order.find(session[:order]["id"])
+    @line_item = LineItem.new
+  end
 
   def new
     @menu_item = MenuItem.new

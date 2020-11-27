@@ -10,8 +10,16 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.create(order_params)
-    redirect_to categories_path
+    @table = Table.find(params[:table_id])
+    @order = Order.new(order_params)
+    @order.table = @table
+    if @order.save
+      session[:order] = @order
+      stripe_order
+      redirect_to categories_path
+    else
+      render :new
+    end
   end
 
   def index
@@ -20,6 +28,20 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def stripe_order
+    # session = Stripe::Checkout::Session.create(
+    #   payment_method_types: ['card'],
+    #   line_items: [{
+    #     name: @order.user_number,
+    #     amount: @order.total_cents,
+    #     currency: 'mex'
+    #   }],
+    #   success_url: , #render thank you for your payment,
+    #   cancel_url: # render a notice tell him to try a dif card
+    # )
+    # @order.update(checkout_session_id: session.id)
+  end
 
   def order_params
     params.require(:order).permit(:table, :user_number)

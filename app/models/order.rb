@@ -4,4 +4,5 @@ class Order < ApplicationRecord
   belongs_to :table
   has_one :restaurant, through: :table
   validates :user_number, presence: true
+  monetize :total_price_cents
 end
