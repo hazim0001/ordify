@@ -1,13 +1,45 @@
 .main-container-menu-item-index {
-  margin: 0 8vw;
+  margin: 2vh 8vw;
   min-height: 90vh;
+}
+
+.height-130 {
+  height: 130px;
+}
+
+.b-radius-32 {
+  border-radius: 32px;
+}
+.text-35 {
+  font-size: 35px;
+}
+
+.background-shallow-grey {
+  background-color: #F7F6F6;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.card-category-title {
+  background-size: cover;
+  background-position: center;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  border-radius: 32px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  margin: 2vh auto;
 }
 
 .card-item {
   overflow: hidden;
   height: 300px;
   width: 84vw;
-  margin: 2vh auto;
+  margin: 1.5vh auto;
   background: #F7F6F6;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   display: flex;
@@ -65,6 +97,7 @@
     height: 90%;
     font-size: 35px;
     font-weight: bold;
+    background-color: white;
   }
 }
 
