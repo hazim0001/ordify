@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   after_action :verify_authorized, only: :index, unless: :skip_pundit?
-  skip_before_action :authenticate_employee!, only: %i[new create]
+  skip_before_action :authenticate_employee!, only: %i[new create update]
 
   def new
     @order = Order.new
@@ -25,6 +25,11 @@ class OrdersController < ApplicationController
   def index
     @orders = Order.where(table: session[:table])
     authorize @orders
+  end
+
+  def update
+    @order = Order.find(params[:id])
+    @order.update(sent: true)
   end
 
   private

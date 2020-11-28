@@ -31,7 +31,6 @@ document.addEventListener('turbolinks:load', () => {
   // });
 
 
-
 // THIS CODE FOR ADD BUTTON that we r using on order summary and menu item index
   const decrement = (event) => {
     const btn = event.target.parentNode.parentElement.querySelector(

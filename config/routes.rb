@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     resources :orders, only: %i[new create]
   end
 
-  resources :orders, only: :index do
+  resources :orders, only: %i[index update] do
     resources :line_items, only: %i[create index update]
   end
 
