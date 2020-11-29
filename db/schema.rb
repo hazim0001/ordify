@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 2020_11_26_234059) do
   create_table "line_items", force: :cascade do |t|
     t.text "comment", default: ""
     t.integer "quantity", default: 1
+    t.boolean "ordered", default: false
     t.bigint "order_id", null: false
     t.bigint "menu_item_id", null: false
     t.datetime "created_at", precision: 6, null: false
