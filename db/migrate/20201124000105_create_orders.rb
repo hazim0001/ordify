@@ -6,7 +6,7 @@ class CreateOrders < ActiveRecord::Migration[6.0]
       t.string :user_number
       t.boolean :sent, default: false
       t.string :status, default: 'not paid'
-      t.string :checkout_session_id
+      t.string :checkout_session_id, default: ""
 
       t.timestamps
     end

@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 2020_11_26_234059) do
     t.string "user_number"
     t.boolean "sent", default: false
     t.string "status", default: "not paid"
-    t.string "checkout_session_id"
+    t.string "checkout_session_id", default: ""
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "total_price_cents", default: 0, null: false

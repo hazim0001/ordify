@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   after_action :verify_authorized, only: :index, unless: :skip_pundit?
-  skip_before_action :authenticate_employee!, only: %i[new create update]
+  skip_before_action :authenticate_employee!, only: %i[new create update pay]
 
   def new
     @order = Order.new
@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
     @order.table = @table
     if @order.save
       session[:order] = @order
-      stripe_order
+      # stripe_order
       redirect_to categories_path
     else
       render :new
@@ -29,23 +29,33 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
+    stripe_order
     @order.update(sent: true)
   end
+
+  # def pay
+  #   raise
+  #   @order = Order.find(params[:id])
+  #   stripe_order
+  #   redirect_back fallback_location: proc { order_line_items_path(@order) }
+  #   # # raise
+  # end
 
   private
 
   def stripe_order
-    # session = Stripe::Checkout::Session.create(
-    #   payment_method_types: ['card'],
-    #   line_items: [{
-    #     name: @order.user_number,
-    #     amount: @order.total_cents,
-    #     currency: 'mex'
-    #   }],
-    #   success_url: , #render thank you for your payment,
-    #   cancel_url: # render a notice tell him to try a dif card
-    # )
-    # @order.update(checkout_session_id: session.id)
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: [{
+        name: @order.user_number,
+        amount: @order.total_price_cents,
+        currency: 'usd',
+        quantity: @order.line_items.count
+      }],
+      success_url: new_table_order_url(@order.table),
+      cancel_url: categories_url # render a notice tell him to try a dif card
+    )
+    @order.update(checkout_session_id: session.id)
   end
 
   def order_params
