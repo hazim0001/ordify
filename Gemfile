@@ -34,7 +34,6 @@ gem 'cloudinary', '~>1.16.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
-gem 'faker'
 gem 'devise'
 
 gem 'autoprefixer-rails'
@@ -43,6 +42,7 @@ gem 'simple_form'
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
+  gem 'faker'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

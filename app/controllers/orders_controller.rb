@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  after_action :verify_authorized, only: :index, unless: :skip_pundit?
+  # after_action :verify_authorized, only: :index, unless: :skip_pundit?
   skip_before_action :authenticate_employee!, only: %i[new create update pay]
 
   def new
@@ -23,22 +23,28 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @orders = Order.where(table: session[:table])
+    raise
+    @orders = Order.where(table: session[:table]["id"])
     authorize @orders
   end
 
   def update
     @order = Order.find(params[:id])
-    stripe_order
+    raise
+    # stripe_order
     @order.update(sent: true)
+    stripe_order
+    sleep(2)
+    redirect_back fallback_location: proc { order_line_items_path(@order) }
+    # raise
   end
 
   # def pay
-  #   raise
-  #   @order = Order.find(params[:id])
+  # # #   raise
+  # #   @order = Order.find(params[:id])
   #   stripe_order
-  #   redirect_back fallback_location: proc { order_line_items_path(@order) }
-  #   # # raise
+  # # #   redirect_back fallback_location: proc { order_line_items_path(@order) }
+  # # #   # # raise
   # end
 
   private
@@ -50,9 +56,10 @@ class OrdersController < ApplicationController
         name: @order.user_number,
         amount: @order.total_price_cents,
         currency: 'usd',
-        quantity: @order.line_items.count
+        quantity: 1
       }],
-      success_url: new_table_order_url(@order.table),
+      mode: 'payment',
+      success_url: new_table_order_url(@order.table), # to create a thank u page for ur payment
       cancel_url: categories_url # render a notice tell him to try a dif card
     )
     @order.update(checkout_session_id: session.id)

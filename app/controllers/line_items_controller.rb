@@ -40,8 +40,26 @@ class LineItemsController < ApplicationController
   def update_totals_in_line_item_and_order
     @line_item.update(total_cents: @line_item.menu_item.item_price_cents * @line_item.quantity)
     sub_total = LineItem.where(order: @line_item.order.id).sum(:total_cents)
-    @line_item.order.update(total_price_cents: sub_total)
+    @line_item.order.update(total_price_cents: sub_total, sent: false)
+    # stripe_order
   end
+
+  def stripe_order
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: [{
+        name: @line_item.order.user_number,
+        amount: @line_item.order.total_price_cents,
+        currency: 'usd',
+        quantity: 1
+      }],
+      mode: 'payment',
+      success_url: new_table_order_url(@line_item.order.table), # to create a thank u page for ur payment
+      cancel_url: categories_url # render a notice tell him to try a dif card
+    )
+    @line_item.order.update(checkout_session_id: session.id)
+  end
+
 
   def set_line_item
     @line_item = LineItem.find(params[:id])

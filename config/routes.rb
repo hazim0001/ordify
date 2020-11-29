@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   devise_for :employees
-
+  # root to: 'pages#home'
   mount StripeEvent::Engine, at: '/stripe-webhooks'
 
   devise_scope :employee do
     root to: 'pages#home'
+    # root to: 'orders#new'
+    # raise
   end
     # CRUD -> GET/POST/(PUT)PATCH/DELETE
     #           PATH     -> Controller action -> HTTP verb
@@ -31,7 +33,7 @@ Rails.application.routes.draw do
   resources :orders, only: %i[index update] do
     resources :line_items, only: %i[create index update]
     member do
-      get :pay
+      post :pay
     end
   end
 
