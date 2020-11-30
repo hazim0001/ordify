@@ -1,2 +1,39 @@
-<h1>Tables#index</h1>
-<p>Find me in app/views/tables/index.html.erb</p>
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <%= image_tag "logo.png", style:"width:70px; height:70px", class:"d-inline-block align-top" %>
+  </a>
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <% @tables.each do |table| %>
+        <div class="card mt-5" style="width: 28rem;">
+          <div class="card-body ">
+            <h3 class="card-title"><%= table.name %></h3>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Plate</th>
+                  <th scope="col">comments</th>
+                  <th scope="col">Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+            <% table.line_items.where(ordered: true).each do |line| %>
+                <tr>
+                  <td><p class="card-text"><%= line.menu_item.title %></p></td>
+                  <td><p class="card-text"><%= line.comment %></p></td>
+                  <td><p class="card-text"><%= line.quantity %></td>
+                </tr>
+            <% end %>
+          </div>
+            </tbody>
+          </table>
+            <a href="#" class="btn btn-primary btn-lg btn-block">Dispatch</a>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%#= raise %>
+

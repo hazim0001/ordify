@@ -12,7 +12,8 @@ class TablesController < ApplicationController
   end
 
   def index
-    @tables = Table.where(restaurant: params[:restaurant_id])
+    # raise
+    @tables = current_employee.restaurant.tables
     authorize @tables
   end
 

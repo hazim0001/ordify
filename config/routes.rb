@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
   devise_for :employees
-  # root to: 'pages#home'
   mount StripeEvent::Engine, at: '/stripe-webhooks'
 
   devise_scope :employee do
     root to: 'pages#home'
-    # root to: 'orders#new'
     # raise
+    # get 'tables', to: 'tables#new'
   end
     # CRUD -> GET/POST/(PUT)PATCH/DELETE
     #           PATH     -> Controller action -> HTTP verb
