@@ -22,6 +22,10 @@
 
 .categories-cards {
   margin: 2vh 8vw;
+
+  a:hover {
+    text-decoration: none;
+  }
 }
 
 .category-card {
