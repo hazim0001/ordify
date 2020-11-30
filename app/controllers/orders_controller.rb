@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   after_action :verify_authorized, only: :index, unless: :skip_pundit?
-  skip_before_action :authenticate_employee!, only: %i[new create]
+  skip_before_action :authenticate_employee!, only: %i[new create update dispatch_notify]
 
   def new
     @order = Order.new
@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
     @order.table = @table
     if @order.save
       session[:order] = @order
-      stripe_order
+      # stripe_order
       redirect_to categories_path
     else
       render :new
@@ -23,24 +23,60 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @orders = Order.where(table: session[:table])
+    raise
+    @orders = Order.where(table: session[:table]["id"])
     authorize @orders
+  end
+
+  def update
+    @order = Order.find(params[:id])
+    @order.line_items.each { |line| line.update(ordered: true) }
+    @order.update(sent: true)
+    stripe_order
+    sleep(2)
+    redirect_back fallback_location: proc { order_line_items_path(@order) }
+  end
+
+  def dispatch_notify
+    @order = Order.find(params[:id])
+    @order.table.orders.each do |order|
+      order.update(dispatched: true)
+      twilio_sms
+    end
+    redirect_back fallback_location: proc { restaurant_tables_path(@order.restaurant) }
   end
 
   private
 
   def stripe_order
-    # session = Stripe::Checkout::Session.create(
-    #   payment_method_types: ['card'],
-    #   line_items: [{
-    #     name: @order.user_number,
-    #     amount: @order.total_cents,
-    #     currency: 'mex'
-    #   }],
-    #   success_url: , #render thank you for your payment,
-    #   cancel_url: # render a notice tell him to try a dif card
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: [{
+        name: @order.user_number,
+        amount: @order.total_price_cents,
+        currency: 'usd',
+        quantity: 1
+      }],
+      mode: 'payment',
+      success_url: new_table_order_url(@order.table), # to create a thank u page for ur payment
+      cancel_url: categories_url # render a notice tell him to try a dif card
+    )
+    @order.update(checkout_session_id: session.id)
+  end
+
+  def twilio_sms
+    # account_sid = ENV['ACCOUNT_SID']
+    # auth_token = ENV['AUTH_TOKEN']
+    # client = Twilio::REST::Client.new(account_sid, auth_token)
+
+    # from = '+12056547036' # Your Twilio number
+    # to = order.user_number # Your mobile phone number
+
+    # client.messages.create(
+    #   from: from,
+    #   to: to,
+    #   body: "Hola from Ordify!, Your Meal is on the way"
     # )
-    # @order.update(checkout_session_id: session.id)
   end
 
   def order_params

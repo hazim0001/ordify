@@ -29,12 +29,14 @@ gem 'pundit'
 gem 'money-rails', '~>1.12'
 gem 'stripe'
 gem 'stripe_event'
+gem 'rails_admin', '~> 2.0'
+gem 'blazer', '~> 2.3', '>= 2.3.1'
+gem 'twilio-ruby', '~> 5.43'
 
 gem 'cloudinary', '~>1.16.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
-gem 'faker'
 gem 'devise'
 
 gem 'autoprefixer-rails'
@@ -43,6 +45,7 @@ gem 'simple_form'
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
+  gem 'faker'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
