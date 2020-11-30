@@ -9,6 +9,32 @@ body {
 }
 
 
+
+
+// NAVBAR EDITS
+// ----------------------------------
+.nvbr-edits {
+  background-color: white;
+  border-bottom: 1px solid #5a5a5a;
+}
+
+.ordify-style {
+  color: black;
+  &:hover {
+    color: black;
+  }
+}
+
+.emp-login-edit {
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-color: rgb(244, 169, 101) !important;
+  text-decoration: none;
+}
+
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 
@@ -34,11 +60,33 @@ body {
   height: 32rem;
 }
 
+.rj-btn-edit {
+  color: black;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-color: rgb(244, 169, 101) !important;
+  text-decoration: none;
+}
+
 
 /* MARKETING CONTENT
 -------------------------------------------------- */
 
 /* Center align the text within the three columns below the carousel */
+.rj-market-edits {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rj-img-size {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  margin-left: 110px;
+}
+
 .marketing .col-lg-4 {
   margin-bottom: 1.5rem;
   text-align: center;
@@ -49,6 +97,15 @@ body {
 .marketing .col-lg-4 p {
   margin-right: .75rem;
   margin-left: .75rem;
+}
+
+.rj-btn-edit {
+  color: black;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-color: rgb(244, 169, 101) !important;
+  text-decoration: none;
 }
 
 
