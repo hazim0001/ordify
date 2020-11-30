@@ -5,12 +5,22 @@ class MenuItemsController < ApplicationController
 
   def index
     restaurant = Restaurant.find(session[:restaurant]["id"])
-    category = Category.find(params[:category_id])
+    @category = Category.find(params[:category_id])
     @order = Order.find(session[:order]["id"])
-    if current_employee.present? && current_employee.role == "manager"
-      @menu_items = MenuItem.where(restaurant: restaurant).where(category: category)
-    else # for restaurant users and kitchen
-      @menu_items = MenuItem.where(restaurant: restaurant).where(category: category).where(active: true)
+    if params[:query].present?
+        sql_query = "title @@ :query OR description @@ :query"
+        menu_items = MenuItem.where(sql_query, query: "%#{params[:query]}%")
+      if current_employee.present? && current_employee.role == "manager"
+        @menu_items = menu_items.where(restaurant: restaurant).where(category: @category)
+      else # for restaurant users and kitchen
+        @menu_items = menu_items.where(restaurant: restaurant).where(category: @category).where(active: true)
+      end
+    else
+      if current_employee.present? && current_employee.role == "manager"
+        @menu_items = MenuItem.where(restaurant: restaurant).where(category: @category)
+      else # for restaurant users and kitchen
+        @menu_items = MenuItem.where(restaurant: restaurant).where(category: @category).where(active: true)
+      end
     end
   end
 

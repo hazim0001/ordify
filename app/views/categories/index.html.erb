@@ -1,18 +1,15 @@
-<div class="main-container-categories" style="min-height: 95vh;">
-  <div class="menu-background" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1532719880791-ea2b56fdfa87?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80); width: 100%; height: 35vh; background-position: center; background-size: cover; display: flex; align-items: center; justify-content: center;">
-      <h1 style="color: white; font-size: 60px; font-weight: bold;"><%= @target_restaurant.name %></h1>
+<div class="main-container-categories">
+  <div class="menu-background">
+      <h1><%= @target_restaurant.name %></h1>
   </div>
-
-  <div class="category-sec">
-    <div class="d-flex flex-wrap" style="margin: 2vh 8vw;">
-      <% @categories.each do |category|  %>
-        <%= link_to category_menu_items_path(category) do %>
-          <div class="d-flex justify-content-center align-items-center" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://mori-sushi.com/wp-content/uploads/2017/03/appetizers.png); background-size: cover; background-position: center; width: 240px; height: 240px; margin: 16px 16px; border-radius: 32px;" >
-              <p style="color: white; font-size: 50px;"> <%= category.title%></p>
-           </div>
-        <% end %>
+  <div class="d-flex flex-wrap categories-cards">
+    <% @categories.each do |category|  %>
+      <%= link_to category_menu_items_path(category) do %>
+        <div class="d-flex justify-content-center align-items-center category-card">
+            <p> <%= category.title%></p>
+        </div>
       <% end %>
-    </div>
+    <% end %>
   </div>
 </div>
 <%= link_to "Go to order", order_line_items_path(@order) , class:"btn-call2-action btn-sticky" %>
