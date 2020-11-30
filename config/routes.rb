@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :employees
-
   mount StripeEvent::Engine, at: '/stripe-webhooks'
+
+  authenticate :employee, ->(employee) { employee.admin? } do
+    mount Blazer::Engine, at: "blazer"
+  end
 
   devise_scope :employee do
     root to: 'pages#home'
+    # raise
+    # get 'tables', to: 'tables#new'
   end
     # CRUD -> GET/POST/(PUT)PATCH/DELETE
     #           PATH     -> Controller action -> HTTP verb
@@ -28,8 +34,11 @@ Rails.application.routes.draw do
     resources :orders, only: %i[new create]
   end
 
-  resources :orders, only: :index do
+  resources :orders, only: %i[index update] do
     resources :line_items, only: %i[create index update]
+    member do
+      post :dispatch_notify
+    end
   end
 
   resources :menu_items, only: %i[destroy show]
