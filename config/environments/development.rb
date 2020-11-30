@@ -2,11 +2,7 @@ Rails.application.configure do
 
   # config.hosts << "9a7dd3447a16.ngrok.io"
   # Settings specified here will take precedence over those in config/application.rb.
-<<<<<<< HEAD
   config.hosts << "66bca17e9012.ngrok.io"
-=======
-  config.hosts << "2fcb0b26bb32.ngrok.io"
->>>>>>> 203adc8fbbd4785c2805127debfdce86bbe7d259
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
