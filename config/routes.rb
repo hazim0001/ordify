@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :employees
   mount StripeEvent::Engine, at: '/stripe-webhooks'
+
+  authenticate :employee, ->(employee) { employee.admin? } do
+    mount Blazer::Engine, at: "blazer"
+  end
 
   devise_scope :employee do
     root to: 'pages#home'
@@ -32,7 +37,7 @@ Rails.application.routes.draw do
   resources :orders, only: %i[index update] do
     resources :line_items, only: %i[create index update]
     member do
-      post :pay
+      post :dispatch_notify
     end
   end
 

@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
-  # after_action :verify_authorized, only: :index, unless: :skip_pundit?
-  skip_before_action :authenticate_employee!, only: %i[new create update pay]
+  after_action :verify_authorized, only: :index, unless: :skip_pundit?
+  skip_before_action :authenticate_employee!, only: %i[new create update dispatch_notify]
 
   def new
     @order = Order.new
@@ -37,13 +37,14 @@ class OrdersController < ApplicationController
     redirect_back fallback_location: proc { order_line_items_path(@order) }
   end
 
-  # def pay
-  # # #   raise
-  # #   @order = Order.find(params[:id])
-  #   stripe_order
-  # # #   redirect_back fallback_location: proc { order_line_items_path(@order) }
-  # # #   # # raise
-  # end
+  def dispatch_notify
+    @order = Order.find(params[:id])
+    @order.table.orders.each do |order|
+      order.update(dispatched: true)
+      twilio_sms
+    end
+    redirect_back fallback_location: proc { restaurant_tables_path(@order.restaurant) }
+  end
 
   private
 
@@ -61,6 +62,21 @@ class OrdersController < ApplicationController
       cancel_url: categories_url # render a notice tell him to try a dif card
     )
     @order.update(checkout_session_id: session.id)
+  end
+
+  def twilio_sms
+    # account_sid = ENV['ACCOUNT_SID']
+    # auth_token = ENV['AUTH_TOKEN']
+    # client = Twilio::REST::Client.new(account_sid, auth_token)
+
+    # from = '+12056547036' # Your Twilio number
+    # to = order.user_number # Your mobile phone number
+
+    # client.messages.create(
+    #   from: from,
+    #   to: to,
+    #   body: "Hola from Ordify!, Your Meal is on the way"
+    # )
   end
 
   def order_params

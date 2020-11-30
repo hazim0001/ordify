@@ -29,6 +29,9 @@ gem 'pundit'
 gem 'money-rails', '~>1.12'
 gem 'stripe'
 gem 'stripe_event'
+gem 'rails_admin', '~> 2.0'
+gem 'blazer', '~> 2.3', '>= 2.3.1'
+gem 'twilio-ruby', '~> 5.43'
 
 gem 'cloudinary', '~>1.16.0'
 
