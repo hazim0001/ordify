@@ -1,0 +1,44 @@
+.main-container-categories {
+  min-height: 95vh;
+}
+
+.menu-background {
+  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid);
+  width: 100%;
+  height: 35vh;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    color: white;
+    font-size: 60px;
+    font-weight: bold;
+    text-shadow: 1px 1px 8px white;
+  }
+}
+
+.categories-cards {
+  margin: 2vh 8vw;
+
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+.category-card {
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid);
+  background-size: cover;
+  background-position: center;
+  width: 240px;
+  height: 240px;
+  margin: 16px 16px;
+  border-radius: 32px;
+
+  p {
+    color: white;
+    font-size: 50px;
+  }
+}

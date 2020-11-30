@@ -6,9 +6,9 @@
     Back to Menu
   </div>
   <br>
-  <%= simple_form_for :@menu_item, url: categories_path, method: :get do |f| %>
+  <%= simple_form_for :@menu_item, url: category_menu_items_path(@category), method: :get do |f| %>
     <div class="search-form-control form-group">
-      <input class="form-control string required height-130 b-radius-32 text-35 text-fontawesome px-4 background-shallow-grey" type="text" placeholder="&#xF002; What do you wanna eat today?" name="search[query]" id="search_query" />
+      <input class="form-control string required height-130 b-radius-32 text-35 text-fontawesome px-4 background-shallow-grey" type="text" placeholder="&#xF002; What do you wanna eat today?" name="query" value="<%= params[:query] %>" id="search_query" />
     </div>
   <% end %>
   <div class="card-category-title" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1582450871972-ab5ca641643d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80)">
