@@ -6,7 +6,7 @@
     <% @categories.each do |category|  %>
       <%= link_to category_menu_items_path(category) do %>
         <div class="d-flex justify-content-center align-items-center category-card">
-          <p> <%= category.title%></p>
+          <p> <%= category.title.capitalize %></p>
         </div>
       <% end %>
     <% end %>
