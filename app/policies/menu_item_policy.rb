@@ -4,6 +4,9 @@ class MenuItemPolicy < ApplicationPolicy
       scope.all
     end
   end
+  def index
+    true
+  end
 
   def new?
     record.restaurant == user.restaurant && user.role == "manager"

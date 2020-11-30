@@ -19,10 +19,10 @@
 }
 
 .btn-sticky {
-  position: sticky;
-  bottom: 1vh;
-  left: 8vw;
-  right: 8vw;
+  position: sticky !important;
+  bottom: 1vh !important;
+  left: 8vw !important;
+  right: 8vw !important;
 }
 
 .btn-pay {
