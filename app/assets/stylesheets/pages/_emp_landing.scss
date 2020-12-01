@@ -2,11 +2,10 @@
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
 
-body {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  color: #5a5a5a;
-}
+// body {
+//   padding-bottom: 3rem;
+//   color: #5a5a5a;
+// }
 
 
 
@@ -15,11 +14,12 @@ body {
 // ----------------------------------
 .nvbr-edits {
   background-color: white;
-  border-bottom: 1px solid #5a5a5a;
+  position: relative;
 }
 
 .ordify-style {
   color: black;
+  font-size: 70px;
   &:hover {
     color: black;
   }
@@ -30,8 +30,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
-  background-color: rgb(244, 169, 101) !important;
+  border-radius: 16px;
+  border: 1px solid black;
+  background-color: white !important;
   text-decoration: none;
 }
 
@@ -106,6 +107,7 @@ body {
   border-radius: 8px;
   background-color: rgb(244, 169, 101) !important;
   text-decoration: none;
+  border: none;
 }
 
 
