@@ -22,7 +22,6 @@ class OrdersController < ApplicationController
   end
 
   def index
-    # raise÷
     @orders = Order.where(table: session[:table]["id"])
     authorize @orders
   end
@@ -33,8 +32,7 @@ class OrdersController < ApplicationController
     @order.update(sent: true, dispatched: false)
     @order.restaurant.tables.each do |table|
       KitchenOrderChannel.broadcast_to(
-        table,
-        render_to_string(partial: "new_line_item", locals: { line: table.line_items.last })
+        table, render_to_string(partial: "new_line_item", locals: { line: @order.table.line_items.last })
       )
     end
     stripe_order

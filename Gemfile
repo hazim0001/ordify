@@ -19,7 +19,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
-
+gem 'rails_admin_softwarebrothers_theme', git: 'git@github.com:softwarebrothers/rails_admin_softwarebrothers_theme.git'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7
 gem 'pundit'
