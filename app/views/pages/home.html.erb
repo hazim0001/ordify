@@ -40,7 +40,8 @@
 
   <body>
   <header>
-    <nav class="navbar navbar-expand-md fixed-top nvbr-edits">
+    <nav class="navbar navbar-expand-md nvbr-edits">
+      <div><%= image_tag "logo.png", style:"width:75px; height:75px" %></div>
       <a class="navbar-brand ordify-style" href="#">Ordify</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -57,9 +58,7 @@
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li> -->
         </ul>
-        <form class="form-inline mt-2 mt-md-0">
-          <button class="btn my-2 my-sm-0 emp-login-edit" type="submit">Employee Log In</button>
-        </form>
+        <button class="btn my-2 my-sm-0 emp-login-edit" type="submit">Employee Log In</button>
       </div>
     </nav>
   </header>
@@ -126,28 +125,34 @@
 
     <!-- Three columns of text below the carousel -->
     <div class="row rj-market-edits">
-      <div class="col-lg-4">
+      <div class="col-lg-4 rj-pos-1">
         <!-- <svg class="bd-placeholder-img rounded-circle rj-crc-edit" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg> -->
-        <img class="rj-img-size" src="https://images.unsplash.com/photo-1571867424488-4565932edb41?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Mobile pay">
+        <div class="rj-pos">
+          <img class="rj-img-size" src="https://images.unsplash.com/photo-1571867424488-4565932edb41?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Mobile pay">
+        </div>
         <h2>Order and pay via mobile</h2>
         <p>Giving your customers the freedom to order and pay via mobile device.</p>
         <p><a class="btn btn-secondary rj-btn-edit" href="#" role="button">View details &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
         <!-- <svg class="bd-placeholder-img rounded-circle rj-crc-edit" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg> -->
-        <img class="rj-img-size" src="https://images.unsplash.com/photo-1559526324-593bc073d938?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="POS">
+        <div class="rj-pos">
+          <img class="rj-img-size" src="https://images.unsplash.com/photo-1559526324-593bc073d938?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="POS">
+        </div>
         <h2>Ordify POS</h2>
         <p>A complete point of sale system to streamline your restaurant.</p>
         <p><a class="btn btn-secondary rj-btn-edit" href="#" role="button">View details &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
         <!-- <svg class="bd-placeholder-img rounded-circle rj-crc-edit" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg> -->
-        <img class="rj-img-size" src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80" alt="Manager">
+        <div class="rj-pos">
+          <img class="rj-img-size" src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80" alt="Manager">
+        </div>
         <h2>Easy Manager Access</h2>
         <p>Now your management can drop the minutiae and focus on the important tasks.</p>
         <p><a class="btn btn-secondary rj-btn-edit" href="#" role="button">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-    </div><!-- /.row -->
+      </div>
+    </div>
 
 
     <!-- START THE FEATURETTES -->
