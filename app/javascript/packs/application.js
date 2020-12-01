@@ -18,6 +18,7 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 // Internal imports, e.g:
 import "bootstrap";
+import "jquery";
 import intlTelInput from 'intl-tel-input';
 
 // import { initSelect2 } from '../components/init_select2';
@@ -75,6 +76,14 @@ document.addEventListener('turbolinks:load', () => {
     btn.addEventListener("click", increment);
   });
 
+  var form = document.getElementById("modal-trigger")
+  var modal = document.getElementById("sentNotification2")
+
+  form.addEventListener('submit', (e)=> {
+    console.log("Nikita's butt is so nice")
+    modal.classList.add("showSpecial");
+  });
+
   /// Clock function showen in kitchen view
   var tday=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
   var tmonth=["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -92,7 +101,6 @@ document.addEventListener('turbolinks:load', () => {
 
   GetClock();
   setInterval(GetClock,1000);
-
 
 });
 
