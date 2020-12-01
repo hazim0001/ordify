@@ -85,7 +85,6 @@ document.addEventListener('turbolinks:load', () => {
   var modal = document.getElementById("sentNotification2")
 
   form.addEventListener('submit', (e)=> {
-    console.log("Nikita's butt is so nice")
     modal.classList.add("showSpecial");
   });
 
