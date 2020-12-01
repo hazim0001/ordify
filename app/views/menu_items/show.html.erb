@@ -1,46 +1,39 @@
 <div class="page">
-  <div class="mb-5">
+  <div>
     <img src="https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid" alt="">
   </div >
   <!-- title and price -->
-  <div class="cont d-flex justify-content-between mb-5 pt-5">
+  <div class="cont d-flex justify-content-between pt-5">
     <div>
       <h5 class="text-title"><%= @menu_item.title %></h5>
     </div>
-    <div>
+    <div class="d-flex align-items-center">
       <h5 class="text-price"><%= humanized_money_with_symbol(@menu_item.item_price) %></h5>
     </div>
   </div>
   <!-- menu_item description -->
-  <div class="cont mb-5">
+  <div class="cont">
     <p class="text-description"><%= @menu_item.description %></p>
   </div>
-  <!-- comments text area -->
-  <div class="cont mb-5 borderred ">
-    <div class="wrapper">
-      <h4 style="font-weight: normal; font-size: 35px;">Your comments go here</h4>
-      <%= simple_form_for [@order, @line_item], url: order_line_items_path(@order) do |f| %>
-      <%= f.text_field :comment,class:"textarea-menu-item p-4 mt-3", placeholder: "No onions, no tomatos, etc..............." %>
-      <!-- <textarea  class="textarea-menu-item p-4" maxlength="150" placeholder="No onions, no tomatos, etc..............."></textarea> -->
-    </div>
-  </div>
-  <div class="d-flex justify-content-between mt-5 borderred px-5">
-    <div class="margin25">
-     <!--  here goes the toggler -->
-     <div class="custom-number-input h-10 w-32 mt-5 " style="width:500px; font-size: 50px;">
-       <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1 "style="height: 130px;">
-           <button type="button" data-action="decrement" class=" text-gray-600 h-full w-20 outline-none pl-5 counter-white" style="border-top-left-radius: 155px;border-bottom-left-radius: 155px;border-right: none;">
-             <span class="m-auto text-2xl "style="font-size: 50px;font-weight: bold; ">−</span>
-           </button>
-           <input type="number" style="border-left: none; border-right: none;"class="outline-none focus:outline-none text-center w-full font-semibold text-md counter-white  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="1"></input>
-         <button  type="button" data-action="increment" class=" counter-white  text-gray-600 h-full w-20 pr-5" style="border-top-right-radius: 155px;border-bottom-right-radius: 155px;border-left: none;">
-           <span class="m-auto text-2xl" style="font-size: 50px;font-weight: bold; ">+</span>
-         </button>
-           <input type="hidden" id="custId" name="menu_item" value="<%= @menu_item.id %>">
-       </div>
-     </div>
+</div>
+<!-- comments text area -->
+<div class="cont">
+  <h4>Please enter your comments here:</h4>
+  <%= simple_form_for [@order, @line_item], url: order_line_items_path(@order) do |f| %>
+  <%= f.text_field :comment,class:"textarea-menu-item p-4 mt-3", placeholder: "No onions, no tomatos, etc..." %>
+  <div class="d-flex justify-content-between toggler-add-btn">
+    <!--  here goes the toggler -->
+    <div class="custom-number-input d-flex flex-row rounded-lg relative bg-transparent mt-5">
+      <button type="button" data-action="decrement" class="left-side text-gray-600 h-full w-20 outline-none pl-5 counter-white">
+        <span class="m-auto text-2xl ">−</span>
+      </button>
+      <input type="number" class="focus:outline-none text-center w-full font-semibold text-md counter-white md:text-basecursor-default flex items-center text-gray-700" name="custom-input-number" value="1"></input>
+      <button  type="button" data-action="increment" class="right-side counter-white  text-gray-600 h-full w-20 pr-5">
+        <span class="m-auto text-2xl">+</span>
+      </button>
+      <input type="hidden" id="custId" name="menu_item" value="<%= @menu_item.id %>">
     </div>
     <%= f.button :submit, 'Add', class: "biggerbtn mt-5", style:"background-color: #f4a965;" %>
-    <% end %>
   </div>
+  <% end %>
 </div>
