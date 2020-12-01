@@ -1,9 +1,9 @@
 <nav class="navbar nav-c">
   <div class="w-100 d-flex justify-content-between align-items-center">
       <!--logo --> 
-      <div><%= image_tag "logo.png", style:"width:75px; height:75px" %></div>
+      <div><%= image_tag "logo.png", class:"logo-style" %></div>
       <!--Date and time --> 
-      <div id="clockbox" style="color: black; font-weight: bold; font-size: 25px;"></div> 
+      <div id="clockbox" class="clock-style";></div> 
       <!--log out btn --> 
       <%= link_to 'Log off', destroy_employee_session_path, method: :delete, class:"btn btn-outline-dark btn-lg"  %>
   </div>
@@ -12,7 +12,7 @@
 
 <div class="mx-5 d-flex flex-wrap justify-content-between">
        <% @tables.each do |table| %>
-        <div class="card border-dark mt-5" style="width: 28rem;">
+        <div class="card border-dark mt-5 card-width";>
           <div class="card-body">
             <h3 class="card-title card-txt-r2"><%= table.name %></h3>
             <table class="table table-striped">
