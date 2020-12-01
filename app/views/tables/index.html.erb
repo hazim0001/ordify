@@ -1,18 +1,18 @@
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#">
-    <div class="d-flex justify-content-between">
-      <div><%= image_tag "logo.png", style:"width:70px; height:70px", class:"d-inline-block align-top" %></div>
-      <div id="clockbox" style="margin-left: 40vw; font-size: 25px;"></div>
-    </div>
+<nav class="navbar nav-c">
+  <a class="container-fluid" href="#">
+      <!--logo --> 
+      <div><%= image_tag "logo.png", style:"width:75px; height:75px", class:"d-inline-block align-top" %></div>
+      <!--Date and time --> 
+      <div id="clockbox" style="margin-left: 40vw; color: black; font-weight: bold; font-size: 25px;"></div> 
   </a>
 </nav>
+
+
 <div class="container">
-  <div class="row">
-    <div class="col-4">
-      <% @tables.each do |table| %>
+       <% @tables.each do |table| %>
         <div class="card mt-5" style="width: 28rem;">
-          <div class="card-body ">
-            <h3 class="card-title"><%= table.name %></h3>
+          <div class="card-body">
+            <h3 class="card-title card-txt-r2"><%= table.name %></h3>
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -39,8 +39,6 @@
           <% end %>
         </div>
       <% end %>
-    </div>
-  </div>
 </div>
 <%= link_to 'log out', destroy_employee_session_path, method: :delete %>
 

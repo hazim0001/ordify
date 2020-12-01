@@ -35,8 +35,9 @@ class OrdersController < ApplicationController
         table, render_to_string(partial: "new_line_item", locals: { line: @order.table.line_items.last })
       )
     end
+    sleep(7)
+    @order.update(sent: true)
     stripe_order
-    sleep(2)
     redirect_back fallback_location: proc { order_line_items_path(@order) }
   end
 
