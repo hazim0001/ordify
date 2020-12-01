@@ -19,6 +19,7 @@ require("channels")
 // Internal imports, e.g:
 import "bootstrap";
 import intlTelInput from 'intl-tel-input';
+import { initKitchenOrderCable } from '../channels/kitchen_order_channel'
 
 // import { initSelect2 } from '../components/init_select2';
 
@@ -29,6 +30,10 @@ document.addEventListener('turbolinks:load', () => {
   // intlTelInput(input, {
   //     // any initialisation options go here
   // });
+
+ // Channal method
+  initKitchenOrderCable()
+
 
 // THIS CODE FOR ADD BUTTON that we r using on order summary and menu item index
   const decrement = (event) => {
@@ -87,8 +92,10 @@ document.addEventListener('turbolinks:load', () => {
   if(nsec<=9) nsec="0"+nsec;
 
   var clocktext=""+tday[nday]+", "+tmonth[nmonth]+" "+ndate+", "+nyear+" "+nhour+":"+nmin+":"+nsec+"";
-  document.getElementById('clockbox').innerHTML=clocktext;
-  }
+  const clock = document.getElementById('clockbox');
+  if (clock){
+    clock.innerHTML = clocktext
+  }}
 
   GetClock();
   setInterval(GetClock,1000);

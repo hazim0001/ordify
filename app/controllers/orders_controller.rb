@@ -15,7 +15,6 @@ class OrdersController < ApplicationController
     @order.table = @table
     if @order.save
       session[:order] = @order
-      # stripe_order
       redirect_to categories_path
     else
       render :new
@@ -23,7 +22,7 @@ class OrdersController < ApplicationController
   end
 
   def index
-    raise
+    # raise÷
     @orders = Order.where(table: session[:table]["id"])
     authorize @orders
   end
@@ -31,7 +30,13 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
     @order.line_items.each { |line| line.update(ordered: true) }
-    @order.update(sent: true)
+    @order.update(sent: true, dispatched: false)
+    @order.restaurant.tables.each do |table|
+      KitchenOrderChannel.broadcast_to(
+        table,
+        render_to_string(partial: "new_line_item", locals: { line: table.line_items.last })
+      )
+    end
     stripe_order
     sleep(2)
     redirect_back fallback_location: proc { order_line_items_path(@order) }
