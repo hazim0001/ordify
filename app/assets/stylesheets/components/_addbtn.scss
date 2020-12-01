@@ -6,6 +6,35 @@
   outline: none !important;
 }
 
+.custom-number-input {
+  width:450px;
+  font-size: 50px;
+  height: 130px;
+
+  span {
+    font-size: 50px;
+    font-weight: bold;
+  }
+
+  input {
+    border-left: none;
+    border-right: none;
+    border-radius: none;
+  }
+}
+
+.left-side {
+  border-top-left-radius: 155px;
+  border-bottom-left-radius: 155px;
+  border-right: none;
+}
+
+.right-side {
+  border-top-right-radius: 155px;
+  border-bottom-right-radius: 155px;
+  border-left: none;
+}
+
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
