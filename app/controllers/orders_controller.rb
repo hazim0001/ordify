@@ -31,9 +31,9 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
     @order.line_items.each { |line| line.update(ordered: true) }
+    sleep(7)
     @order.update(sent: true)
     stripe_order
-    sleep(2)
     redirect_back fallback_location: proc { order_line_items_path(@order) }
   end
 
