@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :restaurants, except: %i[new create index destroy show edit update] do
     resources :tables, only: %i[create index show]
     resources :menu_items, only: %i[create edit update new]
+    resources :inventories , only: :index
   end
 
   resources :categories, only: %i[create index] do

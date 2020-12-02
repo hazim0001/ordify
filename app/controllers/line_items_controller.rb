@@ -11,6 +11,7 @@ class LineItemsController < ApplicationController
     category = @line_item.menu_item.category
     @line_item.save
     update_totals_in_line_item_and_order
+    update_inventory
     redirect_to category_menu_items_path(category)
   end
 
@@ -22,6 +23,7 @@ class LineItemsController < ApplicationController
   def update
     @line_item.update!(quantity: params["custom-input-number"].to_i)
     update_totals_in_line_item_and_order
+    update_inventory
     @line_item.destroy if @line_item.quantity.zero?
     redirect_to order_line_items_path
     # raise
@@ -30,6 +32,7 @@ class LineItemsController < ApplicationController
   def destroy
     order = @line_item.order
     @line_item.order.update(total_price_cents: (@line_item.order.total_price_cents - @line_item.total_cents))
+    return_inventory
     authorize @line_item
     @line_item.destroy
     redirect_to order_line_items_path(order)
@@ -41,6 +44,21 @@ class LineItemsController < ApplicationController
     @line_item.update(total_cents: @line_item.menu_item.item_price_cents * @line_item.quantity)
     sub_total = LineItem.where(order: @line_item.order.id).sum(:total_cents)
     @line_item.order.update(total_price_cents: sub_total, sent: false)
+  end
+
+  def update_inventory
+    # raise
+    portion = @line_item.menu_item.portion_size_grams
+    quantity = @line_item.quantity
+    current_stock = @line_item.menu_item.inventory.stock_amount_grams
+    @line_item.menu_item.inventory.update(stock_amount_grams: current_stock - (portion * quantity))
+  end
+
+  def return_inventory
+    portion = @line_item.menu_item.portion_size_grams
+    quantity = @lineItem.quantity
+    current_stock = @lineItem.menu_item.inventory.stock_amount_grams
+    @line_item.menu_item.inventory.update(stock_amount_grams: current_stock + (portion * quantity))
   end
 
   def set_line_item

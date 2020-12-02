@@ -4,6 +4,7 @@ class Restaurant < ApplicationRecord
   has_many :menu_items
   has_many :line_items, through: :menu_items
   has_many :categories, through: :menu_items
+  has_many :inventories, through: :menu_items
   has_many :orders, through: :tables
   belongs_to :cusine
   # has_one_attached :photo

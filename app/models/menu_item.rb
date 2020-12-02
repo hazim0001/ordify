@@ -5,6 +5,7 @@ class MenuItem < ApplicationRecord
   belongs_to :restaurant
   belongs_to :category
   has_many_attached :photos
+  has_one :inventory
   # attr_accessor :remove_photos
 
   validates :title, presence: true, length: { in: 3..150 } #, uniqueness: { scope: restaurant_id }

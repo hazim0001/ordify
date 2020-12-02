@@ -118,6 +118,17 @@ document.addEventListener('turbolinks:load', () => {
   GetClock();
   setInterval(GetClock,1000);
 
+
+
+  /* dashboard icons */
+
+  (function () {
+    'use strict'
+
+    feather.replace()
+  })()
+
+
 });
 
 

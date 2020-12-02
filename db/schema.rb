@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_30_053935) do
+ActiveRecord::Schema.define(version: 2020_12_02_130501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,15 @@ ActiveRecord::Schema.define(version: 2020_11_30_053935) do
     t.index ["restaurant_id"], name: "index_employees_on_restaurant_id"
   end
 
+  create_table "inventories", force: :cascade do |t|
+    t.integer "stock_amount_grams"
+    t.integer "trigger_limit"
+    t.bigint "menu_item_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["menu_item_id"], name: "index_inventories_on_menu_item_id"
+  end
+
   create_table "line_items", force: :cascade do |t|
     t.text "comment", default: ""
     t.integer "quantity", default: 1
@@ -144,6 +153,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_053935) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "item_price_cents", default: 0, null: false
+    t.integer "portion_size_grams", default: 0
     t.index ["category_id"], name: "index_menu_items_on_category_id"
     t.index ["restaurant_id"], name: "index_menu_items_on_restaurant_id"
   end
@@ -180,6 +190,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_053935) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "employees", "restaurants"
+  add_foreign_key "inventories", "menu_items"
   add_foreign_key "line_items", "menu_items"
   add_foreign_key "line_items", "orders"
   add_foreign_key "menu_items", "categories"

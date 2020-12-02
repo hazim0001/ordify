@@ -36,7 +36,8 @@ puts 'Categories have been created'
 menu_items_array = []
 
 20.times do
-  menu_item_new = MenuItem.create!(title: Faker::Food.dish, item_price_cents: rand(1050..87590), description: Faker::Food.description, category: categoryy.sample, restaurant: lardo)
+  menu_item_new = MenuItem.create!(title: Faker::Food.dish, item_price_cents: rand(1050..87590), description: Faker::Food.description, category: categoryy.sample, restaurant: lardo, portion_size_grams: rand(100..290))
+  Inventory.create!(menu_item: menu_item_new, stock_amount_grams: rand(5000..19000), trigger_limit: rand(2500..6000))
   menu_items_array << menu_item_new
   puts "#{menu_item_new.title} has been created"
 end
@@ -46,6 +47,9 @@ end
   2.times do
     line = LineItem.create!(menu_item: menu_items_array.sample, comment: 'No onions please', quantity: rand(1..3), order: order)
     line.update!(total_cents: LineItem.last.menu_item.item_price_cents * LineItem.last.quantity)
+    stock_item =Inventory.find(line.id)
+    stock_item_amount = Inventory.find(line.id).stock_amount_grams
+    stock_item.update(stock_amount_grams: stock_item_amount - (line.menu_item.portion_size_grams * line.quantity))
     puts "#{line} has been created an updated"
   end
   # byebug
