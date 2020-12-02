@@ -74,7 +74,6 @@ class OrdersController < ApplicationController
     # # raise
     # from = '+12056547036' # Your Twilio number
     # to = '+529841452138'          # order.user_number # Your mobile phone number
-
     # client.messages.create(
     #   from: from,
     #   to: to,
