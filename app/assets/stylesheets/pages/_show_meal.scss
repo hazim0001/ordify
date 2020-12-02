@@ -59,13 +59,15 @@
    border-radius:32px;
    font-size: 50px;
    font-weight: bold;
-   background-color: rgb(244, 169, 101);
+   background-color: rgb(244, 169, 101) !important;
    border: none;
 
    &:hover{
-    color: white;
-    text-decoration: none;
-    background-color: black;
+    color: white !important;
+    text-decoration: none !important;
+    background-color: black !important;
+    transition: transform 0.3s;
+    transform: scale(0.95);
   }
 }
 

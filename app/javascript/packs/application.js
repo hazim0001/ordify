@@ -79,10 +79,22 @@ document.addEventListener('turbolinks:load', () => {
   var form = document.getElementById("modal-trigger")
   var modal = document.getElementById("sentNotification2")
 
-  form.addEventListener('submit', (e)=> {
-    console.log("Nikita's butt is so nice")
+  if (form) {
+    form.addEventListener('submit', (e)=> {
     modal.classList.add("showSpecial");
-  });
+    });
+  }
+
+  var cardRotation = document.querySelector(".category-card")
+  if (cardRotation) {
+    console.log(cardRotation)
+    cardRotation.addEventListener('click', (e)=> {
+      console.log("Nikita's butt")
+      e.preventDefault();
+      cardRotation.classList.add("rotate-card");
+    });
+  }
+
 
   /// Clock function showen in kitchen view
   var tday=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
@@ -99,8 +111,10 @@ document.addEventListener('turbolinks:load', () => {
   document.getElementById('clockbox').innerHTML=clocktext;
   }
 
-  GetClock();
-  setInterval(GetClock,1000);
+  if (form) {
+    GetClock();
+    setInterval(GetClock,1000);
+  }
 
 });
 

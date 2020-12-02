@@ -1,11 +1,10 @@
-<div class="main-container-menu-item-index min-vh-75">
+<div class="main-container-menu-item-index">
   <div class="back-icon">
     <%= link_to categories_path do%>
       <i class="fad fa-chevron-left text-fontawesome mr-2"></i>
+      <p>Back to Menu</p>
     <% end %>
-    Back to Menu
   </div>
-  <br>
   <%= simple_form_for :@menu_item, url: category_menu_items_path(@category), method: :get do |f| %>
     <div class="search-form-control form-group">
       <input class="form-control string required height-130 b-radius-32 text-35 text-fontawesome px-4 background-shallow-grey" type="text" placeholder="&#xF002; What do you wanna eat today?" name="query" value="<%= params[:query] %>" id="search_query" />

@@ -1,14 +1,14 @@
 <% if @order.sent == true %>
   <%= render 'shared/order_sent' %>
 <% else %>
-  <div class="main-container-menu-item-index min-vh-75">
+  <div class="main-container-menu-item-index">
 
     <!-- back icon--place "Back to Menu" here -->
     <div class="back-icon">
       <%= link_to categories_path do%>
         <i class="fad fa-chevron-left text-fontawesome mr-2"></i>
+        <p>Back to Menu</p>
       <% end %>
-      Back to Menu
     </div>
 
     <!-- Just Order Summary text -->
@@ -17,50 +17,50 @@
     <!-- this is the card for summary -->
     <% @line_items.each do |line_item| %>
       <% if line_item.quantity >= 1 %>
-          <% if line_item.ordered == true %>
-            <div class="card-item">
-              <div class="img-container-card">
-                <%= image_tag("https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80")%>
-              </div>
-              <div class=" d-flex justify-content-between flex-column align-items-start p-4 h-full ">
-                  <h2 class="p-2"><%= line_item.menu_item.title %>  X  <%= line_item.quantity %></h2>
-                  <div class="d-flex justify-content-between w-100">
-                    <h2 class="badge badge-pill badge-primary mt-auto" style="font-size:30px;">Being prepared</h2>
-                    <h2 class="mt-auto ml-5" style=""><%= humanized_money_with_symbol(line_item.total) %></h2>
-                  </div>
-              </div>
+        <% if line_item.ordered == true %>
+          <div class="card-item">
+            <div class="img-container-card">
+              <%= image_tag("https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80")%>
             </div>
-          <% else %>
-        <div class="card-item">
-          <div class="img-container-card">
-            <%= image_tag("https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80")%>
+            <div class=" d-flex justify-content-between flex-column align-items-start p-4 h-full" style="width: 65%">
+              <div class="d-flex justify-content-between w-100">
+                <h2 class="px-2 w-50"><%= line_item.menu_item.title %>  x  <%= line_item.quantity %></h2>
+                <h2 class="mt-auto ml-5 h-100"><%= humanized_money_with_symbol(line_item.total) %></h2>
+              </div>
+              <h2 class="badge badge-pill badge-primary mt-auto ml-2 animate-pulse" style="font-size:30px;">Being prepared</h2>
+            </div>
           </div>
-          <div class="card-item-infos">
-            <div class="d-flex justify-content-between h-50 pt-4 px-4">
-              <h2><%= line_item.menu_item.title %></h2>
-              <h2><%= humanized_money_with_symbol(line_item.total) %></h2>
+        <% else %>
+          <div class="card-item">
+            <div class="img-container-card">
+              <%= image_tag("https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80")%>
             </div>
-            <div class="d-flex justify-content-end h-50 px-4">
-              <%= simple_form_for [@order, line_item], url: order_line_item_path(@order.id, line_item.id), html: { id: :form } , method: :patch, remote: true do |f| %>
-              <div class="">
-                <div class="custom-number-input h-10 w-32 mt-5 " style="width:500px; font-size: 50px;">
-                  <div class="flex flex-row rounded-lg toggler relative bg-transparent "style="height: 80px;">
-                    <button data-action="decrement" class=" text-gray-600 h-full w-20 outline-none pl-5 counter-white" style="border-top-left-radius: 155px;border-bottom-left-radius: 155px;border-right: none;">
-                      <span class="m-auto text-2xl "style="font-size: 50px;font-weight: bold; ">−</span>
-                    </button>
-                    <input type="number" class="outline-none focus:outline-none text-center w-full font-semibold text-md counter-white  md:text-basecursor-default flex items-center text-gray-700  outline-none line-item-count" name="custom-input-number" value=<%= line_item.quantity %>></input>
-                    <button data-action="increment" class=" counter-white  text-gray-600 h-full w-20 pr-5" style="border-top-right-radius: 155px;border-bottom-right-radius: 155px;border-left: none;">
-                      <span class="m-auto text-2xl" style="font-size: 50px;font-weight: bold; ">+</span>
-                    </button>
-                    <input type="hidden" id="custId" name="line_item" value="<%= line_item.id %>">
-                  </div>
-                </div>
+            <div class="card-item-infos">
+              <div class="d-flex justify-content-between h-50 pt-4 px-4">
+                <h2><%= line_item.menu_item.title %></h2>
+                <h2><%= humanized_money_with_symbol(line_item.total) %></h2>
               </div>
-              <% end %>
+              <div class="d-flex justify-content-end h-50 px-4">
+                <%= simple_form_for [@order, line_item], url: order_line_item_path(@order.id, line_item.id), html: { id: :form } , method: :patch, remote: true do |f| %>
+                  <div class="">
+                    <div class="custom-number-input h-10 w-32 mt-5 " style="width:500px; font-size: 50px;">
+                      <div class="flex flex-row rounded-lg toggler relative bg-transparent "style="height: 80px;">
+                        <button data-action="decrement" class=" text-gray-600 h-full w-20 outline-none pl-5 counter-white" style="border-top-left-radius: 155px;border-bottom-left-radius: 155px;border-right: none;">
+                          <span class="m-auto text-2xl "style="font-size: 50px;font-weight: bold; ">−</span>
+                        </button>
+                        <input type="number" class="outline-none focus:outline-none text-center w-full font-semibold text-md counter-white  md:text-basecursor-default flex items-center text-gray-700  outline-none line-item-count" name="custom-input-number" value=<%= line_item.quantity %>></input>
+                        <button data-action="increment" class=" counter-white  text-gray-600 h-full w-20 pr-5" style="border-top-right-radius: 155px;border-bottom-right-radius: 155px;border-left: none;">
+                          <span class="m-auto text-2xl" style="font-size: 50px;font-weight: bold; ">+</span>
+                        </button>
+                        <input type="hidden" id="custId" name="line_item" value="<%= line_item.id %>">
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
             </div>
-              <% end %>
           </div>
-        </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>
