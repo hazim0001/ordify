@@ -23,45 +23,22 @@
                   <th scope="col">Quantity</th>
                 </tr>
               </thead>
-              <tbody>
-            <% table.line_items.where(ordered: true).each do |line| %>
+              <tbody id="order" data-kitchen-order-id="<%= table.id %>">
+              <% table.line_items.where("ordered= ? AND dispatched_from_kitchen= ?", true, false).order(:created_at).each do |line| %>
                 <tr>
                   <td><p class="card-text"><strong><%= line.menu_item.title %></strong></p></td>
                   <td><p class="card-text"><%= line.comment %></p></td>
                   <td><p class="card-text"><strong><%= line.quantity %></strong></td>
                 </tr>
-            <% end %>
+              <% end %>
             </tbody>
           </table>
           </div>
-          <%= simple_form_for table.orders.first, url: dispatch_notify_order_path(table.orders.first), method: :post, remote: true do %>
-            <%= submit_tag 'Dispatch', class:"btn btn-primary btn-lg btn-block" %>
+          <% if table.orders.count || @tables.count >= 1 %>
+            <%= simple_form_for table.orders.first, url: dispatch_notify_order_path(table.orders.first), method: :post, remote: true do %>
+              <%= submit_tag 'Dispatch', class:"btn btn-primary btn-lg btn-block" %>
+            <% end %>
           <% end %>
         </div>
       <% end %>
 </div>
-<%#= raise %>
-
-<%#= raise %>
-
-
-
-<!-- <script type="text/javascript">
-var tday=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-var tmonth=["January","February","March","April","May","June","July","August","September","October","November","December"];
-
-function GetClock(){
-var d=new Date();
-var nday=d.getDay(),nmonth=d.getMonth(),ndate=d.getDate(),nyear=d.getFullYear();
-var nhour=d.getHours(),nmin=d.getMinutes(),nsec=d.getSeconds();
-if(nmin<=9) nmin="0"+nmin;
-if(nsec<=9) nsec="0"+nsec;
-
-var clocktext=""+tday[nday]+", "+tmonth[nmonth]+" "+ndate+", "+nyear+" "+nhour+":"+nmin+":"+nsec+"";
-document.getElementById('clockbox').innerHTML=clocktext;
-}
-
-GetClock();
-setInterval(GetClock,1000);
-</script>
- -->

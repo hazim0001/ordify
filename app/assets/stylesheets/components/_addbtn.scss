@@ -24,19 +24,44 @@
 }
 
 .left-side {
-  border-top-left-radius: 155px;
-  border-bottom-left-radius: 155px;
-  border-right: none;
+  border-top-left-radius: 155px !important;
+  border-bottom-left-radius: 155px !important;
+  border-right: none !important;
 }
 
 .right-side {
-  border-top-right-radius: 155px;
-  border-bottom-right-radius: 155px;
-  border-left: none;
+  border-top-right-radius: 155px !important;
+  border-bottom-right-radius: 155px !important;
+  border-left: none !important;
 }
 
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+
+.height100{
+  height:100% !important;
+}
+.toggler-div{
+  width:500px;
+  font-size: 50px;
+
+  span{
+    font-size: 50px;
+    font-weight: bold;
+  }
+}
+
+.toggler-border{
+  height: 80px;
+  border: 1px solid;
+  border-radius: 36px;
+}
+.toggler-border-show{
+  height: 130px;
+  border: 1px solid;
+  border-radius: 70px;
 }

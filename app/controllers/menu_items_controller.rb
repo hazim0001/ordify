@@ -8,8 +8,8 @@ class MenuItemsController < ApplicationController
     @category = Category.find(params[:category_id])
     @order = Order.find(session[:order]["id"])
     if params[:query].present?
-        sql_query = "title @@ :query OR description @@ :query"
-        menu_items = MenuItem.where(sql_query, query: "%#{params[:query]}%")
+      sql_query = "title @@ :query OR description @@ :query"
+      menu_items = MenuItem.where(sql_query, query: "%#{params[:query]}%")
       if current_employee.present? && current_employee.role == "manager"
         @menu_items = menu_items.where(restaurant: restaurant).where(category: @category)
       else # for restaurant users and kitchen

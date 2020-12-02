@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :employees
+
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
   mount StripeEvent::Engine, at: '/stripe-webhooks'
 
   authenticate :employee, ->(employee) { employee.admin? } do
@@ -9,7 +11,6 @@ Rails.application.routes.draw do
 
   devise_scope :employee do
     root to: 'pages#home'
-    # raise
     # get 'tables', to: 'tables#new'
   end
     # CRUD -> GET/POST/(PUT)PATCH/DELETE
