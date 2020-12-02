@@ -18,12 +18,22 @@
         <div class="img-container-card">
           <%= image_tag("https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80")%>
         </div>
-        <div class=" d-flex justify-content-between flex-column align-items-start p-4 h-full" style="width: 65%">
-          <div class="d-flex justify-content-between w-100">
-            <h2 class="px-2 w-50"><%= line_item.menu_item.title %>  x  <%= line_item.quantity %></h2>
-            <h2 class="mt-auto ml-5 h-100"><%= humanized_money_with_symbol(line_item.total) %></h2>
+        <div class="card-item-infos">
+          <div class="d-flex justify-content-between h-50 w-100 pt-3 px-1">
+            <h2 class="px-2 w-50">
+              <% if line_item.menu_item.title.chars.count > 17 %>
+                <%= line_item.menu_item.title.slice(0..17)%>... x <%= line_item.quantity %>
+              <% else %>
+                <%= line_item.menu_item.title %> x <%= line_item.quantity %>
+              <% end %>
+            </h2>
+            <h2><%= humanized_money_with_symbol(line_item.total) %></h2>
           </div>
-          <h2 class="badge badge-pill badge-primary mt-auto ml-2 animate-pulse" style="font-size:30px;">Being prepared</h2>
+          <% if line_item.dispatched_from_kitchen == true %>
+            <h2 class="badge badge-pill badge-success mt-auto ml-2 animate-pulse w-50" style="font-size:30px;">Delivered</h2>
+          <% else %>
+            <h2 class="badge badge-pill badge-primary mt-auto ml-2 animate-pulse w-50" style="font-size:30px;">Being prepared</h2>
+          <% end %>
         </div>
       </div>
     <% end %>
