@@ -1,101 +1,55 @@
-/** {
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-  }
+.bdy-stl {
+    background-color: #141019;
+    background: radial-gradient(at 50% -20%, #908392, #0d0d60e) fixed;
+}
 
-  body {
-    padding: 0;
-    margin: 0;
-  }*/
+#handboy {
+    animation: swing ease-in-out 1.3s infinite alternate;
+    transform-origin: 98% 98%;
+    transform-box: fill-box;
+}
 
-  #notfound {
-    position: relative;
-    height: 100vh;
-  }
+#girllight {
+    animation: swing ease-in-out 1.3s infinite alternate;
+    transform-origin: 0% 97%;
+    transform-box: fill-box;
+}
 
-  #notfound .notfound {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-  }
+#hairgirl {
+    animation: swinghair ease-in-out 1.3s infinite alternate;
+    transform-origin: 60% 0%;
+    transform-box: fill-box;
+}
 
-  .notfound {
-    max-width: 520px;
-    width: 100%;
-    line-height: 1.4;
-    text-align: center;
-  }
+#zero {
+    transform-origin: bottom;
+    transform-box: fill-box;
+    animation: zero ease-in-out 1.3s infinite alternate;
+}
 
-  .notfound .notfound-404 {
-    position: relative;
-    height: 240px;
-  }
-
-  .notfound .notfound-404 h1 {
-    font-family: 'Montserrat', sans-serif;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-    font-size: 252px;
-    font-weight: 900;
-    margin: 0px;
-    color: #262626;
-    text-transform: uppercase;
-    letter-spacing: -40px;
-    margin-left: -20px;
-  }
-
-  .notfound .notfound-404 h1>span {
-    text-shadow: -8px 0px 0px #fff;
-  }
-
-  .notfound .notfound-404 h3 {
-    font-family: 'Cabin', sans-serif;
-    position: relative;
-    font-size: 16px;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #262626;
-    margin: 0px;
-    letter-spacing: 3px;
-    padding-left: 6px;
-  }
-
-  .notfound h2 {
-    font-family: 'Cabin', sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    text-transform: uppercase;
-    color: #000;
-    margin-top: 0px;
-    margin-bottom: 25px;
-  }
-
-  @media only screen and (max-width: 767px) {
-    .notfound .notfound-404 {
-      height: 200px;
+@keyframes zero {
+    0% {
+        transform: rotate(20deg)
     }
-    .notfound .notfound-404 h1 {
-      font-size: 200px;
+    100% {
+        transform: rotate(-20deg);
     }
-  }
+}
 
-  @media only screen and (max-width: 480px) {
-    .notfound .notfound-404 {
-      height: 162px;
+@keyframes swing {
+    0% {
+        transform: rotate(30deg);
     }
-    .notfound .notfound-404 h1 {
-      font-size: 162px;
-      height: 150px;
-      line-height: 162px;
+    100% {
+        transform: translate(-20deg);
     }
-    .notfound h2 {
-      font-size: 16px;
+}
+
+@keyframes swinghair {
+    0% {
+        transform: rotate(12deg);
     }
-  }
+    100% {
+        transform: rotate(-15deg);
+    }
+}
