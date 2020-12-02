@@ -52,19 +52,19 @@ class OrdersController < ApplicationController
   private
 
   def stripe_order
-    session = Stripe::Checkout::Session.create(
-      payment_method_types: ['card'],
-      line_items: [{
-        name: @order.user_number,
-        amount: @order.total_price_cents,
-        currency: 'usd',
-        quantity: 1
-      }],
-      mode: 'payment',
-      success_url: new_table_order_url(@order.table), # to create a thank u page for ur payment
-      cancel_url: categories_url # render a notice tell him to try a dif card
-    )
-    @order.update(checkout_session_id: session.id)
+    # session = Stripe::Checkout::Session.create(
+    #   payment_method_types: ['card'],
+    #   line_items: [{
+    #     name: @order.user_number,
+    #     amount: @order.total_price_cents,
+    #     currency: 'usd',
+    #     quantity: 1
+    #   }],
+    #   mode: 'payment',
+    #   success_url: new_table_order_url(@order.table), # to create a thank u page for ur payment
+    #   cancel_url: categories_url # render a notice tell him to try a dif card
+    # )
+    # @order.update(checkout_session_id: session.id)
   end
 
   def twilio_sms

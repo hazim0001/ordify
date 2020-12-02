@@ -1,0 +1,86 @@
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  // flex-wrap: wrap-reverse;
+}
+
+.banner-kitchen-login {
+  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1581349485608-9469926a8e5e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80);
+  background-size: cover;
+  background-position: center;
+  // padding: 150px 0;
+  height: 100vh;
+  width: 55vw;
+  display: flex;
+  align-items: center;
+}
+
+.text-area {
+  width: 60%;
+  margin-left: 15%;
+}
+
+.banner-kitchen-login h1 {
+  margin: 0;
+  color: white;
+  // text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  font-size: 32px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.banner-kitchen-login p {
+  font-size: 20px;
+  color: white;
+  opacity: .8;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  text-align: left;
+}
+
+.form-box-login {
+  width: 45vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-info-login {
+  width: 20vw;
+}
+
+.login-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+  background-color: #f0f0f0;
+}
+
+.logo-employee {
+  width:100px; 
+  height:100px;
+}
+
+.login-txt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+  background-color: #f0f0f0;
+
+  p {
+    font-size: 25px;
+  }
+}
+
+.art-mod {
+  background-color: #f4a965;
+  transition: 0.2s;
+}
+
+.art-mod:hover {
+  opacity: 0.8;
+
+}
