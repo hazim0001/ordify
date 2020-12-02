@@ -18,6 +18,8 @@
 
     &:hover {
       color: rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s;
+      transform: scale(0.95);
     }
   }
 }

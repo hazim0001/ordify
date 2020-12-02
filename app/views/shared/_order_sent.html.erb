@@ -30,7 +30,7 @@
             <h2><%= humanized_money_with_symbol(line_item.total) %></h2>
           </div>
           <% if line_item.dispatched_from_kitchen == true %>
-            <h2 class="badge badge-pill badge-success mt-auto ml-2 animate-pulse w-50" style="font-size:30px;">Delivered</h2>
+            <h2 class="badge badge-pill badge-success mt-auto ml-2 w-50" style="font-size:30px;">Delivered</h2>
           <% else %>
             <h2 class="badge badge-pill badge-primary mt-auto ml-2 animate-pulse w-50" style="font-size:30px;">Being prepared</h2>
           <% end %>
