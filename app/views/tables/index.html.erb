@@ -34,13 +34,14 @@
         </table>
         </div>
           <% if table.orders.count || @tables.count >= 1 %>
-            <%= form_for table.orders.first, url: dispatch_notify_order_path(table.orders.first), method: :post do %>
-              <%= submit_tag 'Dispatch', class:"btn btn-primary btn-lg btn-block" %>
-            <% end %>
+            <%= button_to 'Dispatch', dispatch_notify_order_path(table.orders.first.id), method: :post, class:"btn btn-primary btn-lg btn-block"  %>
           <% end %>
         </div>
     <% end %>
 </div>
+            <%#= form_for table.orders.first, url: dispatch_notify_order_path(table.orders.first.id), method: :post do %>
+              <%#= submit_tag 'Dispatch', class:"btn btn-primary btn-lg btn-block" %>
+            <%# end %>
 
 
 
