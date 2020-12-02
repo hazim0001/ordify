@@ -15,6 +15,8 @@
     color: white !important;
     text-decoration: none !important;
     background-color: black !important;
+    transition: transform 0.3s;
+    transform: scale(0.95);
   }
 
   h3{

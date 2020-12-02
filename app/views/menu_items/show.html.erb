@@ -3,7 +3,7 @@
     <img src="https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid" alt="">
   </div >
   <!-- title and price -->
-  <div class="cont d-flex justify-content-between pt-5">
+  <div class="cont d-flex justify-content-between">
     <div>
       <h5 class="text-title"><%= @menu_item.title %></h5>
     </div>
@@ -20,7 +20,7 @@
 <div class="cont">
   <h4>Please enter your comments here:</h4>
   <%= simple_form_for [@order, @line_item], url: order_line_items_path(@order) do |f| %>
-  <%= f.text_field :comment,class:"textarea-menu-item p-4 mt-3", placeholder: "No onions, no tomatos, etc..." %>
+  <%= f.text_field :comment,class:"textarea-menu-item px-5 mt-3", placeholder: "No onions, no tomatos, etc..." %>
   <div class="d-flex justify-content-between toggler-add-btn">
     <!--  here goes the toggler -->
     <div class="custom-number-input d-flex flex-row relative bg-transparent mt-5 toggler-border-show">
@@ -33,7 +33,7 @@
       </button>
       <input type="hidden" id="custId" name="menu_item" value="<%= @menu_item.id %>">
     </div>
-    <%= f.button :submit, 'Add', class: "biggerbtn mt-5", style:"background-color: #f4a965;" %>
+    <%= f.button :submit, 'Add', class: "biggerbtn mt-5", style:"" %>
   </div>
   <% end %>
 </div>

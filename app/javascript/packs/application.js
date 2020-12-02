@@ -83,9 +83,18 @@ document.addEventListener('turbolinks:load', () => {
 
   var form = document.getElementById("modal-trigger")
   var modal = document.getElementById("sentNotification2")
+
   if (form) {
     form.addEventListener('submit', (e)=> {
-      modal.classList.add("showSpecial");
+    modal.classList.add("showSpecial");
+    });
+  }
+
+  var cardRotation = document.querySelector(".category-card")
+  if (cardRotation) {
+    cardRotation.addEventListener('click', (e)=> {
+      e.preventDefault();
+      cardRotation.classList.add("rotate-card");
     });
   }
 
@@ -106,8 +115,10 @@ document.addEventListener('turbolinks:load', () => {
     clock.innerHTML = clocktext
   }}
 
-  GetClock();
-  setInterval(GetClock,1000);
+  if (form) {
+    GetClock();
+    setInterval(GetClock,1000);
+  }
 
 });
 
