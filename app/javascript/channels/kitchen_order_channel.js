@@ -8,8 +8,8 @@ const initKitchenOrderCable = () => {
       consumer.subscriptions.create({ channel: "KitchenOrderChannel", id: id }, {
         received(data) {
           const table = document.querySelector(`[data-kitchen-order-id='${data.match(/\d/)[0]}']`);
-          table.insertAdjacentHTML('beforeend', data)
-        };
+          table.innerHTML = data
+        }
       });
     });
   };

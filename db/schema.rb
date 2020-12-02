@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_053935) do
     t.text "comment", default: ""
     t.integer "quantity", default: 1
     t.boolean "ordered", default: false
+    t.boolean "dispatched_from_kitchen", default: false
     t.bigint "order_id", null: false
     t.bigint "menu_item_id", null: false
     t.datetime "created_at", precision: 6, null: false

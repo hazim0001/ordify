@@ -83,10 +83,11 @@ document.addEventListener('turbolinks:load', () => {
 
   var form = document.getElementById("modal-trigger")
   var modal = document.getElementById("sentNotification2")
-
-  form.addEventListener('submit', (e)=> {
-    modal.classList.add("showSpecial");
-  });
+  if (form) {
+    form.addEventListener('submit', (e)=> {
+      modal.classList.add("showSpecial");
+    });
+  }
 
   /// Clock function showen in kitchen view
   var tday=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];

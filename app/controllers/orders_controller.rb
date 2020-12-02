@@ -30,17 +30,18 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.line_items.each { |line| line.update(ordered: true) }
     @order.update(sent: true, dispatched: false)
+    undispatched_line_items = @order.table.line_items.where(dispatched_from_kitchen: false)
     KitchenOrderChannel.broadcast_to(
-      @order.table, render_to_string(partial: "new_line_item", locals: { lines: @order.table.line_items })
+      @order.table, render_to_string(partial: "new_line_item", locals: { lines: undispatched_line_items })
     )
     sleep(7)
-    @order.update(sent: true)
     stripe_order
     redirect_back fallback_location: proc { order_line_items_path(@order) }
   end
 
   def dispatch_notify
     @order = Order.find(params[:id])
+    @order.table.line_items.each { |line| line.update(dispatched_from_kitchen: true) }
     @order.table.orders.each do |order|
       order.update(dispatched: true)
       twilio_sms
