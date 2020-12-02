@@ -12,4 +12,11 @@
     <% end %>
   </div>
 </div>
-<%= link_to "Go to order", order_line_items_path(@order) , class:"btn-call2-action btn-sticky ripple" %>
+<% if @order.line_items.count >= 1 %>
+  <%= link_to order_line_items_path(@order) , class:"btn-call2-action btn-sticky" do %>
+    <span class="notification-btn badge-primary animate-pulse"><%= @order.line_items.count %></span>
+    <span>Go to order</span>
+  <% end %>
+<% else %>
+  <%= link_to "Go to order", order_line_items_path(@order) , class:"btn-call2-action btn-sticky" %>
+<% end %>

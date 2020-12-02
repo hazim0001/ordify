@@ -102,6 +102,8 @@
     &:hover {
       color: rgba(0, 0, 0, 0.5);
       text-decoration: none;
+      // transition: transform 0.3s;
+      // transform: scale(0.95) !important;
     }
   }
 }
