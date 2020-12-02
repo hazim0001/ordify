@@ -33,7 +33,7 @@
           </tbody>
         </table>
         </div>
-          <% if table.orders.count || @tables.count >= 1 %>
+          <% if table.orders.count >= 1 %>
             <%= button_to 'Dispatch', dispatch_notify_order_path(table.orders.first.id), method: :post, class:"btn btn-primary btn-lg btn-block"  %>
           <% end %>
         </div>
