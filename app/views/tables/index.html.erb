@@ -1,16 +1,18 @@
 <nav class="navbar nav-c">
-  <a class="container-fluid" href="#">
+  <div class="w-100 d-flex justify-content-between align-items-center">
       <!--logo --> 
-      <div><%= image_tag "logo.png", style:"width:75px; height:75px", class:"d-inline-block align-top" %></div>
+      <div><%= image_tag "logo.png", class:"logo-style" %></div>
       <!--Date and time --> 
-      <div id="clockbox" style="margin-left: 40vw; color: black; font-weight: bold; font-size: 25px;"></div> 
-  </a>
+      <div id="clockbox" class="clock-style";></div> 
+      <!--log out btn --> 
+      <%= link_to 'Log off', destroy_employee_session_path, method: :delete, class:"btn btn-outline-dark btn-lg"  %>
+  </div>
 </nav>
 
 
-<div class="container">
+<div class="mx-5 d-flex flex-wrap justify-content-between">
        <% @tables.each do |table| %>
-        <div class="card mt-5" style="width: 28rem;">
+        <div class="card border-dark mt-5 card-width";>
           <div class="card-body">
             <h3 class="card-title card-txt-r2"><%= table.name %></h3>
             <table class="table table-striped">
@@ -21,45 +23,22 @@
                   <th scope="col">Quantity</th>
                 </tr>
               </thead>
-              <tbody>
-            <% table.line_items.where(ordered: true).each do |line| %>
+              <tbody id="order" data-kitchen-order-id="<%= table.id %>">
+              <% table.line_items.where("ordered= ? AND dispatched_from_kitchen= ?", true, false).order(:created_at).each do |line| %>
                 <tr>
                   <td><p class="card-text"><strong><%= line.menu_item.title %></strong></p></td>
                   <td><p class="card-text"><%= line.comment %></p></td>
                   <td><p class="card-text"><strong><%= line.quantity %></strong></td>
                 </tr>
-            <% end %>
+              <% end %>
             </tbody>
           </table>
           </div>
-          <%= simple_form_for table.orders.first, url: dispatch_notify_order_path(table.orders.first), method: :post, remote: true do %>
-            <%= submit_tag 'Dispatch', class:"btn btn-primary btn-lg btn-block" %>
+          <% if table.orders.count || @tables.count >= 1 %>
+            <%= simple_form_for table.orders.first, url: dispatch_notify_order_path(table.orders.first), method: :post, remote: true do %>
+              <%= submit_tag 'Dispatch', class:"btn btn-primary btn-lg btn-block" %>
+            <% end %>
           <% end %>
         </div>
       <% end %>
 </div>
-<%#= raise %>
-<%= link_to 'log out', destroy_employee_session_path, method: :delete %>
-<%#= raise %>
-
-
-
-<!-- <script type="text/javascript">
-var tday=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-var tmonth=["January","February","March","April","May","June","July","August","September","October","November","December"];
-
-function GetClock(){
-var d=new Date();
-var nday=d.getDay(),nmonth=d.getMonth(),ndate=d.getDate(),nyear=d.getFullYear();
-var nhour=d.getHours(),nmin=d.getMinutes(),nsec=d.getSeconds();
-if(nmin<=9) nmin="0"+nmin;
-if(nsec<=9) nsec="0"+nsec;
-
-var clocktext=""+tday[nday]+", "+tmonth[nmonth]+" "+ndate+", "+nyear+" "+nhour+":"+nmin+":"+nsec+"";
-document.getElementById('clockbox').innerHTML=clocktext;
-}
-
-GetClock();
-setInterval(GetClock,1000);
-</script>
- -->

@@ -20,6 +20,7 @@ require("channels")
 import "bootstrap";
 import "jquery";
 import intlTelInput from 'intl-tel-input';
+import { initKitchenOrderCable } from '../channels/kitchen_order_channel'
 
 // import { initSelect2 } from '../components/init_select2';
 
@@ -30,6 +31,10 @@ document.addEventListener('turbolinks:load', () => {
   // intlTelInput(input, {
   //     // any initialisation options go here
   // });
+
+ // Channal method
+  initKitchenOrderCable()
+
 
 // THIS CODE FOR ADD BUTTON that we r using on order summary and menu item index
   const decrement = (event) => {
@@ -87,14 +92,11 @@ document.addEventListener('turbolinks:load', () => {
 
   var cardRotation = document.querySelector(".category-card")
   if (cardRotation) {
-    console.log(cardRotation)
     cardRotation.addEventListener('click', (e)=> {
-      console.log("Nikita's butt")
       e.preventDefault();
       cardRotation.classList.add("rotate-card");
     });
   }
-
 
   /// Clock function showen in kitchen view
   var tday=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
@@ -108,8 +110,10 @@ document.addEventListener('turbolinks:load', () => {
   if(nsec<=9) nsec="0"+nsec;
 
   var clocktext=""+tday[nday]+", "+tmonth[nmonth]+" "+ndate+", "+nyear+" "+nhour+":"+nmin+":"+nsec+"";
-  document.getElementById('clockbox').innerHTML=clocktext;
-  }
+  const clock = document.getElementById('clockbox');
+  if (clock){
+    clock.innerHTML = clocktext
+  }}
 
   if (form) {
     GetClock();

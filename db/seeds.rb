@@ -15,29 +15,28 @@ Table.destroy_all
 
 
 puts 'db is now clean......Seeding in progress'
-cusine1 = Cusine.create!(name: Faker::Restaurant.type)
+cusine1 = Cusine.create!(name: "Fine Dining")
 
-rest_one = Restaurant.create!(name: Faker::Restaurant.name, address: Faker::Address.street_address, cusine: cusine1 )
-Employee.create!(name:Faker::Name.name, role: "manager", restaurant: rest_one, password: 123456, email: Faker::Internet.email )
-Employee.create!(name:Faker::Name.name, role: "cook", restaurant: rest_one,password: 123456, email: Faker::Internet.email )
+lardo = Restaurant.create!(name: "Lardo", address: Faker::Address.street_address, cusine: cusine1 )
+Employee.create!(name:Faker::Name.name, role: "manager", restaurant: lardo, password: 123456, email: Faker::Internet.email )
+Employee.create!(name:Faker::Name.name, role: "cook", restaurant: lardo,password: 123456, email: Faker::Internet.email )
+Employee.create!(name: "hazim", role: "manager", restaurant: lardo,password: 123456, email: "hazim@hotmail.com", admin: true )
 
-puts "#{rest_one.name} has been created"
+puts "#{lardo.name} has been created"
 
-category_options = %w[sushi beef chicken pasta pizza burgers].sample
+category_options = ["Small Plates","Soups & Salads", "Wine", "Chef's Selection", "Mains", "Pasta & SeaFood"  ]
 categoryy = []
+category_options.each { |cat| categoryy  << Category.create!(title: cat) }
 
-5.times do
-  categoryy << Category.create!(title: category_options)
-end
 
-Table.create!(name: "Table one", restaurant: rest_one)
+Table.create!(name: "Table one", restaurant: lardo)
 
 puts 'Categories have been created'
 
 menu_items_array = []
 
 20.times do
-  menu_item_new = MenuItem.create!(title: Faker::Food.dish, item_price_cents: rand(1050..87590), description: Faker::Food.description, category: categoryy.sample, restaurant: rest_one)
+  menu_item_new = MenuItem.create!(title: Faker::Food.dish, item_price_cents: rand(1050..87590), description: Faker::Food.description, category: categoryy.sample, restaurant: lardo)
   menu_items_array << menu_item_new
   puts "#{menu_item_new.title} has been created"
 end

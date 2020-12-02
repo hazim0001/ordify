@@ -18,6 +18,11 @@
     transition: transform 0.3s;
     transform: scale(0.95);
   }
+
+  h3{
+    font-size: inherit;
+    font-weight: inherit;
+  }
 }
 
 .btn-sticky {

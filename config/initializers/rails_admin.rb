@@ -8,7 +8,7 @@ RailsAdmin.config do |config|
   end
   config.current_user_method(&:current_employee)
 
-  config.included_models = [ "MenuItem", "LineItem", "Employee", "Category", "Table", "Order" ]
+  config.included_models = [ "MenuItem", "LineItem", "Employee", "Category", "Table", "Order", "Restaurant", "ActiveStroge" ]
 
   config.authorize_with do
     unless current_employee.admin?
@@ -34,14 +34,28 @@ RailsAdmin.config do |config|
 
   config.actions do
     dashboard                     # mandatory
-    index                         # mandatory
-    new
+
+    index do
+      except Restaurant
+    end                         # mandatory
+
+    new do
+      except [Restaurant, Cusine, Order ]
+    end
     export
-    bulk_delete
-    show
-    edit
-    delete
-    show_in_app
+    # bulk_delete
+    show do
+      except [Restaurant, LineItem, Category]
+    end
+    edit do
+      except [Restaurant, Employee]
+    end
+    delete do
+      except [Restaurant, Category, LineItem, Employee]
+    end
+    show_in_app do
+      except [Restaurant, LineItem, Category, Order, Table]
+    end
 
     ## With an audit adapter, you can add:
     # history_index
