@@ -115,10 +115,8 @@ document.addEventListener('turbolinks:load', () => {
     clock.innerHTML = clocktext
   }}
 
-  if (form) {
-    GetClock();
-    setInterval(GetClock,1000);
-  }
+  GetClock();
+  setInterval(GetClock,1000);
 
 });
 
