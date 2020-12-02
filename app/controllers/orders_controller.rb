@@ -41,6 +41,7 @@ class OrdersController < ApplicationController
 
   def dispatch_notify
     @order = Order.find(params[:id])
+    # raise
     @order.table.line_items.each { |line| line.update(dispatched_from_kitchen: true) }
     @order.table.orders.each do |order|
       order.update(dispatched: true)
