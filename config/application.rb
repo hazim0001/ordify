@@ -5,7 +5,7 @@ require 'rails/all'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-ENV['RAILS_ADMIN_THEME'] = 'softwarebrothers_theme'
+# ENV['RAILS_ADMIN_THEME'] = 'softwarebrothers_theme'
 
 module Ordify
   class Application < Rails::Application
