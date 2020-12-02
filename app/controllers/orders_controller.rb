@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
     KitchenOrderChannel.broadcast_to(
       @order.table, render_to_string(partial: "new_line_item", locals: { lines: undispatched_line_items })
     )
-    sleep(7)
+    sleep(4)
     stripe_order
     redirect_back fallback_location: proc { order_line_items_path(@order) }
   end
@@ -68,18 +68,19 @@ class OrdersController < ApplicationController
   end
 
   def twilio_sms
-    account_sid = ENV['ACCOUNT_SID']
-    auth_token = ENV['AUTH_TOKEN']
-    client = Twilio::REST::Client.new(account_sid, auth_token)
+    # account_sid = ENV['ACCOUNT_SID']
+    # auth_token = ENV['AUTH_TOKEN']
+    # client = Twilio::REST::Client.new(account_sid, auth_token)
+    # # raise
+    # from = '+12056547036' # Your Twilio number
+    # to = '+529841452138'          # order.user_number # Your mobile phone number
 
-    from = '+12056547036' # Your Twilio number
-    to = order.user_number # Your mobile phone number
-
-    client.messages.create(
-      from: from,
-      to: to,
-      body: "Hola from Ordify!, Your Meal is on the way"
-    )
+    # client.messages.create(
+    #   from: from,
+    #   to: to,
+    #   body: "Hola from Ordify!, Your Meal is on the way"
+    # )
+    # return
   end
 
   def order_params
