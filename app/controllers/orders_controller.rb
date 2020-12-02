@@ -68,18 +68,18 @@ class OrdersController < ApplicationController
   end
 
   def twilio_sms
-    account_sid = ENV['ACCOUNT_SID']
-    auth_token = ENV['AUTH_TOKEN']
-    client = Twilio::REST::Client.new(account_sid, auth_token)
+    # account_sid = ENV['ACCOUNT_SID']
+    # auth_token = ENV['AUTH_TOKEN']
+    # client = Twilio::REST::Client.new(account_sid, auth_token)
 
-    from = '+12056547036' # Your Twilio number
-    to = order.user_number # Your mobile phone number
+    # from = '+12056547036' # Your Twilio number
+    # to = order.user_number # Your mobile phone number
 
-    client.messages.create(
-      from: from,
-      to: to,
-      body: "Hola from Ordify!, Your Meal is on the way"
-    )
+    # client.messages.create(
+    #   from: from,
+    #   to: to,
+    #   body: "Hola from Ordify!, Your Meal is on the way"
+    # )
   end
 
   def order_params
