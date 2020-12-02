@@ -44,6 +44,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: rgba(244, 169, 101, 0.4);
 }
 
 .form-info-login {
@@ -52,35 +53,55 @@
 
 .login-banner {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-bottom: 10px;
-  background-color: #f0f0f0;
+  background-color: none;
+
+  h2 {
+    font-size: 60px;
+    // font-weight: bold;
+  }
 }
 
 .logo-employee {
-  width:100px; 
-  height:100px;
+  width:80px;
+  height:80px;
 }
 
-.login-txt {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 25px;
-  background-color: #f0f0f0;
+// .login-txt {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin-bottom: 25px;
+//   background-color: #f0f0f0;
 
-  p {
-    font-size: 25px;
-  }
-}
+//   p {
+//     font-size: 25px;
+//   }
+// }
 
 .art-mod {
   background-color: #f4a965;
   transition: 0.2s;
+  font-weight: bold;
 }
 
 .art-mod:hover {
-  opacity: 0.8;
+  color: white;
+  background-color: black;
+}
 
+.container-links {
+  a {
+    color: black;
+    text-decoration: none;
+    font-size: 12px;
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.5);
+      text-decoration: none;
+    }
+  }
 }

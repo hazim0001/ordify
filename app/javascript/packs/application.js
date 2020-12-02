@@ -90,13 +90,13 @@ document.addEventListener('turbolinks:load', () => {
     });
   }
 
-  var cardRotation = document.querySelector(".category-card")
-  if (cardRotation) {
-    cardRotation.addEventListener('click', (e)=> {
-      e.preventDefault();
-      cardRotation.classList.add("rotate-card");
-    });
-  }
+  // var cardRotation = document.querySelector(".category-card")
+  // if (cardRotation) {
+  //   cardRotation.addEventListener('click', (e)=> {
+  //     e.preventDefault();
+  //     cardRotation.classList.add("rotate-card");
+  //   });
+  // }
 
   /// Clock function showen in kitchen view
   var tday=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];

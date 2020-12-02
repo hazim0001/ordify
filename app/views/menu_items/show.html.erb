@@ -18,7 +18,7 @@
 </div>
 <!-- comments text area -->
 <div class="cont">
-  <h4>Please enter your comments here:</h4>
+  <h4>Comments:</h4>
   <%= simple_form_for [@order, @line_item], url: order_line_items_path(@order) do |f| %>
   <%= f.text_field :comment,class:"textarea-menu-item px-5 mt-3", placeholder: "No onions, no tomatos, etc..." %>
   <div class="d-flex justify-content-between toggler-add-btn">

@@ -41,11 +41,11 @@
   <body>
   <header>
     <nav class="navbar navbar-expand-md nvbr-edits">
-      <div><%= image_tag "logo.png", style:"width:75px; height:75px" %></div>
+      <div><%= image_tag "logo.png", class: "animate-bounce mr-1" %></div>
       <a class="navbar-brand ordify-style" href="#">Ordify</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
+      </button> -->
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <!-- <li class="nav-item active">
@@ -58,7 +58,7 @@
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li> -->
         </ul>
-        <button class="btn my-2 my-sm-0 emp-login-edit" type="submit">Employee Log In</button>
+        <%= link_to "Log in", new_employee_session_path, class: "btn my-2 my-sm-0 emp-login-edit" %>
       </div>
     </nav>
   </header>
@@ -85,7 +85,7 @@
       </div>
       <div class="carousel-item">
         <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777"/></svg> -->
-        <img src="https://images.unsplash.com/photo-1603744548684-8fde009b7855?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Social distance">
+        <img src="https://d2o7rqynhxcgmp.cloudfront.net/uploads/images/heroes/Global/_1536x768_crop_center-center_95_none/14660/hero_mobile_payments_no_v2.jpg?mtime=20190509144908&focal=none&tmtime=20201102224754" alt="Social distance">
         <div class="container">
           <div class="carousel-caption">
             <h1>A revolutionary contactless dining experience.</h1>
