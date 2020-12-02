@@ -30,11 +30,9 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.line_items.each { |line| line.update(ordered: true) }
     @order.update(sent: true, dispatched: false)
-    @order.restaurant.tables.each do |table|
-      KitchenOrderChannel.broadcast_to(
-        table, render_to_string(partial: "new_line_item", locals: { line: @order.table.line_items.last })
-      )
-    end
+    KitchenOrderChannel.broadcast_to(
+      @order.table, render_to_string(partial: "new_line_item", locals: { lines: @order.table.line_items })
+    )
     sleep(7)
     @order.update(sent: true)
     stripe_order

@@ -1,5 +1,7 @@
-<tr>
+<% lines.each do |line| %>
+<tr data-tableid="<%= line.order.table.id %>">
   <td><p class="card-text"><strong><%= line.menu_item.title %></strong></p></td>
   <td><p class="card-text"><%= line.comment %></p></td>
   <td><p class="card-text"><strong><%= line.quantity %></strong></td>
 </tr>
+<% end %>
