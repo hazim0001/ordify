@@ -1,28 +1,41 @@
 // NAVBAR EDITS
 // ----------------------------------
 .nvbr-edits {
-  background-color: white;
-  // position: relative;
+  background: rgba(244,169,101, 0.9);
+
+  img {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 .ordify-style {
   color: black;
-  font-size: 70px;
+  font-size: 50px;
   &:hover {
     color: black;
   }
 }
 
 .emp-login-edit {
-  color: black;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 16px;
-  border: 1px solid black;
-  background-color: white !important;
+  border-radius: 8px;
+  // border: 1px solid black;
+  border: none;
+  background-color: black !important;
   text-decoration: none;
   margin-right: 10px;
+
+  &:hover {
+    color: white !important;
+    text-decoration: none !important;
+    background-color: black !important;
+    transition: transform 0.3s;
+    transform: scale(0.95);
+  }
 }
 
 /* CUSTOMIZE THE CAROUSEL
@@ -42,12 +55,23 @@
 .carousel-item {
   height: 32rem;
 }
+.carousel-item:after {
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(0,0,0,0.6);
+}
+
 .carousel-item > img {
   position: absolute;
   top: 0;
   left: 0;
   min-width: 100%;
-  height: 32rem;
+  height: 100%;
+  object-fit: cover;
 }
 
 .rj-btn-edit {
@@ -105,6 +129,14 @@
   background-color: rgb(244, 169, 101) !important;
   text-decoration: none;
   border: none;
+
+  &:hover {
+    color: white !important;
+    text-decoration: none !important;
+    background-color: black !important;
+    transition: transform 0.3s;
+    transform: scale(0.95);
+  }
 }
 
 
@@ -142,5 +174,20 @@
 @media (min-width: 62em) {
   .featurette-heading {
     margin-top: 7rem;
+  }
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
   }
 }

@@ -22,12 +22,22 @@
             <div class="img-container-card">
               <%= image_tag("https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80")%>
             </div>
-            <div class=" d-flex justify-content-between flex-column align-items-start p-4 h-full" style="width: 65%">
-              <div class="d-flex justify-content-between w-100">
-                <h2 class="px-2 w-50"><%= line_item.menu_item.title %>  x  <%= line_item.quantity %></h2>
-                <h2 class="mt-auto ml-5 h-100"><%= humanized_money_with_symbol(line_item.total) %></h2>
+            <div class="card-item-infos">
+              <div class="d-flex justify-content-between h-50 w-100 pt-3 px-1">
+                <h2 class="px-2 w-50">
+                  <% if line_item.menu_item.title.chars.count > 17 %>
+                    <%= line_item.menu_item.title.slice(0..17)%>... x <%= line_item.quantity %>
+                  <% else %>
+                    <%= line_item.menu_item.title %> x <%= line_item.quantity %>
+                  <% end %>
+                </h2>
+                <h2><%= humanized_money_with_symbol(line_item.total) %></h2>
               </div>
-              <h2 class="badge badge-pill badge-primary mt-auto ml-2 animate-pulse" style="font-size:30px;">Being prepared</h2>
+              <% if line_item.dispatched_from_kitchen == true %>
+                <h2 class="badge badge-pill badge-success mt-auto ml-2 w-50" style="font-size:30px;">Delivered</h2>
+              <% else %>
+                <h2 class="badge badge-pill badge-primary mt-auto ml-2 animate-pulse w-50" style="font-size:30px;">Being prepared</h2>
+              <% end %>
             </div>
           </div>
         <% else %>
@@ -36,11 +46,11 @@
               <%= image_tag("https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80")%>
             </div>
              <div class="card-item-infos">
-                <div class="d-flex justify-content-between h-50 pt-4 px-4">
-                  <h2><%= line_item.menu_item.title %></h2>
+                <div class="d-flex justify-content-between h-50 w-100 pt-3 px-1">
+                  <h2 class="px-2 w-50"><%= line_item.menu_item.title %></h2>
                   <h2><%= humanized_money_with_symbol(line_item.total) %></h2>
                 </div>
-                <div class="d-flex justify-content-end h-50 px-4">
+                <div class="d-flex justify-content-end h-50">
                   <%= simple_form_for [@order, line_item], url: order_line_item_path(@order.id, line_item.id), html: { id: :form } , method: :patch, remote: true do |f| %>
                     <div class="">
                       <div class="custom-number-input h-10 w-32 mt-5 toggler-div" >
@@ -66,7 +76,7 @@
     </div>
   <%= simple_form_for(@order, url: order_path(params[:order_id]), wrapper: :inline_form, html: { id: "modal-trigger", method: :patch, class: "btn-sticky w-100 d-flex justify-content-center" }) do |f| %>
   <!-- button/input trigger modal -->
-      <button type="submit" class="btn-call2-action d-flex justify-content-between p-5">
+      <button type="submit" class="btn-call2-action d-flex justify-content-between px-5">
         <h3>Send order </h3>
         <h3><%= humanized_money_with_symbol(@line_items.first.order.total_price) %></h3>
       </button>
@@ -83,7 +93,7 @@
         </div>
         <div class="shadow"></div>
       </div>
-      <div class="mt-0 modal-subtitle text-center">Your order has been sent to the kitchen</div>
+      <div class="mt-0 mb-5 modal-subtitle text-center">Your order has been sent to the kitchen</div>
     </div>
   </div>
 <% end %>
