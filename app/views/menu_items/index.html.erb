@@ -10,7 +10,7 @@
       <input class="form-control string required height-130 b-radius-32 text-35 text-fontawesome px-4 background-shallow-grey" type="text" placeholder="&#xF002; What do you wanna eat today?" name="query" value="<%= params[:query] %>" id="search_query" />
     </div>
   <% end %>
-  <div class="card-category-title" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://images.unsplash.com/photo-1582450871972-ab5ca641643d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80)">
+  <div class="card-category-title" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://www.pingpongdimsum.com/wp-content/uploads/2019/06/image003-2.png)">
     <%= @menu_items.first.category.title.capitalize %>
   </div>
   <% if notice.present? %>
@@ -24,7 +24,10 @@
   <% @menu_items.each do |menu_item| %>
     <div class="card-item">
       <div class="img-container-card">
-        <%= image_tag("https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80")%>
+         <%#= image_tag("https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80")%>
+         <% if menu_item.photos.attached? %>
+            <%= cl_image_tag menu_item.photos.first.key  %>
+          <% end %>
       </div>
       <div class="card-item-infos">
         <div class="d-flex justify-content-start menu-item-title">
