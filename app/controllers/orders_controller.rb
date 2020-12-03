@@ -41,6 +41,7 @@ class OrdersController < ApplicationController
 
   def dispatch_notify
     @order = Order.find(params[:id])
+    # raise
     @order.table.line_items.each { |line| line.update(dispatched_from_kitchen: true) }
     @order.table.orders.each do |order|
       order.update(dispatched: true)
@@ -71,7 +72,6 @@ class OrdersController < ApplicationController
     # account_sid = ENV['ACCOUNT_SID']
     # auth_token = ENV['AUTH_TOKEN']
     # client = Twilio::REST::Client.new(account_sid, auth_token)
-    # # raise
     # from = '+12056547036' # Your Twilio number
     # to = '+529841452138'          # order.user_number # Your mobile phone number
     # client.messages.create(
