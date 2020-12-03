@@ -5,12 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-MenuItem.destroy_all
-Table.destroy_all
-Employee.destroy_all
-Restaurant.destroy_all
-Cusine.destroy_all
-Category.destroy_all
+# MenuItem.destroy_all
+# Table.destroy_all
+# Employee.destroy_all
+# Restaurant.destroy_all
+# Cusine.destroy_all
+# Category.destroy_all
 # Order.destroy_all
 # LineItem.destroy_all
 
