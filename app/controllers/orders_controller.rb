@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
-    @order.line_items.each { |line| line.update(ordered: true) }
+    @order.line_items.each { |line| line.update(ordered: true, received_at: Time.now) }
     @order.update(sent: true, dispatched: false)
     undispatched_line_items = @order.table.line_items.where(dispatched_from_kitchen: false)
     KitchenOrderChannel.broadcast_to(
@@ -41,7 +41,7 @@ class OrdersController < ApplicationController
 
   def dispatch_notify
     @order = Order.find(params[:id])
-    @order.table.line_items.each { |line| line.update(dispatched_from_kitchen: true) }
+    update_line_items
     @order.table.orders.each do |order|
       order.update(dispatched: true)
       twilio_sms
@@ -50,6 +50,15 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def update_line_items
+    @order.table.line_items.each do |line|
+      line.update(dispatched_from_kitchen: true, dispatched_at: Time.now)
+      if line.received_at.present? && line.dispatched_at.present?
+        line.update(total_kitchen_time: (line.dispatched_at - line.received_at))
+      end
+    end
+  end
 
   def stripe_order
     session = Stripe::Checkout::Session.create(
