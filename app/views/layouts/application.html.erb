@@ -31,23 +31,20 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'rj_logo_anime', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'utils', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <%= yield %>
     <% if alert.present? %>
-      <div class="alert alert-primary alert-dismissible fade show" role="alert" style="font-size: 50px;">
+      <div class="alert alert-primary alert-dismissible fade show position-absolute" role="alert" style="bottom: 10px; right: 10px; height: 50px;">
         <p><%= alert %></p>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
     <% end %>
-    <%= yield %>
-   <!--  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
-  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
- -->
-
-
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="build/js/intlTelInput.js"></script> -->
   </body>
 </html>
