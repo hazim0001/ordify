@@ -13,7 +13,6 @@ class OrdersController < ApplicationController
     @table = Table.find(params[:table_id])
     @order = Order.new(order_params)
     @order.table = @table
-    raise
     if @order.save
       session[:order] = @order
       redirect_to categories_path

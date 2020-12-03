@@ -28,7 +28,7 @@
    <br>
 
   <form class="form-splash" action="/tables/<%= params[:table_id] %>/orders" method="post">
-    <input style="padding-left: 180px;" id="phone" type="tel" name="order[user_number]">
+    <input style="padding-left: 180px;" class="focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:border-transparent" id="phone" type="tel" name="order[user_number]">
     <button class="btn mt-4 btn-call2-action" type="submit">Go to menu</button>
     <input name="authenticity_token" type="hidden" value="f755bb0ed134b76c432144748a6d4b7a7ddf2b71" />
   </form>
