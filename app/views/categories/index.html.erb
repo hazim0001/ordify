@@ -5,7 +5,7 @@
   <div class="d-flex flex-wrap categories-cards">
     <% @categories.each do |category|  %>
       <%= link_to category_menu_items_path(category) do %>
-        <div class="d-flex justify-content-center align-items-center category-card">
+        <div class="d-flex justify-content-center align-items-center category-card" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path category.menu_items.sample.photos.first.key %>');">
           <p class="text-center"> <%= category.title.capitalize %></p>
         </div>
       <% end %>
