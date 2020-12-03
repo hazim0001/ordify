@@ -1,5 +1,15 @@
+.iti__active {
+  margin-top: 50px;
+}
+
+.position-arrow {
+  transform: scale(4);
+  position: absolute;
+  left: 130px;
+}
+
 // .iti__flag {
-//   background-image: image_path("flags@2x.png");
+//   background-image: url("https://res.cloudinary.com/dto4xa4hp/image/upload/v1605292933/samples/ecommerce/accessories-bag.jpg");
 //   transform: scale(4);
 //   position: absolute;
 //   left: 70px;
@@ -14,14 +24,8 @@
 //   font-size: 30px;
 // }
 
-// .iti__country {
+// .iti__country, .iti__divider {
 //   margin-bottom: 50px;
-// }
-
-// .position-arrow {
-//   transform: scale(4);
-//   position: absolute;
-//   left: 130px;
 // }
 
 // @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
