@@ -33,11 +33,9 @@
           </tbody>
         </table>
         </div>
-          <% if table.orders.count || @tables.count >= 1 %>
-            <%= simple_form_for table.orders.first, url: dispatch_notify_order_path(table.orders.first), method: :post, remote: true do %>
-              <%= submit_tag 'Dispatch', class:"btn btn-primary btn-lg btn-block" %>
-            <% end %>
-          <% end %>
+          <% if table.orders.count >= 1 %>
+            <%= button_to 'Dispatch', dispatch_notify_order_path(table.orders.first.id), method: :post,remote: true, class:"btn btn-primary btn-lg btn-block"  %>
+           <% end %>
         </div>
     <% end %>
 </div>
