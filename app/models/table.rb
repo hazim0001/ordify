@@ -1,5 +1,5 @@
 class Table < ApplicationRecord
-  has_many :orders
+  has_many :orders, dependent: :destroy
   has_many :line_items, through: :orders
   has_many :menu_items, through: :line_items
   belongs_to :restaurant
