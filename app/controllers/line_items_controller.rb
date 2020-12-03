@@ -26,7 +26,6 @@ class LineItemsController < ApplicationController
     update_inventory
     @line_item.destroy if @line_item.quantity.zero?
     redirect_to order_line_items_path
-    # raise
   end
 
   def destroy
@@ -47,7 +46,6 @@ class LineItemsController < ApplicationController
   end
 
   def update_inventory
-    # raise
     portion = @line_item.menu_item.portion_size_grams
     quantity = @line_item.quantity
     current_stock = @line_item.menu_item.inventory.stock_amount_grams
