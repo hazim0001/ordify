@@ -18,5 +18,15 @@
     <span>Go to order</span>
   <% end %>
 <% else %>
-  <button class="btn-call2-action btn-sticky">Go to order</button>
+  <!-- button/input trigger modal -->
+  <button type="button" id="modal-0line-items-trigger" class="btn-call2-action btn-sticky">Go to order</button>
 <% end %>
+
+ <!-- Custom Modal -->
+  <div id="noItemsNotification" class="modal2">
+    <div class="modal2-content">
+      <span class="close">&times;</span>
+      <canvas id="pizza" class="mb-5"></canvas>
+      <div class="mt-0 mb-5 modal-subtitle text-center">You have not added any items yet</div>
+    </div>
+  </div>
