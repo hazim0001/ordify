@@ -12,7 +12,6 @@ class TablesController < ApplicationController
   end
 
   def index
-    # raise
     @tables = current_employee.restaurant.tables
     authorize @tables
   end
