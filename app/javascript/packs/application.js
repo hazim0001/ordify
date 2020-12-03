@@ -19,7 +19,10 @@ require("channels")
 // Internal imports, e.g:
 import "bootstrap";
 import "jquery";
+
+// International Telephone Number with Flags and Country Dial Codes
 import intlTelInput from 'intl-tel-input';
+
 import { initKitchenOrderCable } from '../channels/kitchen_order_channel'
 
 // import { initSelect2 } from '../components/init_select2';
@@ -27,12 +30,38 @@ import { initKitchenOrderCable } from '../channels/kitchen_order_channel'
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
-  // const input = document.querySelector("#phone");
-  // intlTelInput(input, {
-  //     // any initialisation options go here
-  // });
+  //
 
- // Channal method
+ // International Telephone Number with Flags and Country Dial Codes
+  const phone = document.getElementById("phone");
+
+  if (phone) {
+    intlTelInput(phone, {
+    // allowExtensions: true,
+    // autoFormat: false,
+    // autoHideDialCode: false,
+    // autoPlaceholder: false,
+    // defaultCountry: "auto",
+    // ipinfoToken: "yolo",
+    // nationalMode: false,
+    // numberType: "MOBILE",
+    // //onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+    // //preferredCountries: ['cn', 'jp'],
+    // preventInvalidNumbers: true,
+    utilsScript: "utils.js"
+    });
+  }
+
+
+  var flag = document.querySelector(".iti__flag")
+  var arrow = document.querySelector(".iti__arrow")
+
+  if (flag) {
+    // flag.classList.add("scale-veronica", "position-veronica");
+    arrow.classList.add("position-arrow");
+  }
+
+ // Channel method
   initKitchenOrderCable()
 
 

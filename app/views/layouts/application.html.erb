@@ -13,6 +13,7 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'rj_logo_anime', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'utils', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
@@ -25,5 +26,7 @@
       </div>
     <% end %>
     <%= yield %>
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="build/js/intlTelInput.js"></script> -->
   </body>
 </html>
