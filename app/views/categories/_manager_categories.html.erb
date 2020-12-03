@@ -1,0 +1,17 @@
+<div class="container">
+  <% @categories.each do |category| %>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"><%= category.title %></h5>
+      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+      <% category.menu_items.each do |menu_item| %>
+        <p class="card-text"><%= menu_item.title %></p>
+        <p class="card-text"><%= menu_item.active %></p>
+        <p class="card-text"><%= humanized_money_with_symbol(menu_item.item_price) %></p>
+      <% end %>
+      <!-- <a href="#" class="card-link">Card link</a> -->
+      <!-- <a href="#" class="card-link">Another link</a> -->
+    </div>
+  </div>
+  <% end %>
+</div>

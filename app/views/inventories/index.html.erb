@@ -29,10 +29,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <!-- <a class="nav-link" href="#"> -->
+            <%= link_to categories_path, class:"nav-link" do %>
               <span data-feather="shopping-cart"></span>
-              Products
-            </a>
+              Menu Items
+            <% end %>
+            <!-- </a> -->
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
@@ -47,10 +49,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <%= link_to restaurant_tables_path(current_employee.restaurant), class:"nav-link" do  %>
               <span data-feather="layers"></span>
-              Integrations
-            </a>
+              Kitchen View
+            <% end %>
           </li>
         </ul>
       </div>

@@ -3,8 +3,12 @@ class CategoriesController < ApplicationController
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
 
   def index
-    @target_restaurant = Restaurant.find(session[:restaurant]["id"])
-    @order = Order.find(session[:order]["id"])
+    if current_employee.present? && current_employee.role == "manager"
+      @target_restaurant = current_employee.restaurant
+    else
+      @target_restaurant = Restaurant.find(session[:restaurant]["id"])
+      @order = Order.find(session[:order]["id"])
+    end
     categories_ids = MenuItem.where(restaurant_id: @target_restaurant).pluck(:category_id)
     @categories = Category.where(id: categories_ids)
   end

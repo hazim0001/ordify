@@ -1,22 +1,26 @@
-<div class="main-container-categories">
-  <div class="menu-background">
-    <h1><%= @target_restaurant.name %></h1>
-  </div>
-  <div class="d-flex flex-wrap categories-cards">
-    <% @categories.each do |category|  %>
-      <%= link_to category_menu_items_path(category) do %>
-        <div class="d-flex justify-content-center align-items-center category-card">
-          <p class="text-center"> <%= category.title.capitalize %></p>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-</div>
-<% if @order.line_items.count >= 1 %>
-  <%= link_to order_line_items_path(@order) , class:"btn-call2-action btn-sticky" do %>
-    <span class="notification-btn badge-primary animate-pulse"><%= @order.line_items.count %></span>
-    <span>Go to order</span>
-  <% end %>
+<% if  current_employee.present? && current_employee.role == "manager" %>
+  <%= render 'manager_categories' %>
 <% else %>
-  <%= link_to "Go to order", order_line_items_path(@order) , class:"btn-call2-action btn-sticky" %>
+  <div class="main-container-categories">
+    <div class="menu-background">
+      <h1><%= @target_restaurant.name %></h1>
+    </div>
+    <div class="d-flex flex-wrap categories-cards">
+      <% @categories.each do |category|  %>
+        <%= link_to category_menu_items_path(category) do %>
+          <div class="d-flex justify-content-center align-items-center category-card">
+            <p class="text-center"> <%= category.title.capitalize %></p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <% if @order.line_items.count >= 1 %>
+    <%= link_to order_line_items_path(@order) , class:"btn-call2-action btn-sticky" do %>
+      <span class="notification-btn badge-primary animate-pulse"><%= @order.line_items.count %></span>
+      <span>Go to order</span>
+    <% end %>
+  <% else %>
+    <%= link_to "Go to order", order_line_items_path(@order) , class:"btn-call2-action btn-sticky" %>
+  <% end %>
 <% end %>
