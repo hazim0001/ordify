@@ -1,16 +1,39 @@
-<div class="main-container-menu-item-index">
-  <div class="continer">
+<div class="main-container-menu-item-index d-flex flex-column align-items-center justify-content-center">
+  <div class="drawing animate-bounce">
+    <div class="chef-hat">
+      <ul>
+        <li class="chef-hat__ruffle"></li>
+        <li class="chef-hat__ruffle"></li>
+        <li class="chef-hat__ruffle"></li>
+      </ul>
+    </div>
+    <div class="chef-moustache">
+      <div class="chef-moustache__nose"></div>
+      <div class="chef-moustache__tail"></div>
+      <div class="chef-moustache__tail"></div>
+    </div>
+  </div>
+
+  <div class="typewriter-container">
+    <div class="typewriter text-center">
+      <h2>Thank you for your payment</h2>
+    </div>
+  </div>
+
+  <%= link_to "OK", new_table_order_path(@order.table), class:"btn-call2-action btn-payment-ok" %>
+
+</div>
+
+<!-- <div class="continer">
     <div class="card text-center">
       <div class="card-header">
         Ordify
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Thank you for your payment</h5>
-      </div>
-      <div class="card-footer text-muted">
-        <%= Date.today %>
-      </div>
-    </div>
-  </div>
-</div>
-<%= link_to "OK", new_table_order_path(@order.table), class:"btn-call2-action btn-sticky" %>
+      </div> -->
+      <!-- <div class="card-body"> -->
+      <!-- <h5 class="card-title">Thank you for your payment</h5> -->
+    <!-- </div> -->
+    <!-- <div class="card-footer text-muted"> -->
+      <%#= Date.today %>
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </div> -->
