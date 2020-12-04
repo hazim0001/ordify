@@ -33,13 +33,11 @@ import { initKitchenOrderCable } from '../channels/kitchen_order_channel'
 
 document.addEventListener('turbolinks:request-start', () => {
   NProgress.start();
-  console.log("working1")
 });
 
 
 document.addEventListener('turbolinks:request-end', () => {
   NProgress.done();
-  console.log("working2")
 });
 
 // ----------------------------------------------------------------
