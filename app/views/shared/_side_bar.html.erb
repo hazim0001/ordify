@@ -1,0 +1,42 @@
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+              <%= link_to restaurant_inventories_path(current_employee.restaurant), class:"nav-link active" do %>
+                <span data-feather="home"></span>
+                Dashboard <span class="sr-only">(current)</span>
+              <% end %>
+          </li>
+          <li class="nav-item">
+              <%= link_to orders_path, class:"nav-link" do  %>
+                <span data-feather="file"></span>
+                Orders
+              <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to categories_path, class:"nav-link" do %>
+              <span data-feather="shopping-cart"></span>
+              Menu Items
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="users"></span>
+              Customers
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="bar-chart-2"></span>
+              Reports
+            </a>
+          </li>
+          <li class="nav-item">
+            <%= link_to restaurant_tables_path(current_employee.restaurant), class:"nav-link" do  %>
+              <span data-feather="layers"></span>
+              Kitchen View
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </nav>

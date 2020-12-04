@@ -1,17 +1,59 @@
-<div class="container">
-  <% @categories.each do |category| %>
-  <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title"><%= category.title %></h5>
-      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-      <% category.menu_items.each do |menu_item| %>
-        <p class="card-text"><%= menu_item.title %></p>
-        <p class="card-text"><%= menu_item.active %></p>
-        <p class="card-text"><%= humanized_money_with_symbol(menu_item.item_price) %></p>
-      <% end %>
-      <!-- <a href="#" class="card-link">Card link</a> -->
-      <!-- <a href="#" class="card-link">Another link</a> -->
-    </div>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#"><%= current_employee.restaurant.name.capitalize %></a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" href="#">Sign out</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <%= render 'shared/side_bar' %>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+
+      <h2 class="mt-5"><%= current_employee.restaurant.name.capitalize %>'s Inventory</h2>
+      <hr>
+      <div class="table-responsive">
+        <div class="container d-flex flex-wrap">
+          <% @categories.each do |category| %>
+          <div class="card m-3" style="width: 20rem;">
+            <div class="card-body">
+              <h5 class="card-title"><%= category.title %></h5>
+              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">MenuItem</th>
+                    <th scope="col">Active</th>
+                    <th scope="col">Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <% category.menu_items.each do |menu_item| %>
+                  <tr>
+                    <td><p class="card-text"><%= menu_item.title %></p></td>
+                    <td><p class="card-text"><%= menu_item.active %></p></td>
+                    <td><p class="card-text"><%= humanized_money_with_symbol(menu_item.item_price) %></p></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+              <!-- <a href="#" class="card-link">Card link</a> -->
+              <!-- <a href="#" class="card-link">Another link</a> -->
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </main>
   </div>
-  <% end %>
 </div>
+
+
+

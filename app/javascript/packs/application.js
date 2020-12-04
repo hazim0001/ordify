@@ -163,11 +163,13 @@ document.addEventListener('turbolinks:load', () => {
   class Pizza {
     constructor(id) {
       this.canvas = document.getElementById(id)
-      this.ctx = this.canvas.getContext('2d')
+      if (this.canvas){
+        this.ctx = this.canvas.getContext('2d')
+      };
+
 
       this.sliceCount = 6
       this.sliceSize = 80
-
       this.width = this.height = this.canvas.height = this.canvas.width = this.sliceSize * 2 + 50
       this.center = this.height / 2 | 0
 

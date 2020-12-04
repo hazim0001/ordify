@@ -9,10 +9,11 @@
     <div class="d-flex flex-wrap categories-cards">
       <% @categories.each do |category|  %>
         <%= link_to category_menu_items_path(category) do %>
-          <div class="d-flex justify-content-center align-items-center category-card">
+          <div class="d-flex justify-content-center align-items-center category-card" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path category.menu_items.sample.photos.first.key %>');">
             <p class="text-center"> <%= category.title.capitalize %></p>
           </div>
         <% end %>
+      <% end %>
     </div>
   </div>
   <% if @order.line_items.count >= 1 %>
@@ -21,7 +22,7 @@
       <span>Go to order</span>
     <% end %>
   <% else %>
-    <!-- button/input trigger modal -->
+  <!-- button/input trigger modal -->
     <button type="button" id="modal-0line-items-trigger" class="btn-call2-action btn-sticky">Go to order</button>
   <% end %>
 
@@ -33,3 +34,4 @@
       <div class="mt-0 mb-5 modal-subtitle text-center">You have not added any items yet</div>
     </div>
   </div>
+<% end %>

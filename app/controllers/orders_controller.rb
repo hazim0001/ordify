@@ -22,7 +22,12 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @orders = Order.where(table: session[:table]["id"])
+    if current_employee.present? && current_employee.role == "manager"
+      @orders = current_employee.restaurant.orders
+      @tables = current_employee.restaurant.tables
+    else
+      @orders = Order.where(table: session[:table]["id"])
+    end
     authorize @orders
   end
 
