@@ -143,7 +143,7 @@ menu_item17.photos.attach(io: file17, filename: "#{menu_item17.title}.jpg", cont
 menu_item17.save!
 
 menu_item18 = MenuItem.create!(title: "Eringi", item_price_cents: rand(350..1090), description: "King oyster mushroom & miso", category: Category.fourth, restaurant: Restaurant.last)
-file18 = URI.open('https://rimage.gnst.jp/rest/img/82ye6hxp0000/s_0n7w.jpg?t=1574986167')
+file18 = URI.open('https://cdn.shopify.com/s/files/1/0108/5757/8558/files/DSC08334-2_1024x1024.jpg?v=1573921749')
 menu_item18.photos.attach(io: file18, filename: "#{menu_item18.title}.jpg", content_type: 'image/jpg')
 menu_item18.save!
 
