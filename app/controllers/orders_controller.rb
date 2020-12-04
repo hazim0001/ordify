@@ -41,6 +41,7 @@ class OrdersController < ApplicationController
 
   def dispatch_notify
     @order = Order.find(params[:id])
+    # raise
     @order.table.line_items.each { |line| line.update(dispatched_from_kitchen: true) }
     @order.table.orders.each do |order|
       order.update(dispatched: true)
@@ -61,25 +62,24 @@ class OrdersController < ApplicationController
         quantity: 1
       }],
       mode: 'payment',
-      success_url: new_table_order_url(@order.table), # to create a thank u page for ur payment
+      success_url: payment_url, # to create a thank u page for ur payment
       cancel_url: categories_url # render a notice tell him to try a dif card
     )
     @order.update(checkout_session_id: session.id)
   end
 
   def twilio_sms
-    # account_sid = ENV['ACCOUNT_SID']
-    # auth_token = ENV['AUTH_TOKEN']
-    # client = Twilio::REST::Client.new(account_sid, auth_token)
-    # # raise
-    # from = '+12056547036' # Your Twilio number
-    # to = '+529841452138'          # order.user_number # Your mobile phone number
-    # client.messages.create(
-    #   from: from,
-    #   to: to,
-    #   body: "Hola from Ordify!, Your Meal is on the way"
-    # )
-    # return
+    account_sid = ENV['ACCOUNT_SID']
+    auth_token = ENV['AUTH_TOKEN']
+    client = Twilio::REST::Client.new(account_sid, auth_token)
+    from = '+12056547036' # Your Twilio number
+    to = '+529841452138'          # order.user_number # Your mobile phone number
+    client.messages.create(
+      from: from,
+      to: to,
+      body: "Hola from Ordify!, Your Meal is on the way"
+    )
+    return
   end
 
   def order_params
