@@ -62,7 +62,7 @@ class OrdersController < ApplicationController
         quantity: 1
       }],
       mode: 'payment',
-      success_url: new_table_order_url(@order.table), # to create a thank u page for ur payment
+      success_url: payment_url, # to create a thank u page for ur payment
       cancel_url: categories_url # render a notice tell him to try a dif card
     )
     @order.update(checkout_session_id: session.id)
