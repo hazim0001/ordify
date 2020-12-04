@@ -16,7 +16,7 @@
     <% if line_item.quantity >= 1 %>
       <div class="card-item">
         <div class="img-container-card">
-          <%= image_tag("https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80")%>
+          <%= cl_image_tag line_item.menu_item.photos.first.key  %>
         </div>
         <div class="card-item-infos">
           <div class="d-flex justify-content-between h-50 w-100 pt-3 px-1">

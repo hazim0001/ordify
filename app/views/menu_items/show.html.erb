@@ -1,6 +1,7 @@
 <div class="page">
   <div>
-    <img src="https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid" alt="">
+    <%= cl_image_tag @menu_item.photos.first.key  %>
+    <!-- <img src="https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid" alt=""> -->
   </div >
   <!-- title and price -->
   <div class="cont d-flex justify-content-between">
