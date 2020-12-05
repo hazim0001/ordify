@@ -19,7 +19,7 @@ class MenuItemsController < ApplicationController
         @menu_items = menu_items.where(restaurant: restaurant).where(active: true)
       end
     else
-      @menu_items = MenuItem.where(restaurant: restaurant).where(active: true)
+      @menu_items = MenuItem.where(restaurant: restaurant).where(category: @category).where(active: true)
     end
   end
 
