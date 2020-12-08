@@ -6,8 +6,8 @@ class Restaurant < ApplicationRecord
   has_many :categories, through: :menu_items
   has_many :inventories, through: :menu_items
   has_many :orders, through: :tables
+
   belongs_to :cusine
-  # has_one_attached :photo
 
   validates :name, presence: true, uniqueness: true
   validates :address, presence: true, uniqueness: true
