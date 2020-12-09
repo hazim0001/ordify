@@ -23,6 +23,7 @@ cusine1 = Cusine.create!(name: "Japanese")
 # Restaurant.last = Restaurant.create!(name: Faker::Restaurant.name, address: Faker::Address.street_address, cusine: cusine1 )
 Restaurant.create!(name: "Sushi Yakuza", address: "Calle Roma 666", cusine: cusine1 )
 
+Employee.create!(name:"hazim", role: "manager", restaurant: Restaurant.last,password: 123456, email: "hazim@hotmail.com", admin: true)
 Employee.create!(name:"Panchito", role: "manager", restaurant: Restaurant.last, password: 123456, email: "panchito@gmail.com", admin: true )
 Employee.create!(name:"Juanito", role: "cook", restaurant: Restaurant.last,password: 123456, email: "juanito@gmail.com" )
 
