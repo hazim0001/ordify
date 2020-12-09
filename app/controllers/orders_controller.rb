@@ -60,26 +60,24 @@ class OrdersController < ApplicationController
   def update_line_items
     @order.table.line_items.each do |line|
       line.update(dispatched_from_kitchen: true, dispatched_at: Time.now)
-      if line.received_at.present? && line.dispatched_at.present?
-        line.update(total_kitchen_time: (line.dispatched_at - line.received_at))
-      end
+      line.update(total_kitchen_time: (line.dispatched_at - line.received_at))
     end
   end
 
   def stripe_order
-    session = Stripe::Checkout::Session.create(
-      payment_method_types: ['card'],
-      line_items: [{
-        name: @order.user_number,
-        amount: @order.total_price_cents,
-        currency: 'usd',
-        quantity: 1
-      }],
-      mode: 'payment',
-      success_url: payment_url, # to create a thank u page for ur payment
-      cancel_url: categories_url # render a notice tell him to try a dif card
-    )
-    @order.update(checkout_session_id: session.id)
+    # session = Stripe::Checkout::Session.create(
+    #   payment_method_types: ['card'],
+    #   line_items: [{
+    #     name: @order.user_number,
+    #     amount: @order.total_price_cents,
+    #     currency: 'usd',
+    #     quantity: 1
+    #   }],
+    #   mode: 'payment',
+    #   success_url: payment_url, # to create a thank u page for ur payment
+    #   cancel_url: categories_url # render a notice tell him to try a dif card
+    # )
+    # @order.update(checkout_session_id: session.id)
   end
 
   def twilio_sms

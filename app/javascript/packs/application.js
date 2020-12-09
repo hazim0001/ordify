@@ -349,12 +349,4 @@ document.addEventListener('turbolinks:load', () => {
 
 });
 
-  // ----------------------------------------------------------------
-
-
-  // Page loader
-
-
-
-
 
