@@ -4,6 +4,6 @@ class PagesController < ApplicationController
   end
 
   def payment
-    @order = Order.find(session[:order]["id"])
+    @table = Restaurant.first.tables.first # Order.find(session[:order]["id"])
   end
 end

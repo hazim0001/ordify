@@ -1,3 +1,4 @@
+<meta name="turbolinks-visit-control" content="reload">
 <% if @order.sent == true %>
   <%= render 'shared/order_sent' %>
 <% else %>
@@ -74,13 +75,14 @@
         <% end %>
       <% end %>
     </div>
-  <%= simple_form_for(@order, url: order_path(params[:order_id]), wrapper: :inline_form, html: { id: "modal-trigger", method: :patch, class: "btn-sticky w-100 d-flex justify-content-center" }) do |f| %>
-  <!-- button/input trigger modal -->
-      <button type="submit" class="btn-call2-action d-flex justify-content-between px-5">
-        <h3>Send order </h3>
-        <h3><%= humanized_money_with_symbol(@line_items.first.order.total_price) %></h3>
-      </button>
-
+  <% if @line_items.count >= 1 %>
+      <%= simple_form_for(@order, url: order_path(params[:order_id]), wrapper: :inline_form, html: { id: "modal-trigger", method: :patch, class: "btn-sticky w-100 d-flex justify-content-center" }) do |f| %>
+      <!-- button/input trigger modal -->
+          <button type="submit" class="btn-call2-action d-flex justify-content-between px-5">
+            <h3>Send order </h3>
+            <h3><%= humanized_money_with_symbol(@line_items.first.order.total_price) %></h3>
+          </button>
+      <% end %>
   <% end %>
   <!-- Custom Modal -->
   <div id="sentNotification2" class="modal2">

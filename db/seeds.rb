@@ -23,7 +23,8 @@ cusine1 = Cusine.create!(name: "Japanese")
 # Restaurant.last = Restaurant.create!(name: Faker::Restaurant.name, address: Faker::Address.street_address, cusine: cusine1 )
 Restaurant.create!(name: "Sushi Yakuza", address: "Calle Roma 666", cusine: cusine1 )
 
-Employee.create!(name:"hazim", role: "manager", restaurant: Restaurant.last, password: 123456, email: "hazim@hotmail.com", admin: true )
+Employee.create!(name:"hazim", role: "manager", restaurant: Restaurant.last,password: 123456, email: "hazim@hotmail.com", admin: true)
+Employee.create!(name:"Panchito", role: "manager", restaurant: Restaurant.last, password: 123456, email: "panchito@gmail.com", admin: true )
 Employee.create!(name:"Juanito", role: "cook", restaurant: Restaurant.last,password: 123456, email: "juanito@gmail.com" )
 
 puts "#{Restaurant.last.name} has been created"
@@ -199,10 +200,15 @@ file17 = URI.open('https://i.pinimg.com/originals/3c/c2/1b/3cc21b52cd8322ca80be3
 menu_item17.photos.attach(io: file17, filename: "#{menu_item17.title}.jpg", content_type: 'image/jpg')
 menu_item17.save!
 
+<<<<<<< HEAD
 menu_item18 = MenuItem.create!(title: "Eringi", item_price_cents: rand(350..1090), description: "King oyster mushroom & miso", category: Category.fourth, restaurant: Restaurant.last, portion_size_grams: rand(100..290))
 Inventory.create!(menu_item:  menu_item18, stock_amount_grams: rand(5000..19000), trigger_limit: rand(2500..6000))
 
 file18 = URI.open('https://rimage.gnst.jp/rest/img/82ye6hxp0000/s_0n7w.jpg?t=1574986167')
+=======
+menu_item18 = MenuItem.create!(title: "Eringi", item_price_cents: rand(350..1090), description: "King oyster mushroom & miso", category: Category.fourth, restaurant: Restaurant.last)
+file18 = URI.open('https://cdn.shopify.com/s/files/1/0108/5757/8558/files/DSC08334-2_1024x1024.jpg?v=1573921749')
+>>>>>>> b118a202c1688756ab943bc4b0095ccb2a94e444
 menu_item18.photos.attach(io: file18, filename: "#{menu_item18.title}.jpg", content_type: 'image/jpg')
 menu_item18.save!
 
