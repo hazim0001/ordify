@@ -1,2 +1,16 @@
-<h1>MenuItems#edit</h1>
-<p>Find me in app/views/menu_items/edit.html.erb</p>
+<div class="container mt-5 p-5 border border-dange border-3">
+  <div class="row">
+    <div class="col-8 mx-auto">
+      <%= simple_form_for [@restaurant, @menu_item], url: restaurant_menu_item_path(@restaurant) do |f| %>
+        <%= f.input :title, wrapper_html: { class: "fw-bold" } %>
+        <%= f.input :item_price %>
+        <%= f.input :description, as: :text %>
+        <%= f.input :active, as: :boolean, hint: 'Inactive to hide.' %>
+        <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <%= f.button :submit, class:"btn btn-primary btn-block" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

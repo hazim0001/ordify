@@ -10,7 +10,7 @@ class MenuItemsController < ApplicationController
     if params[:query].present?
       sql_query = "title @@ :query OR description @@ :query"
       menu_items = MenuItem.where(sql_query, query: "%#{params[:query]}%")
-      menu_items_zero(menu_items)
+      menu_items_zero(menu_items, restaurant)
     else
       @menu_items = MenuItem.where(restaurant: restaurant).where(category: @category).where(active: true)
     end
@@ -40,12 +40,13 @@ class MenuItemsController < ApplicationController
 
   def edit
     authorize @menu_item
+    @restaurant = current_employee.restaurant
   end
 
   def update
     authorize @menu_item
     if @menu_item.update(menu_item_params)
-      redirect_to menu_item_path(@menu_item)
+      redirect_to categories_path
     else
       render :edit
     end
@@ -54,12 +55,12 @@ class MenuItemsController < ApplicationController
   def destroy
     authorize @menu_item
     @menu_item.destroy
-    redirect_to menu_items_path
+    redirect_to categories_path
   end
 
   private
 
-  def menu_items_zero(menu_items)
+  def menu_items_zero(menu_items, restaurant)
     if menu_items.count.zero?
       menu_items = MenuItem.all
       notice_content = "Sorry, none of our dishes have '#{params[:query]}'."

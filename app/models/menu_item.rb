@@ -1,5 +1,5 @@
 class MenuItem < ApplicationRecord
-  has_one :inventory
+  has_one :inventory, dependent: :destroy
   has_many :line_items
   has_many :orders, through: :line_items
   has_many :tables, through: :orders

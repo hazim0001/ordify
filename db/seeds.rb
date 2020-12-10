@@ -49,7 +49,6 @@ Employee.create!(name:"Juanito", role: "cook", restaurant: Restaurant.last,passw
 
 menu_items_array = []
 
-# # <<<<<<< HEAD
 20.times do
    menu_item_new = MenuItem.create!(title: Faker::Food.dish, item_price_cents: rand(1050..87590), description: "test test test", category: Category.last, restaurant: Restaurant.last, portion_size_grams: rand(100..290))
   Inventory.create!(menu_item: menu_item_new, stock_amount_grams: rand(5000..19000), trigger_limit: rand(2500..6000))
