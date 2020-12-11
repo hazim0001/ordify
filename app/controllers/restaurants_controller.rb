@@ -2,7 +2,7 @@ class RestaurantsController < ApplicationController
   # before_action :find_restaurant, only: :dashboard
   def dashboard
     @restaurant = current_employee.restaurant
-    @menu_items_array = @restaurant.line_items.pluck(:title)
+    @menu_items_array = @restaurant.line_items.limit(10).order(:created_at).pluck(:title)
     counts = Hash.new 0
     @menu_items_array.each do |menu_item|
       counts[menu_item] += 1
