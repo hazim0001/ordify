@@ -4,7 +4,9 @@ class InventoryCheckJob < ApplicationJob
   def perform
     triggered_inventory = Inventory.where("trigger_limit > stock_amount_grams")
     triggered_inventory.each do |inventory|
-      puts "Your #{inventory.menu_item.title} is getting out of stock"
+      restaurant_manager = inventory.restaurant.employees.find_by(role: "manager").email
+      message = "#{inventory.menu_item.title} is running low"
+      InventoryMailer.submission(message, restaurant_manager).deliver
     end
   end
 end

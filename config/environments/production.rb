@@ -33,6 +33,21 @@ Rails.application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
 
+
+  # ACTION MAILER SETTINGS
+
+  # host = 'localhost:3000'
+  # config.action_mailer.default_url_options = { :host => 'localhost:3000', protocol: 'http' }
+  # config.action_mailer.delivery_method = :smtp
+  # # SMTP settings for gmail
+  # config.action_mailer.smtp_settings = {
+  #   :address              => "smtp.gmail.com",
+  #   :port                 => 587,
+  #   :user_name            => 'johnoudai@gmail.com',
+  #   :password             => 'jkoodqyiuisppokv',
+  #   :authentication       => "plain",
+  #   :enable_starttls_auto => true
+  # }
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
