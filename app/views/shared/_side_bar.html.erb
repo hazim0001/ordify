@@ -2,10 +2,10 @@
       <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-              <%= link_to restaurant_inventories_path(current_employee.restaurant), class:"nav-link active" do %>
+            <%= link_to dashboard_restaurant_path(current_employee.restaurant), class:"nav-link" do %>
                 <span data-feather="home"></span>
                 Dashboard <span class="sr-only">(current)</span>
-              <% end %>
+            <% end %>
           </li>
           <li class="nav-item">
               <%= link_to orders_path, class:"nav-link" do  %>
@@ -26,10 +26,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <%= link_to restaurant_inventories_path(current_employee.restaurant), class:"nav-link" do %>
               <span data-feather="bar-chart-2"></span>
-              Reports
-            </a>
+              Inventory
+            <% end %>
           </li>
           <li class="nav-item">
             <%= link_to restaurant_tables_path(current_employee.restaurant), class:"nav-link" do  %>

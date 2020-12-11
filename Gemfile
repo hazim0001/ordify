@@ -24,6 +24,13 @@ gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7
 gem 'pundit'
 # authorization
+gem "chartkick"
+# for charting
+gem 'groupdate'
+# to group by day min sec etc...
+# gem 'active_median'
+# percentile and median for rails
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 gem 'money-rails', '~>1.12'
