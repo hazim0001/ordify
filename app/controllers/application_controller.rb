@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     if resource.role == "cook"
       restaurant_tables_path(resource.restaurant)
     elsif resource.role == "manager" && resource.admin? == true
-      restaurant_inventories_path(resource.restaurant)
+      dashboard_restaurant_path(resource.restaurant)
     end
   end
 
