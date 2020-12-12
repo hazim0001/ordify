@@ -64,14 +64,37 @@ SimpleForm.setup do |config|
     # b.use :full_error, wrap_with: { tag: :span, class: :error }
   end
 
+  config.wrappers :bootstrap, :tag => 'div', :class => 'form-group', :error_class => 'error' do |b|
+     b.use :html5
+     b.use :placeholder
+     # b.use :label
+     b.wrapper :tag => 'div', :class => 'controls fw-bold' do |ba|
+       ba.use :label, :wrap_with => { :tag => 'label', :class => 'form-label' }
+       ba.use :input, :wrap_with => { :tag => 'input', :class => 'form-control' }
+       ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-block' }
+       ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
+     end
+   end
+
+   config.wrappers :bootstrap_boolean, :tag => 'div', :class => 'form-group', :error_class => 'error' do |b|
+     b.use :html5
+     b.use :placeholder
+     b.wrapper :tag => 'div', :class => 'controls' do |ba|
+       ba.use :input
+       ba.use :label
+       ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-block' }
+       ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
+     end
+   end
+
   # The default wrapper to be used by the FormBuilder.
-  config.default_wrapper = :default
+  config.default_wrapper = :bootstrap
 
   # Define the way to render check boxes / radio buttons with labels.
   # Defaults to :nested for bootstrap config.
   #   inline: input + label
   #   nested: label > input
-  config.boolean_style = :nested
+  config.boolean_style = :inline
 
   # Default class for buttons
   config.button_class = 'btn'
@@ -85,7 +108,7 @@ SimpleForm.setup do |config|
   config.error_notification_tag = :div
 
   # CSS class to add for error notification helper.
-  config.error_notification_class = 'error_notification'
+  config.error_notification_class = 'alert alert-error'
 
   # Series of attempts to detect a default label method for collection.
   # config.collection_label_methods = [ :to_label, :name, :title, :to_s ]
@@ -107,10 +130,10 @@ SimpleForm.setup do |config|
   # config.item_wrapper_class = nil
 
   # How the label text should be generated altogether with the required text.
-  # config.label_text = lambda { |label, required, explicit_label| "#{required} #{label}" }
+  config.label_text = lambda { |label, required, explicit_label| "#{required} #{label}" }
 
   # You can define the class to use on all labels. Default is nil.
-  # config.label_class = nil
+  config.label_class = 'control-label'
 
   # You can define the default class to be used on forms. Can be overriden
   # with `html: { :class }`. Defaulting to none.
@@ -171,6 +194,6 @@ SimpleForm.setup do |config|
   # config.i18n_scope = 'simple_form'
 
   # Defines validation classes to the input_field. By default it's nil.
-  # config.input_field_valid_class = 'is-valid'
-  # config.input_field_error_class = 'is-invalid'
+  config.input_field_valid_class = 'is-valid'
+  config.input_field_error_class = 'is-invalid'
 end
