@@ -20,14 +20,17 @@
 
       <h2 class="mt-5"><%= current_employee.restaurant.name.capitalize %></h2>
       <hr>
+      <h6>
+        Total revenues since <%= @restaurant.line_items.first.created_at.to_date %>
+        ( <%= humanized_money_with_symbol(@restaurant.orders.sum(:total_price_cents)/ 100.0) %> )
+      </h6>
 
-<%= humanized_money_with_symbol(@restaurant.orders.sum(:total_price_cents)/ 100.0) %>
-  <ul>
-<% @menu_items_sales_count.each do |item, count| %>
-    <li><%= "You have sold #{count} of #{item}" %></li>
-<% end %>
-  </ul>
-  <%= line_chart @restaurant.line_items.group_by_hour(:created_at).count %>
+        <!-- <ul> -->
+      <%# @menu_items_sales_count.each do |item, count| %>
+          <!-- <li><%#= "You have sold #{count} of #{item}" %></li> -->
+      <%# end %>
+        <!-- </ul> -->
+        <%= line_chart @restaurant.line_items.group_by_hour(:created_at).count %>
     </main>
   </div>
 </div>
