@@ -29,9 +29,9 @@
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 <!-- drop down -->
                 <% table.orders.where(status: "not paid").each do |order| %>
-                <div class="accordion" id="accordionExample">
+                <div class="accordion">
                   <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center" id="headingOne">
+                    <div class="card-header d-flex justify-content-between align-items-center" id="tableOrder">
                       <h2 class="mb-1">
                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                           Order #<%= order.id %>
@@ -41,7 +41,7 @@
                         <%= humanized_money_with_symbol(order.total_price) %>
                       </span>
                     </div>
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="collapse trigger">
                       <div class="card-body">
                         <table class="table">
                           <thead>
