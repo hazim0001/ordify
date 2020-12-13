@@ -49,13 +49,15 @@ class LineItemsController < ApplicationController
     portion = @line_item.menu_item.portion_size_grams
     quantity = @line_item.quantity
     current_stock = @line_item.menu_item.inventory.stock_amount_grams
+    trigger_limit = @line_item.menu_item.inventory.trigger_limit
     @line_item.menu_item.inventory.update(stock_amount_grams: current_stock - (portion * quantity))
+    InventoryCheckJob.perform_later if trigger_limit >= current_stock && @line_item.ordered == true
   end
 
   def return_inventory
     portion = @line_item.menu_item.portion_size_grams
-    quantity = @lineItem.quantity
-    current_stock = @lineItem.menu_item.inventory.stock_amount_grams
+    quantity = @line_item.quantity
+    current_stock = @line_item.menu_item.inventory.stock_amount_grams
     @line_item.menu_item.inventory.update(stock_amount_grams: current_stock + (portion * quantity))
   end
 
