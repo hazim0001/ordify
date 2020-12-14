@@ -1,7 +1,7 @@
 class CreateLineItems < ActiveRecord::Migration[6.0]
   def change
     create_table :line_items do |t|
-      t.text :comment, default: ""
+      t.text :comment, default: "Standard"
       t.integer :quantity, default: 1
       t.boolean :ordered, default: false
       t.boolean :dispatched_from_kitchen, default: false

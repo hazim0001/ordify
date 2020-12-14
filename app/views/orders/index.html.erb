@@ -26,7 +26,7 @@
               <div class="card-body">
                 <h5 class="card-title"><%= table.name %></h5>
                 <h6 class="card-subtitle mb-2 text-muted">total table till now: <%= humanized_money_with_symbol(table.orders.sum(:total_price_cents)/ 100.0) %></h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text">Some quick example text .</p>
                 <!-- drop down -->
                 <% table.orders.where(status: "not paid").each do |order| %>
                 <div class="accordion">
@@ -53,17 +53,21 @@
                             </tr>
                           </thead>
                           <tbody>
-                        <% order.line_items.where(ordered: true).each do |line| %>
-                              <tr>
-                                <td><%= line.menu_item.title%> </td>
-                                <td><%= line.quantity%></td>
-                          <% if line.dispatched_from_kitchen == true %>
-                                <td><%= (line.total_kitchen_time / 60).to_i%> mins</td>
-                                <td><span class="badge badge-success">Dispatched</span></td>
+                        <% order.line_items.each do |line| %>
+                          <% if line.ordered == false %>
+                            <p class="badge rounded-pill bg-warning text-muted p-2"><%= line.menu_item.title %> has been selected by the customer but not yet sent to the kitchen</p>
                           <% else %>
-                                <td><%= line.comment%></td>
-                                <td><span class="badge badge-warning">Not dispatched</span></td>
-                              </tr>
+                                <tr>
+                                  <td><%= line.menu_item.title%> </td>
+                                  <td><%= line.quantity%></td>
+                            <% if line.dispatched_from_kitchen == true %>
+                                  <td><%= (line.total_kitchen_time / 60).to_i%> mins</td>
+                                  <td><span class="badge badge-success">Dispatched</span></td>
+                            <% else %>
+                                  <td><%= line.comment%></td>
+                                  <td><span class="badge badge-warning">Not dispatched</span></td>
+                                </tr>
+                            <% end %>
                           <% end %>
                         <% end %>
                           </tbody>

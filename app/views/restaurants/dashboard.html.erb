@@ -30,7 +30,15 @@
           <!-- <li><%#= "You have sold #{count} of #{item}" %></li> -->
       <%# end %>
         <!-- </ul> -->
-        <%= line_chart @restaurant.line_items.group_by_hour(:created_at).count %>
+        <div class="my-5">
+          <p><ins>Sales by day</ins></p>
+          <%= line_chart @restaurant.line_items.group_by_day(:created_at, series: false).count %>
+        </div>
+        <div class="my-5">
+          <p><ins>Sales by hour</ins></p>
+          <%= line_chart @restaurant.line_items.group_by_hour(:created_at, series: false).count %>
+        </div>
+
     </main>
   </div>
 </div>
