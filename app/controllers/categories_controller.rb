@@ -11,6 +11,9 @@ class CategoriesController < ApplicationController
     end
     categories_ids = MenuItem.where(restaurant_id: @target_restaurant).pluck(:category_id).uniq
     @categories = Category.where(id: categories_ids)
+    # for the add menu item form
+    @menu_item = MenuItem.new(restaurant: current_employee.restaurant)
+    @restaurant = current_employee.restaurant
   end
 
   def create
