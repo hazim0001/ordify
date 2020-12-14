@@ -23,9 +23,9 @@ require "open-uri"
 # # Restaurant.last = Restaurant.create!(name: Faker::Restaurant.name, address: Faker::Address.street_address, cusine: cusine1 )
 # Restaurant.create!(name: "test", address: "test", cusine: cusine1 )
 
-Employee.create!(name:"hazim", role: "manager", restaurant: Restaurant.last,password: 123456, email: "hazim@hotmail.com", admin: true)
-Employee.create!(name:"Panchito", role: "manager", restaurant: Restaurant.last, password: 123456, email: "panchito@gmail.com", admin: true )
-Employee.create!(name:"Juanito", role: "cook", restaurant: Restaurant.last,password: 123456, email: "juanito@gmail.com" )
+# Employee.create!(name:"hazim", role: "manager", restaurant: Restaurant.last,password: 123456, email: "hazim@hotmail.com", admin: true)
+# Employee.create!(name:"Panchito", role: "manager", restaurant: Restaurant.last, password: 123456, email: "panchito@gmail.com", admin: true )
+# Employee.create!(name:"Juanito", role: "cook", restaurant: Restaurant.last,password: 123456, email: "juanito@gmail.com" )
 # Employee.create!(name:"test", role: "manager", restaurant: Restaurant.last, password: 123456, email: "test@hotmail.com", admin: true )
 
 # puts "#{Restaurant.last.name} has been created"
@@ -47,36 +47,40 @@ Employee.create!(name:"Juanito", role: "cook", restaurant: Restaurant.last,passw
 
 # puts 'TABLES have been created'
 
-menu_items_array = []
+# menu_items_array = []
 
-20.times do
-   menu_item_new = MenuItem.create!(title: Faker::Food.dish, item_price_cents: rand(1050..87590), description: "test test test", category: Category.last, restaurant: Restaurant.last, portion_size_grams: rand(100..290))
-  Inventory.create!(menu_item: menu_item_new, stock_amount_grams: rand(5000..19000), trigger_limit: rand(2500..6000))
-  menu_items_array << menu_item_new
-  puts "#{menu_item_new.title} has been created"
-end
+# 20.times do
+#    menu_item_new = MenuItem.create!(title: Faker::Food.dish, item_price_cents: rand(1050..87590), description: "test test test", category: Category.last, restaurant: Restaurant.last, portion_size_grams: rand(100..290))
+#   Inventory.create!(menu_item: menu_item_new, stock_amount_grams: rand(5000..19000), trigger_limit: rand(2500..6000))
+#   menu_items_array << menu_item_new
+#   puts "#{menu_item_new.title} has been created"
+# end
 
-3.times do
-  order = Order.create!(table: Table.last, user_number: 00201112550060)
-  2.times do
-    line = LineItem.create!(menu_item: menu_items_array.sample, comment: 'testttt', quantity: rand(1..3), order: order)
-    line.update!(total_cents: LineItem.last.menu_item.item_price_cents * LineItem.last.quantity)
-    stock_item =Inventory.find(line.id)
-    stock_item_amount = Inventory.find(line.id).stock_amount_grams
-    stock_item.update(stock_amount_grams: stock_item_amount - (line.menu_item.portion_size_grams * line.quantity))
-    puts "#{line} has been created an updated"
-  end
-  # byebug
-  total = LineItem.where(order: order.id).sum(:total_cents)
-  order.update!(total_price_cents: total)
-end
+# 3.times do
+#   order = Order.create!(table: Table.last, user_number: 00201112550060)
+#   2.times do
+#     line = LineItem.create!(menu_item: menu_items_array.sample, comment: 'testttt', quantity: rand(1..3), order: order)
+#     line.update!(total_cents: LineItem.last.menu_item.item_price_cents * LineItem.last.quantity)
+#     stock_item =Inventory.find(line.id)
+#     stock_item_amount = Inventory.find(line.id).stock_amount_grams
+#     stock_item.update(stock_amount_grams: stock_item_amount - (line.menu_item.portion_size_grams * line.quantity))
+#     puts "#{line} has been created an updated"
+#   end
+#   # byebug
+#   total = LineItem.where(order: order.id).sum(:total_cents)
+#   order.update!(total_price_cents: total)
+# end
 # =======
 # 20.times do
 #   menu_item_new = MenuItem.create!(title: Faker::Food.dish, item_price_cents: rand(1050..87590), description: Faker::Food.description, category: categoryy.sample, restaurant: Restaurant.last)
 #   menu_items_array << menu_item_new
 #   puts "#{menu_item_new.title} has been created"
 # end
-
+puts "running"
+menu_item = MenuItem.last
+file = URI.open('https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixid')
+menu_item.photos.attach(io: file, filename: "#{menu_item.title}.png", content_type: 'image/png')
+menu_item.save!
 # # Sashimi
 # menu_item1 = MenuItem.new(title: "Shake", item_price_cents: rand(350..1090), description: "Fatty Salmon", category: Category.first, restaurant: Restaurant.last, portion_size_grams: rand(100..290))
 # Inventory.create!(menu_item: menu_item1 , stock_amount_grams: rand(5000..19000), trigger_limit: rand(2500..6000))
@@ -330,7 +334,7 @@ end
 
 
 
-puts "MENU ITEMs have been created"
+# puts "MENU ITEMs have been created"
 
 
 # 3.times do

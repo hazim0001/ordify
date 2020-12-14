@@ -4,6 +4,7 @@ class MenuItemPolicy < ApplicationPolicy
       scope.all
     end
   end
+
   def index
     true
   end
@@ -13,6 +14,7 @@ class MenuItemPolicy < ApplicationPolicy
   end
 
   def create?
+    # raise
     new?
   end
 

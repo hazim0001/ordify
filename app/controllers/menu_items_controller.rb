@@ -22,17 +22,18 @@ class MenuItemsController < ApplicationController
   end
 
   def new
-    @menu_item = MenuItem.new
+    @menu_item = MenuItem.new(restaurant: current_employee.restaurant)
+    @restaurant = current_employee.restaurant
     authorize @menu_item
   end
 
   def create
     @menu_item = MenuItem.new(menu_item_params)
     @restaurant = Restaurant.find(params[:restaurant_id])
-    authorize @menu_item
     @menu_item.restaurant = @restaurant
+    authorize @menu_item
     if @menu_item.save
-      redirect_to menu_items_path
+      redirect_to categories_path
     else
       render :new
     end
@@ -76,6 +77,6 @@ class MenuItemsController < ApplicationController
   end
 
   def menu_item_params
-    params.require(:menu_item).permit(:title, :restaurant, :item_price, :description, :category, :active, photos: [])
+    params.require(:menu_item).permit(:title, :restaurant, :item_price, :description, :category_id, :active, photos: [])
   end
 end
