@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
   def index
     if current_employee.present? && current_employee.role == "manager"
       @orders = current_employee.restaurant.orders
-      @tables = current_employee.restaurant.tables
+      @tables = current_employee.restaurant.tables.includes(:orders).includes(:line_items)
     else
       @orders = Order.where(table: session[:table]["id"])
     end
@@ -42,6 +42,12 @@ class OrdersController < ApplicationController
     sleep(4)
     stripe_order
     redirect_back fallback_location: proc { order_line_items_path(@order) }
+  end
+
+  def destroy
+    @order = Order.find(params[:id])
+    @order.destroy
+    redirect_to orders_path
   end
 
   def dispatch_notify
