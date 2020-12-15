@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     resources :orders, only: %i[new create]
   end
 
-  resources :orders, only: %i[index update] do
+  resources :orders, only: %i[index update edit destroy] do
     resources :line_items, only: %i[create index update]
     member do
       post :dispatch_notify
@@ -42,7 +42,6 @@ Rails.application.routes.draw do
   resources :tables, only: :destroy
   resources :categories, only: :destroy
   resources :line_items, only: :destroy
-  resources :orders, only: :destroy
 
   get '/payment', to: 'pages#payment'
 

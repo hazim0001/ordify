@@ -31,17 +31,28 @@ class OrdersController < ApplicationController
     authorize @orders
   end
 
+  def edit
+    @order = Order.find(params[:id])
+    @tables = @order.restaurant.tables
+  end
+
   def update
     @order = Order.find(params[:id])
-    @order.line_items.each { |line| line.update(ordered: true, received_at: Time.now) }
-    @order.update(sent: true, dispatched: false)
-    undispatched_line_items = @order.table.line_items.where(dispatched_from_kitchen: false)
-    KitchenOrderChannel.broadcast_to(
-      @order.table, render_to_string(partial: "new_line_item", locals: { lines: undispatched_line_items })
-    )
-    sleep(4)
-    stripe_order
-    redirect_back fallback_location: proc { order_line_items_path(@order) }
+    if current_employee.present? && current_employee.role == "manager"
+      @order.update(table_id: order_params[:table].to_i, status: order_params[:status])
+      # raise
+      redirect_to orders_path
+    else
+      @order.line_items.each { |line| line.update(ordered: true, received_at: Time.now) }
+      @order.update(sent: true, dispatched: false)
+      undispatched_line_items = @order.table.line_items.where(dispatched_from_kitchen: false)
+      KitchenOrderChannel.broadcast_to(
+        @order.table, render_to_string(partial: "new_line_item", locals: { lines: undispatched_line_items })
+      )
+      sleep(4)
+      stripe_order
+      redirect_back fallback_location: proc { order_line_items_path(@order) }
+    end
   end
 
   def destroy
@@ -102,6 +113,6 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:table, :user_number)
+    params.require(:order).permit(:table, :user_number, :status)
   end
 end
