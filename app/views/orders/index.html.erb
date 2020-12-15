@@ -40,9 +40,9 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th scope="col">MenuItem </th>
-                              <th scope="col">Quantity</th>
-                              <th scope="col">Comment/time in kitchen</th>
+                              <th scope="col" style="width: 10rem;">MenuItem </th>
+                              <th scope="col" style="width: 5rem;">Quantity</th>
+                              <th scope="col" style="width: 10rem;">Comment/time in kitchen</th>
                               <th scope="col">status</th>
                             </tr>
                           </thead>
@@ -60,6 +60,16 @@
                               <% else %>
                                     <td><%= line.comment%></td>
                                     <td><span class="badge badge-warning">Not dispatched</span></td>
+                                    <td class="d-flex flex-row-reverse">
+                                      <p class="card-text">
+                                        <%= link_to edit_line_item_path(line) do %>
+                                          <i class="far fa-edit mx-3" style="color: gray;"></i>
+                                        <% end %>
+                                        <%= link_to line_item_path(line), method: :delete, data: { confirm: "Are you sure you want to delete #{line.menu_item.title} from the order?"} do %>
+                                          <i class="far fa-trash-alt" style="color: gray;"></i>
+                                        <% end %>
+                                      </p>
+                                    </td>
                                   </tr>
                               <% end %>
                             <% end %>

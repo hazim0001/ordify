@@ -6,8 +6,7 @@ class LineItemPolicy < ApplicationPolicy
   end
 
   def destroy?
-    # raise
-    if record.sent == true
+    if record.ordered == true
       user.role == "manager"
     else
       true

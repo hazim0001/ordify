@@ -8,25 +8,28 @@
 
       <h2 class="mt-5"><%= current_employee.restaurant.name.capitalize %></h2>
       <hr>
-      <h6 class="my-5">
-        Total revenues since <%= @restaurant.line_items.first.created_at.to_date %>
-        <span class="badge bg-success" style="font-size:0.9rem; color:white;font-weight: inherit;"><%= humanized_money_with_symbol(@restaurant.orders.sum(:total_price_cents)/ 100.0) %> </span>
-      </h6>
+      <% if @restaurant.line_items.count >= 1 %>
+        <h6 class="my-5">
+          Total revenues since <%= @restaurant.line_items.first.created_at.to_date %>
+          <span class="badge bg-success" style="font-size:0.9rem; color:white;font-weight: inherit;"><%= humanized_money_with_symbol(@restaurant.orders.sum(:total_price_cents)/ 100.0) %> </span>
+        </h6>
 
-        <!-- <ul> -->
-      <%# @menu_items_sales_count.each do |item, count| %>
-          <!-- <li><%#= "You have sold #{count} of #{item}" %></li> -->
-      <%# end %>
-        <!-- </ul> -->
-        <div class="my-5">
-          <p><ins>Sales by day</ins></p>
-          <%= line_chart @restaurant.line_items.group_by_day(:created_at, series: false).count %>
-        </div>
-        <div class="my-5">
-          <p><ins>Sales by hour</ins></p>
-          <%= line_chart @restaurant.line_items.group_by_hour(:created_at, series: false).count %>
-        </div>
+          <!-- <ul> -->
+        <%# @menu_items_sales_count.each do |item, count| %>
+            <!-- <li><%#= "You have sold #{count} of #{item}" %></li> -->
+        <%# end %>
+          <!-- </ul> -->
+          <div class="my-5">
+            <p><ins>Sales by day</ins></p>
+            <%= line_chart @restaurant.line_items.group_by_day(:created_at, series: false).count %>
+          </div>
+          <div class="my-5">
+            <p><ins>Sales by hour</ins></p>
+            <%= line_chart @restaurant.line_items.group_by_hour(:created_at, series: false).count %>
+          </div>
 
+
+      <% end %>
     </main>
   </div>
 </div>

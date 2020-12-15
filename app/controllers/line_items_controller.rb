@@ -1,5 +1,5 @@
 class LineItemsController < ApplicationController
-  before_action :set_line_item, only: %i[update destroy]
+  before_action :set_line_item, only: %i[update destroy edit]
   skip_before_action :authenticate_employee!, only: %i[index create update destroy]
   after_action :verify_authorized, only: :destroy, unless: :skip_pundit?
 
@@ -20,21 +20,40 @@ class LineItemsController < ApplicationController
     @order = Order.find(session[:order]["id"])
   end
 
+  def edit
+  end
+
   def update
-    @line_item.update!(quantity: params["custom-input-number"].to_i)
-    update_totals_in_line_item_and_order
-    update_inventory
-    @line_item.destroy if @line_item.quantity.zero?
-    redirect_to order_line_items_path
+    if current_employee.present? && current_employee.role == "manager"
+      @line_item.update(line_item_params)
+      update_totals_in_line_item_and_order
+      update_inventory
+      # fix the returned inventory
+      redirect_to orders_path
+    else
+      @line_item.update!(quantity: params["custom-input-number"].to_i)
+      update_totals_in_line_item_and_order
+      update_inventory
+      @line_item.destroy if @line_item.quantity.zero?
+      redirect_to order_line_items_path
+    end
   end
 
   def destroy
-    order = @line_item.order
-    @line_item.order.update(total_price_cents: (@line_item.order.total_price_cents - @line_item.total_cents))
-    return_inventory
-    authorize @line_item
-    @line_item.destroy
-    redirect_to order_line_items_path(order)
+    if current_employee.present? && current_employee.role == "manager"
+      @line_item.order.update(total_price_cents: (@line_item.order.total_price_cents - @line_item.total_cents))
+      return_inventory
+      authorize @line_item
+      @line_item.destroy
+      redirect_to orders_path
+    else
+      order = @line_item.order
+      @line_item.order.update(total_price_cents: (@line_item.order.total_price_cents - @line_item.total_cents))
+      return_inventory
+      authorize @line_item
+      @line_item.destroy
+      redirect_to order_line_items_path(order)
+    end
   end
 
   private
@@ -66,6 +85,6 @@ class LineItemsController < ApplicationController
   end
 
   def line_item_params
-    params.require(:line_item).permit(:comment)
+    params.require(:line_item).permit(:comment, :quantity)
   end
 end
