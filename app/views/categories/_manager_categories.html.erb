@@ -24,10 +24,10 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">MenuItem</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Active</th>
-                    <th scope="col"></th>
+                    <th scope="col" class="col-md-auto">MenuItem</th>
+                    <th scope="col" class="col-md-auto">Price</th>
+                    <th scope="col" class="col-md-auto">Active</th>
+                    <th scope="col" class="col-md-auto"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -40,7 +40,7 @@
                     <% else %>
                       <td><p class="card-text"><i class="fas fa-eye-slash"></i></p></td>
                     <% end %>
-                    <td class="d-flex flex-row-reverse">
+                    <td class="d-flex flex-row-reverse pr-5">
                       <p class="card-text">
                         <%= link_to edit_restaurant_menu_item_path(menu_item.restaurant, menu_item) do %>
                           <i class="far fa-edit mx-3" style="color: gray;"></i>
