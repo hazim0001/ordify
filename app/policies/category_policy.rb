@@ -11,10 +11,10 @@ class CategoryPolicy < ApplicationPolicy
   # end
 
   def create?
-    record.restaurant == user.restaurant && user.role == "manager"
+    user.role == "manager"
   end
 
   def destroy?
-    record.restaurant == user.restaurant && user.role == "manager"
+    record.menu_items.last.restaurant == user.restaurant && user.role == "manager"
   end
 end

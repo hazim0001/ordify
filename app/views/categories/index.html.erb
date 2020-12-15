@@ -9,7 +9,11 @@
     <div class="d-flex flex-wrap categories-cards">
       <% @categories.each do |category|  %>
         <%= link_to category_menu_items_path(category) do %>
-          <div class="d-flex justify-content-center align-items-center category-card" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path category.menu_items.sample.photos.first.key %>');">
+          <% if category.menu_items.last.photos.present? %>
+            <div class="d-flex justify-content-center align-items-center category-card" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path category.menu_items.sample.photos.first.key %>');">
+          <% else %>
+          <div class="d-flex justify-content-center align-items-center category-card" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid');">
+          <% end %>
             <p class="text-center"> <%= category.title.capitalize %></p>
           </div>
         <% end %>

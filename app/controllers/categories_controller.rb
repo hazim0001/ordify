@@ -14,6 +14,7 @@ class CategoriesController < ApplicationController
     end
     categories_ids = MenuItem.where(restaurant_id: @target_restaurant).pluck(:category_id).uniq
     @categories = Category.where(id: categories_ids).includes(:menu_items)
+    @category = Category.new
   end
 
   def create

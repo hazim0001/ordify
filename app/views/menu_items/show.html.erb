@@ -1,7 +1,10 @@
 <div class="page">
   <div>
-    <%= cl_image_tag @menu_item.photos.first.key  %>
-    <!-- <img src="https://images.unsplash.com/photo-1567336967319-2500ab3ce9dc?ixlib=rb-1.2.1&ixid" alt=""> -->
+    <% if @menu_item.photos.attached? %>
+      <%= cl_image_tag @menu_item.photos.first.key  %>
+    <% else %>
+      <%= image_tag("https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid")%>
+    <% end %>
   </div >
   <!-- title and price -->
   <div class="cont d-flex justify-content-between">
