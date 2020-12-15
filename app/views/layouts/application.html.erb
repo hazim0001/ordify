@@ -37,6 +37,9 @@
   </head>
 
   <body>
+    <% if current_employee.present? && current_employee.role == "manager" %>
+      <%= render 'shared/manager_navbar' %>
+    <% end %>
     <%= yield %>
     <% if alert.present? %>
       <div class="alert alert-primary alert-dismissible fade show position-absolute" role="alert" style="bottom: 10px; right: 10px; height: 50px;">

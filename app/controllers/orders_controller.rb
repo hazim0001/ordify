@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
   def index
     if current_employee.present? && current_employee.role == "manager"
       @orders = current_employee.restaurant.orders
-      @tables = current_employee.restaurant.tables.includes(:orders).includes(:line_items)
+      @tables = current_employee.restaurant.tables.includes(:orders, :line_items)
     else
       @orders = Order.where(table: session[:table]["id"])
     end
