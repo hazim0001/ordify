@@ -8,7 +8,7 @@
 
       <h2 class="mt-5"><%= current_employee.restaurant.name.capitalize %></h2>
       <hr>
-      <% if @restaurant.line_items.count >= 1 %>
+      <% if @restaurant.line_items.any? %>
         <h6 class="my-5">
           Total revenues since <%= @restaurant.line_items.first.created_at.to_date %>
           <span class="badge bg-success" style="font-size:0.9rem; color:white;font-weight: inherit;"><%= humanized_money_with_symbol(@restaurant.orders.sum(:total_price_cents)/ 100.0) %> </span>

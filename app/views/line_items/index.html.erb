@@ -75,7 +75,7 @@
         <% end %>
       <% end %>
     </div>
-  <% if @line_items.count >= 1 %>
+  <% if @line_items.any? %>
       <%= simple_form_for(@order, url: order_path(params[:order_id]), wrapper: :inline_form, html: { id: "modal-trigger", method: :patch, class: "btn-sticky w-100 d-flex justify-content-center" }) do |f| %>
       <!-- button/input trigger modal -->
           <button type="submit" class="btn-call2-action d-flex justify-content-between px-5">

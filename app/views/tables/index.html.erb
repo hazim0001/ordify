@@ -35,7 +35,7 @@
           </tbody>
         </table>
       </div>
-        <% if table.orders.count >= 1 %>
+        <% if table.orders.any? %>
           <%= button_to 'Dispatch', dispatch_notify_order_path(table.orders.first.id), method: :post,remote: true, class:"btn btn-primary btn-lg btn-block"  %>
         <% else %>
           <button class="btn btn-primary btn-lg btn-block">Dispatch</button>
