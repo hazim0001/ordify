@@ -22,7 +22,7 @@
   </div>
   <% if @order.line_items.count >= 1 %>
     <%= link_to order_line_items_path(@order) , class:"btn-call2-action btn-sticky" do %>
-      <span class="notification-btn badge-primary animate-pulse"><%= @order.line_items.count %></span>
+      <span class="notification-btn badge-primary animate-pulse"><%= @order.line_items.where(deleted: false).count %></span>
       <span>Go to order</span>
     <% end %>
   <% else %>

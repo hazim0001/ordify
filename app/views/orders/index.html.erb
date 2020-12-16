@@ -30,7 +30,7 @@
                         <%= link_to edit_order_path(order) do %>
                           <i class="far fa-edit mx-3" style="color: gray;"></i>
                         <% end %>
-                        <%= link_to order_path(order), method: :delete, data: { confirm: "Are you sure you want to delete this order?" } do %>
+                        <%= link_to order_path(order), method: :delete, data: { confirm: "Are you sure you want to delete this order? ***ALERT THIS ACTION WILL DELETE ALL OF THE LINE ITEMS RELATED TO THAT ORDER***" } do %>
                           <i class="far fa-trash-alt" style="color: gray;"></i>
                         <% end %>
                       </div>
@@ -47,7 +47,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                          <% order.line_items.each do |line| %>
+                          <% order.line_items.where(deleted: false).each do |line| %>
                             <% if line.ordered == false %>
                               <p class="badge rounded-pill bg-warning text-muted p-2"><%= line.menu_item.title %> has been selected by the customer but not yet sent to the kitchen</p>
                             <% else %>
@@ -62,11 +62,11 @@
                                     <td><span class="badge badge-warning">Not dispatched</span></td>
                                     <td class="d-flex flex-row-reverse">
                                       <p class="card-text">
+                                        <%= button_to shallow_delete_line_item_path(line), method: :patch, remote: true, data: { confirm: "Are you sure you want to delete this line?" } do %>
+                                          <i class="far fa-trash-alt" style="color: gray;"></i>
+                                        <% end %>
                                         <%= link_to edit_line_item_path(line) do %>
                                           <i class="far fa-edit mx-3" style="color: gray;"></i>
-                                        <% end %>
-                                        <%= link_to line_item_path(line), method: :delete, data: { confirm: "Are you sure you want to delete #{line.menu_item.title} from the order?"} do %>
-                                          <i class="far fa-trash-alt" style="color: gray;"></i>
                                         <% end %>
                                       </p>
                                     </td>

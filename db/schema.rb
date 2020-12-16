@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_08_040512) do
+ActiveRecord::Schema.define(version: 2020_12_16_011943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,9 @@ ActiveRecord::Schema.define(version: 2020_12_08_040512) do
     t.datetime "received_at"
     t.datetime "dispatched_at"
     t.float "total_kitchen_time", default: 0.0
+    t.boolean "deleted", default: false
+    t.string "deleted_by"
+    t.datetime "deleted_at"
     t.index ["menu_item_id"], name: "index_line_items_on_menu_item_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
   end

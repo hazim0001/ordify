@@ -41,7 +41,11 @@ Rails.application.routes.draw do
   resources :menu_items, only: %i[destroy show]
   resources :tables, only: :destroy
   resources :categories, only: :destroy
-  resources :line_items, only: %i[destroy edit]
+  resources :line_items, only: %i[destroy edit] do
+    member do
+      patch :shallow_delete
+    end
+  end
 
   get '/payment', to: 'pages#payment'
 

@@ -80,7 +80,7 @@
       <!-- button/input trigger modal -->
           <button type="submit" class="btn-call2-action d-flex justify-content-between px-5">
             <h3>Send order </h3>
-            <h3><%= humanized_money_with_symbol(@line_items.first.order.total_price) %></h3>
+            <h3><%= humanized_money_with_symbol(@order.total_price) %></h3>
           </button>
       <% end %>
   <% end %>
