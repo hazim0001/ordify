@@ -36,6 +36,9 @@ Rails.application.routes.draw do
     member do
       post :dispatch_notify
     end
+    collection do
+      get :display
+    end
   end
 
   resources :menu_items, only: %i[destroy show]

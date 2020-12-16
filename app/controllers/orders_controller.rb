@@ -60,6 +60,10 @@ class OrdersController < ApplicationController
     redirect_to orders_path
   end
 
+  def display
+    @orders = Order.all.includes(:line_items)
+  end
+
   def dispatch_notify
     @order = Order.find(params[:id])
     update_line_items
