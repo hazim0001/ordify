@@ -23,11 +23,11 @@ class LineItemsController < ApplicationController
   def edit; end
 
   def update
-    if current_employee.present? && current_employee.role == "manager"
+    if employee_is_manager?
+      return_inventory
       @line_item.update(line_item_params)
       update_totals_in_line_item_and_order
       update_inventory
-      # fix the returned inventory
       redirect_to orders_path
     else
       @line_item.update!(quantity: params["custom-input-number"].to_i)
@@ -41,27 +41,28 @@ class LineItemsController < ApplicationController
   def shallow_delete
     @line_item.order.update(total_price_cents: (@line_item.order.total_price_cents - @line_item.total_cents))
     @line_item.update(deleted: true, deleted_at: Time.now, deleted_by: current_employee.name)
+    return_inventory
     redirect_back fallback_location: proc { orders_path }
   end
 
   def destroy
-    if current_employee.present? && current_employee.role == "manager"
-      @line_item.order.update(total_price_cents: (@line_item.order.total_price_cents - @line_item.total_cents))
-      return_inventory
-      authorize @line_item
-      @line_item.destroy
+    order = @line_item.order
+    @line_item.order.update(total_price_cents: (@line_item.order.total_price_cents - @line_item.total_cents))
+    return_inventory
+    authorize @line_item
+    @line_item.destroy
+    if employee_is_manager?
       redirect_to orders_path
     else
-      order = @line_item.order
-      @line_item.order.update(total_price_cents: (@line_item.order.total_price_cents - @line_item.total_cents))
-      return_inventory
-      authorize @line_item
-      @line_item.destroy
       redirect_to order_line_items_path(order)
     end
   end
 
   private
+
+  def employee_is_manager?
+    current_employee.present? && current_employee.role == "manager"
+  end
 
   def update_totals_in_line_item_and_order
     @line_item.update(total_cents: @line_item.menu_item.item_price_cents * @line_item.quantity)

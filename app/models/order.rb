@@ -8,4 +8,5 @@ class Order < ApplicationRecord
   validates :user_number, presence: true
 
   monetize :total_price_cents
+  # enum status: %i[paid]
 end
