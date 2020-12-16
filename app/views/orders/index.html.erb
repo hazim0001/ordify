@@ -47,33 +47,33 @@
                             </tr>
                           </thead>
                           <tbody>
-                          <% order.line_items.where(deleted: false).each do |line| %>
-                            <% if line.ordered == false %>
-                              <p class="badge rounded-pill bg-warning text-muted p-2"><%= line.menu_item.title %> has been selected by the customer but not yet sent to the kitchen</p>
-                            <% else %>
-                                  <tr>
-                                    <td><%= line.menu_item.title%> </td>
-                                    <td><%= line.quantity%></td>
-                              <% if line.dispatched_from_kitchen == true %>
-                                    <td><%= (line.total_kitchen_time / 60).to_i%> mins</td>
-                                    <td><span class="badge badge-success">Dispatched</span></td>
+                            <% order.line_items.where(deleted: false).each do |line| %>
+                              <% if line.ordered == false %>
+                                <p class="badge rounded-pill bg-warning text-muted p-2"><%= line.menu_item.title %> has been selected by the customer but not yet sent to the kitchen</p>
                               <% else %>
-                                    <td><%= line.comment%></td>
-                                    <td><span class="badge badge-warning">Not dispatched</span></td>
-                                    <td class="d-flex flex-row-reverse">
-                                      <p class="card-text">
-                                        <%= button_to shallow_delete_line_item_path(line), method: :patch, remote: true, data: { confirm: "Are you sure you want to delete this line?" } do %>
-                                          <i class="far fa-trash-alt" style="color: gray;"></i>
-                                        <% end %>
-                                        <%= link_to edit_line_item_path(line) do %>
-                                          <i class="far fa-edit mx-3" style="color: gray;"></i>
-                                        <% end %>
-                                      </p>
-                                    </td>
-                                  </tr>
+                                    <tr>
+                                      <td><%= line.menu_item.title%> </td>
+                                      <td><%= line.quantity%></td>
+                                      <% if line.dispatched_from_kitchen == true %>
+                                      <td><%= (line.total_kitchen_time / 60).to_i%> mins</td>
+                                      <td><span class="badge badge-success">Dispatched</span></td>
+                                      <% else %>
+                                      <td><%= line.comment%></td>
+                                      <td><span class="badge badge-warning">Not dispatched</span></td>
+                                      <td class="d-flex flex-row-reverse">
+                                        <p class="card-text">
+                                          <%= button_to shallow_delete_line_item_path(line), method: :patch, data: { confirm: "Are you sure you want to delete this line?" }, remote: true do %>
+                                            <i class="far fa-trash-alt" style="color: gray;"></i>
+                                          <% end %>
+                                          <%= link_to edit_line_item_path(line) do %>
+                                            <i class="far fa-edit mx-3" style="color: gray;"></i>
+                                          <% end %>
+                                        </p>
+                                      </td>
+                                      <% end %>
+                                    </tr>
                               <% end %>
                             <% end %>
-                          <% end %>
                           </tbody>
                         </table>
                       </div>
@@ -89,5 +89,3 @@
     </main>
   </div>
 </div>
-
-

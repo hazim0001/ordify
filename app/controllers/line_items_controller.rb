@@ -42,7 +42,6 @@ class LineItemsController < ApplicationController
     @line_item.order.update(total_price_cents: (@line_item.order.total_price_cents - @line_item.total_cents))
     @line_item.update(deleted: true, deleted_at: Time.now, deleted_by: current_employee.name)
     redirect_back fallback_location: proc { orders_path }
-    # redirect_to orders_path
   end
 
   def destroy

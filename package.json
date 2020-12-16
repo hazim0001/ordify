@@ -11,6 +11,7 @@
     "bootstrap-icons": "^1.2.1",
     "chart.js": "^2.9.4",
     "chartkick": "^3.2.1",
+    "data-confirm-modal": "^1.6.2",
     "intl-tel-input": "^17.0.8",
     "jquery": "^3.5.1",
     "nprogress": "^0.2.0",

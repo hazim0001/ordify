@@ -22,14 +22,21 @@ gem 'redis', '~> 4.0'
 # gem 'rails_admin_softwarebrothers_theme', :git => 'git@github.com:softwarebrothers/rails_admin_softwarebrothers_theme.git'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7
-gem 'pundit'
+
 # authorization
-gem "chartkick"
+gem 'pundit'
+
 # for charting
-gem 'groupdate'
+gem "chartkick"
+
 # to group by day min sec etc...
+gem 'groupdate'
+
 # gem 'active_median'
 # percentile and median for rails
+
+# any data donfirmation will invoke bootstrap modal
+gem 'data-confirm-modal'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
