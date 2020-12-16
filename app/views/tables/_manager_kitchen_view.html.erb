@@ -5,6 +5,11 @@
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4" style="margin-left: 13em !important;">
 
       <h2 class="mt-5"><%= current_employee.restaurant.name.capitalize %> Kitchen view</h2>
+      <%#= audio_tag("notify.mp3") %>
+
+<a href="javascript:void(0)" id="playsound">At Station</a>
+      <!-- <audio autoplay="autoplay" controls="controls" src="/audios/notify.mp3" /></audio> -->
+
       <hr>
       <div class="mx-5 d-flex flex-wrap justify-content-between">
          <% @tables.each do |table| %>
@@ -33,7 +38,28 @@
           </div>
         <% end %>
       </div>
-
     </main>
   </div>
 </div>
+<!-- autoplay="true" -->
+
+<audio id="sound_effect" class="audio_player" preload="auto" >
+    <source src="/audios/notify.mp3" type="audio/mp3">
+</audio>
+
+<script>
+  const player = document.getElementById('sound_effect')
+  document.addEventListener('keypress', (event) => {
+    console.log("from the event lisyener")
+    console.log(event)
+    console.log(player)
+    player.play();
+  });
+  // document.addEventListener ('keydown', function (event){
+  //     console.log (event.which);
+  // });
+
+  // var evt = new KeyboardEvent('keydown', {'keyCode':65, 'which':65});
+  // document.dispatchEvent (evt);
+    // })
+</script>

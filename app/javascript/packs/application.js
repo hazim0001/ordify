@@ -10,7 +10,7 @@ require("@rails/activestorage").start()
 require("channels")
 require("chartkick")
 require("chart.js")
-// require("data-confirm-modal")
+require('jquery')
 
 //= require data-confirm-modal
 

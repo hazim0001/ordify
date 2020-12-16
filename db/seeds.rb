@@ -76,11 +76,11 @@ require "open-uri"
 #   menu_items_array << menu_item_new
 #   puts "#{menu_item_new.title} has been created"
 # end
-puts "running"
-menu_item = MenuItem.last
-file = URI.open('https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixid')
-menu_item.photos.attach(io: file, filename: "#{menu_item.title}.png", content_type: 'image/png')
-menu_item.save!
+# puts "running"
+# menu_item = MenuItem.last
+# file = URI.open('https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixid')
+# menu_item.photos.attach(io: file, filename: "#{menu_item.title}.png", content_type: 'image/png')
+# menu_item.save!
 # # Sashimi
 # menu_item1 = MenuItem.new(title: "Shake", item_price_cents: rand(350..1090), description: "Fatty Salmon", category: Category.first, restaurant: Restaurant.last, portion_size_grams: rand(100..290))
 # Inventory.create!(menu_item: menu_item1 , stock_amount_grams: rand(5000..19000), trigger_limit: rand(2500..6000))
@@ -332,10 +332,10 @@ menu_item.save!
 # menu_item33.photos.attach(io: file33, filename: "#{menu_item33.title}.jpg", content_type: 'image/jpg')
 # menu_item33.save!
 
+`say "i am working very hard to finish what you asked. apologies"`
 
-
-# puts "MENU ITEMs have been created"
-
+puts "MENU ITEMs have been created"
+sleep(2)
 
 # 3.times do
 #   order = Order.create!(table: Table.first, user_number: 00201112550060)
@@ -356,3 +356,5 @@ menu_item.save!
 
 
 puts "doneee !!"
+
+`say "i am done master"`
