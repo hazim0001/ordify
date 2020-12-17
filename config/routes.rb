@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     resources :line_items, only: %i[create index update]
     member do
       post :dispatch_notify
+      patch :shallow_delete
     end
     collection do
       get :display

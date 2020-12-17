@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
     else
       @order.line_items.each { |line| line.update(ordered: true, received_at: Time.now) }
       @order.update(sent: true, dispatched: false)
-      undispatched_line_items = @order.table.line_items.where("dispatched_from_kitchen= ? AND deleted= ?", false, false)
+      undispatched_line_items = @order.table.line_items.where("dispatched_from_kitchen= ?", false)
       KitchenOrderChannel.broadcast_to(
         @order.table, render_to_string(partial: "new_line_item", locals: { lines: undispatched_line_items })
       )
@@ -64,6 +64,14 @@ class OrdersController < ApplicationController
     @orders = Order.all.includes(:line_items).order("created_at DESC")
   end
 
+  def shallow_delete
+    @order = Order.find(params[:id])
+    @order.line_items.each { |line| line.update(deleted: true, deleted_at: Time.now, deleted_by: current_employee.name)}
+    @order.update(order_deleted: true, order_deleted_at: Time.now, order_deleted_by: current_employee.name)
+    return_inventory
+    redirect_back fallback_location: proc { orders_path }
+  end
+
   def dispatch_notify
     @order = Order.find(params[:id])
     update_line_items
@@ -78,10 +86,18 @@ class OrdersController < ApplicationController
   private
 
   def update_line_items
-    # raise
     @order.table.line_items.each do |line|
       line.update(dispatched_from_kitchen: true, dispatched_at: Time.now)
       line.update(total_kitchen_time: (line.dispatched_at - line.received_at))
+    end
+  end
+
+  def return_inventory
+    @order.line_items.each do |line_item|
+      portion = line_item.menu_item.portion_size_grams
+      quantity = line_item.quantity
+      current_stock = line_item.menu_item.inventory.stock_amount_grams
+      line_item.menu_item.inventory.update(stock_amount_grams: current_stock + (portion * quantity))
     end
   end
 

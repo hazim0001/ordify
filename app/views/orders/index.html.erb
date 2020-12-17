@@ -12,7 +12,7 @@
             <div class="card m-2" style="width: 45rem;">
               <div class="card-body">
                 <h5 class="card-title"><%= table.name %></h5>
-                <h6 class="card-subtitle mb-2 text-muted">total table till now: <%= humanized_money_with_symbol(table.orders.sum(:total_price_cents)/ 100.0) %></h6>
+                <h6 class="card-subtitle mb-2 text-muted">total table till now: <%= humanized_money_with_symbol(table.orders.where(status: "not paid").sum(:total_price_cents)/ 100.0) %></h6>
                 <!-- <p class="card-text">Some quick example text .</p> -->
                 <% table.orders.where("status= ? AND total_price_cents> ?", "not paid", "0").each do |order| %>
                 <div class="accordion">
@@ -30,8 +30,10 @@
                         <%= link_to edit_order_path(order) do %>
                           <i class="far fa-edit mx-3" style="color: gray;"></i>
                         <% end %>
-                        <%= link_to order_path(order), method: :delete, data: { confirm: "Are you sure you want to delete this order? ***ALERT THIS ACTION WILL DELETE ALL OF THE LINE ITEMS RELATED TO THAT ORDER***" } do %>
-                          <i class="far fa-trash-alt" style="color: gray;"></i>
+                        <% if order.dispatched == false %>
+                          <%= button_to shallow_delete_order_path(order), method: :patch, data: { confirm: "Are you sure you want to delete this order? ***ALERT THIS ACTION WILL DELETE ALL OF THE LINE ITEMS RELATED TO THAT ORDER***" }, remote: true do %>
+                            <i class="far fa-trash-alt" style="color: gray;"></i>
+                          <% end %>
                         <% end %>
                       </div>
                     </div>
