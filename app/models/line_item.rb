@@ -6,4 +6,6 @@ class LineItem < ApplicationRecord
   validates :comment, length: { maximum: 30 }
 
   monetize :total_cents
+
+  default_scope { where(deleted: false) }
 end

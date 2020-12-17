@@ -5,7 +5,7 @@
       <%= simple_form_for @order, url: order_path(@order) do |f| %>
         <div class="row g-3 " style="margin: 2em -10em !important;">
           <div class="col-6">
-            <%= f.input :table, label: 'Change table for customer', collection: @tables, selected: @order.table.name %>
+            <%= f.input :table, label: 'Change table for customer', collection: @tables  %>
           </div>
           <div class="col-6 ">
             <%= f.input :status, label: 'Payment Status', collection: ['not paid','paid'], selected: @order.status %>

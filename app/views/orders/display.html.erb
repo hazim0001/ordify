@@ -85,7 +85,7 @@
                                 <span class="w-25 d-flex justify-content-between"><strong><%= line.quantity%></strong> <span><%= humanized_money_with_symbol(line.total)%></span></span>
                                 <% if line.dispatched_from_kitchen == true %>
                                 <span class="w-25 text-center"><%= (line.total_kitchen_time / 60).to_i%> mins</span>
-                                <span class="w-25 badge badge-success">Dispatched</span>
+                                <span class="w-25 badge badge-success h-50">Dispatched</span>
                                 <% else %>
                                 <span class="w-25 text-center"><%= line.comment%></span>
                                 <span class="w-25 badge badge-warning">Not dispatched</span>
@@ -102,7 +102,7 @@
                   <div class="modal-footer d-flex justify-content-between">
                     <div class="">
                       <p class="m-0 font-modal-footer">Order Items count <strong><%= order.line_items.count %></strong></p>
-
+                      <p class="m-0 font-modal-footer">Order total <strong><%= humanized_money_with_symbol(order.total_price)%></strong></p>
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>

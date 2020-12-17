@@ -38,7 +38,7 @@ gem 'groupdate'
 # any data donfirmation will invoke bootstrap modal
 gem 'data-confirm-modal'
 
-# to calculate time diffrence
+# to calculate time diffrence https://github.com/tmlee/time_difference
 gem 'time_difference'
 
 # Use Active Storage variant

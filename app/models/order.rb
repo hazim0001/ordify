@@ -8,5 +8,7 @@ class Order < ApplicationRecord
   validates :user_number, presence: true
 
   monetize :total_price_cents
+
+  # default_scope { where(deleted: false) }
   # enum status: %i[paid]
 end
