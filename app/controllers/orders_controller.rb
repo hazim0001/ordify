@@ -61,7 +61,7 @@ class OrdersController < ApplicationController
   end
 
   def display
-    @orders = Order.all.includes(:line_items)
+    @orders = Order.all.includes(:line_items).order("created_at DESC")
   end
 
   def dispatch_notify

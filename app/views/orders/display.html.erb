@@ -1,33 +1,54 @@
-<div class="container">
-  <h2>Hover Rows</h2>
-  <p>The .table-hover class enables a hover state (grey background on mouse over) on table rows:</p>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-    </tbody>
-  </table>
+
+
+
+<div class="container-fluid">
+  <div class="row">
+    <%= render 'shared/side_bar' %>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4" style="margin-left: 13em !important;">
+
+      <h2 class="mt-5"><%= current_employee.restaurant.name.capitalize %>'s Orders</h2>
+      <hr>
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Order#</th>
+            <th scope="col">Customer Number</th>
+            <th scope="col">Table</th>
+            <th scope="col">Order status</th>
+            <th scope="col">Order total</th>
+            <th scope="col">Payment status</th>
+            <th scope="col">Items count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+          <tr>
+            <th scope="row"><%= order.id %></th>
+            <td><%= order.user_number%></td>
+            <td><%= order.table.name%></td>
+
+            <% if order.dispatched == true %>
+              <td><span class="badge badge-success">Dispatched</span></td>
+            <% else %>
+              <td><span class="badge badge-warning">Not dispatched</span></td>
+            <% end %>
+
+            <td><%= humanized_money_with_symbol(order.total_price)%></td>
+
+            <% if order.status == "not paid" %>
+              <td><span class="badge badge-warning">Not Paid</span></td>
+            <% else %>
+              <td><span class="badge badge-success">Paid</span></td>
+            <% end %>
+
+            <td><%= order.line_items.count%></td>
+
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </main>
+  </div>
 </div>
-<% @orders.each do |order| %>
-  <li><%= order.total_price %></li>
-<% end %>
