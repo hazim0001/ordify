@@ -303,6 +303,8 @@ GEM
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
+    time_difference (0.5.0)
+      activesupport
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -375,6 +377,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   stripe
   stripe_event
+  time_difference
   turbolinks (~> 5)
   twilio-ruby (~> 5.43)
   tzinfo-data

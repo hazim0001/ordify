@@ -38,6 +38,9 @@ gem 'groupdate'
 # any data donfirmation will invoke bootstrap modal
 gem 'data-confirm-modal'
 
+# to calculate time diffrence
+gem 'time_difference'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 gem 'money-rails', '~>1.12'

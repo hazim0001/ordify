@@ -46,36 +46,71 @@
             <td><%= order.line_items.count%></td>
 
           </tr>
-          <!-- modaal -->
-          <div class="modal fade" id="ModalOrder<%= order.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-              <div class="modal-content">
+            <!-- modaal -->
+            <div class="modal fade" id="ModalOrder<%= order.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
 
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel2">Order details</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
+                  <div class="modal-header d-flex justify-content-between">
+                    <h5 class="modal-title font-modal-footer" id="exampleModalLabel2"><strong>Order details</strong></h5>
+                    <div class="ml-5">
+                      <% if order.status == "not paid" %>
+                        <span class="badge badge-warning font-modal-footer-paid">Not Paid</span><span class="font-modal-footer"> Time since checkin <%= TimeDifference.between(Time.now , order.created_at).in_hours %> hrs</span>
+                      <% else %>
+                        <span class="badge badge-success font-modal-footer-paid">Paid</span> <span class="font-modal-footer"> on <%= order.updated_at.strftime("%d %b %Y %l:%M %p") %></span>
+                      <% end %>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
 
-                <div class="modal-body">
-                  <div class="container mt-3 bg-white">
-                    <div class="row">
-                      <div class="col-8 mx-auto">
+                  <div class="modal-body">
+                    <div class="container mt-3 bg-white">
+                      <div class="m-2">
+                        <div class="col-12 mx-auto">
+                          <div class="d-flex mb-3 justify-content-between">
+                            <span class="w-25"><strong>Menu Item</strong></span>
+                            <span class="w-25 d-flex justify-content-between"><strong>Quantity</strong> <strong>Total price</strong></span>
+                            <span class="w-25 text-center"><strong>Comment/Time in Kitchen</strong></span>
+                            <span class="w-25 text-center"><strong>Status</strong></span>
+                          </div>
+                          <hr>
+                          <% order.line_items.where(deleted: false).each do |line| %>
+                            <% if line.ordered == false %>
+                              <p class="badge rounded-pill bg-warning text-muted p-2 mx-auto"><%= line.menu_item.title %> has been selected by the customer but not yet sent to the kitchen</p>
+                            <% else %>
+                              <div class="d-flex mb-3 justify-content-between">
+                                <span class="w-25"><%= line.menu_item.title%></span>
+                                <span class="w-25 d-flex justify-content-between"><strong><%= line.quantity%></strong> <span><%= humanized_money_with_symbol(line.total)%></span></span>
+                                <% if line.dispatched_from_kitchen == true %>
+                                <span class="w-25 text-center"><%= (line.total_kitchen_time / 60).to_i%> mins</span>
+                                <span class="w-25 badge badge-success">Dispatched</span>
+                                <% else %>
+                                <span class="w-25 text-center"><%= line.comment%></span>
+                                <span class="w-25 badge badge-warning">Not dispatched</span>
+                                <% end %>
+                              </div>
+                            <% end %>
+                          <% end %>
 
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+                  <div class="modal-footer d-flex justify-content-between">
+                    <div class="">
+                      <p class="m-0 font-modal-footer">Order Items count <strong><%= order.line_items.count %></strong></p>
 
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+
+                </div>
               </div>
             </div>
-          </div>
-          <!-- end of order iteration -->
+            <!-- end of order iteration -->
           <% end %>
         </tbody>
       </table>
@@ -83,4 +118,11 @@
   </div>
 </div>
 
-
+<style>
+  .font-modal-footer{
+    font-size: 1.2rem;
+  }
+  .font-modal-footer-paid{
+    font-size: 1.0rem;
+  }
+</style>
