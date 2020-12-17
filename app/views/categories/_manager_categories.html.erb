@@ -104,13 +104,17 @@
                   </div>
                 </div>
                 <%= f.input :description, as: :text %>
+                <div class="custom-file mb-3">
+                  <input type="file" class="custom-file-input" id="customFile" multiple="multiple">
+                  <label class="custom-file-label" for="photos">Choose file</label>
+                </div>
                 <%= f.input :active, as: :boolean, hint: 'Inactive to hide.', input_html: { class: "toggle" }, label_html: { class: 'text-dark'}  %>
                 <%= f.input :photos, as: :file, input_html: { multiple: true } %>
             </div>
           </div>
         </div>
       </div>
-
+s
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
          <%= f.button :submit, class:"btn btn-primary" %>
@@ -153,3 +157,18 @@
     </div>
   </div>
 </div>
+
+<!-- <form>
+  <div class="custom-file">
+    <input type="file" class="custom-file-input" id="customFile">
+    <label class="custom-file-label" for="customFile">Choose file</label>
+  </div>
+</form> -->
+
+<script>
+// Add the following code if you want the name of the file appear on select
+  $(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+</script
