@@ -30,9 +30,7 @@
                           <%= humanized_money_with_symbol(order.total_price) %>
                         </span>
                         <button type="button" data-toggle="modal" data-target="#updateOrderModal<%= order.id %>" >
-                        <%#= link_to edit_order_path(order), remote: true do  %>
                           <i class="far fa-edit mx-3" style="color: gray;"></i>
-                        <%# end %>
                         </button>
                         <%= render partial: 'update_order_modal', locals:{ order: order } %>
                         <% if order.dispatched == false %>

@@ -14,6 +14,7 @@ class MenuItemsController < ApplicationController
     else
       @menu_items = MenuItem.where(restaurant: restaurant).where(category: @category).where(active: true)
     end
+    # @restaurant = current_employee.restaurant
   end
 
   def show

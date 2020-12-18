@@ -50,15 +50,16 @@
                     <% end %>
                     <td class="d-flex flex-row-reverse pr-5">
                       <p class="card-text">
-                        <%= link_to edit_restaurant_menu_item_path(menu_item.restaurant, menu_item) do %>
+                        <button type="button" data-toggle="modal" data-target="#editMenuItemModal<%= menu_item.id %>" >
                           <i class="far fa-edit mx-3" style="color: gray;"></i>
-                        <% end %>
+                        </button>
                         <%= link_to menu_item_path(menu_item.id), method: :delete, data: { confirm: "Are you sure you want to delete this menu item?", disable_with: "Processing..." } do %>
                           <i class="far fa-trash-alt" style="color: gray;"></i>
                         <% end %>
                       </p>
                     </td>
                   </tr>
+                  <%= render partial: 'edit_menu_item_modal', locals:{ menu_item: menu_item } %>
                 <% end %>
                 </tbody>
               </table>
