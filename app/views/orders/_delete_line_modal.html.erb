@@ -1,1 +1,31 @@
-_delete_line_modal.html.erb
+<div class="modal fade" id="deleteLineModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Deleting <%=line.menu_item.title%></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container mt-3 bg-white">
+          <div class="row">
+            <div class="col-8 mx-auto">
+              <%= simple_form_for line, url: shallow_delete_line_item_path(line), method: :patch do |f| %>
+                <%= f.input :line_deletion_reason, as: :text, label: "#{line.menu_item.title} deletion reason" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <%= f.button :submit,'Delete order', class:"btn btn-primary" %>
+         <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

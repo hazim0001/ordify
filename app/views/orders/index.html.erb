@@ -68,18 +68,18 @@
                                       <td><span class="badge badge-warning">Not dispatched</span></td>
                                       <td class="d-flex flex-row-reverse">
                                         <p class="card-text">
-                                          <%= button_to shallow_delete_line_item_path(line), method: :patch, data: { confirm: "Are you sure you want to delete this line?" }, remote: true do %>
-                                            <i class="far fa-trash-alt" style="color: gray;"></i>
-                                          <% end %>
                                           <button type="button" data-toggle="modal" data-target="#updateLineModal">
                                             <i class="far fa-edit mx-3" style="color: gray;"></i>
+                                          </button>
+                                          <button type="button" data-toggle="modal" data-target="#deleteLineModal">
+                                            <i class="far fa-trash-alt" style="color: gray;"></i>
                                           </button>
                                         </p>
                                       </td>
                                       <% end %>
                                     </tr>
                               <% end %>
-                              <%#= render partial: 'delete_line_modal', locals:{ line: line } %>
+                              <%= render partial: 'delete_line_modal', locals:{ line: line } %>
                               <%= render partial: 'update_line_modal', locals:{ line: line } %>
                             <% end %>
                           </tbody>

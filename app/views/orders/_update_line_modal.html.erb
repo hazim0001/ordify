@@ -16,7 +16,7 @@
               <%= simple_form_for [line.order, line], url: order_line_item_path(line.order, line) do |f| %>
                 <div class="row g-3 " style="margin: 2em -10em !important;">
                   <div class="col-6">
-                    <%= f.input :comment, selected: line.comment %>
+                    <%= f.input :comment %>
                   </div>
                   <div class="col-6 ">
                     <%= f.input :quantity, collection: 1..10, selected: line.quantity %>

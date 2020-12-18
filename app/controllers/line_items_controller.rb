@@ -39,7 +39,6 @@ class LineItemsController < ApplicationController
   end
 
   def shallow_delete
-    raise
     @line_item.order.update(total_price_cents: (@line_item.order.total_price_cents - @line_item.total_cents))
     @line_item.update(
       deleted: true,
