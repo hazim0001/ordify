@@ -31,14 +31,11 @@ class OrdersController < ApplicationController
     authorize @orders
   end
 
-  def edit
-    @order = Order.find(params[:id])
-    @tables = @order.restaurant.tables
-  end
 
   def update
     @order = Order.find(params[:id])
     if current_employee.present? && current_employee.role == "manager"
+      # raise
       @order.update(table_id: order_params[:table].to_i, status: order_params[:status])
       redirect_to orders_path
     else

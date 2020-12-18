@@ -1,4 +1,4 @@
-<div class="modal fade" id="updateOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+<div class="modal fade" id="updateOrderModal<%= order.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
 
@@ -13,7 +13,7 @@
         <div class="container mt-3 bg-white">
           <div class="row">
             <div class="col-8 mx-auto">
-              <%= simple_form_for order, url: order_path(order), remote: true do |f| %>
+              <%= simple_form_for order, url: order_path(order), method: :patch, input_html: { id: "edit_order" } do |f| %>
                 <div class="row g-3 " style="margin: 2em -10em !important;">
                   <div class="col-6">
                     <%= f.input :table, label: 'Change table for customer', collection: order.restaurant.tables  %>

@@ -1,4 +1,4 @@
-<div class="modal fade" id="deleteOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+<div class="modal fade" id="deleteOrderModal<%= order.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
 
@@ -13,7 +13,7 @@
         <div class="container mt-3 bg-white">
           <div class="row">
             <div class="col-8 mx-auto">
-              <%= simple_form_for order, url: shallow_delete_order_path(order), method: :patch do |f| %>
+              <%= simple_form_for order, url: shallow_delete_order_path(order), method: :patch, html: {id: "delete_order" } do |f| %>
                 <%= f.input :deletion_reason, as: :text %>
             </div>
           </div>

@@ -1,21 +1,22 @@
-<div class="container mt-5 p-5 shadow bg-white" style="border-radius: 60px">
-  <h5 class="mb-4 ml-4" ><%= @line_item.menu_item.title %> in order# <%= @line_item.order.id %></h5>
+<!-- <div class="container mt-5 p-5 shadow bg-white" style="border-radius: 60px">
+  <h5 class="mb-4 ml-4" ><%#= @line_item.menu_item.title %> in order# <%#= @line_item.order.id %></h5>
   <div class="row">
     <div class="col-8 mx-auto">
-      <%= simple_form_for [@line_item.order, @line_item], url: order_line_item_path(@line_item.order, @line_item) do |f| %>
+      <%#= simple_form_for [@line_item.order, @line_item], url: order_line_item_path(@line_item.order, @line_item) do |f| %>
         <div class="row g-3 " style="margin: 2em -10em !important;">
           <div class="col-6">
-            <%= f.input :comment, selected: @line_item.comment %>
+            <%#= f.input :comment, selected: @line_item.comment %>
           </div>
           <div class="col-6 ">
-            <%= f.input :quantity, collection: 1..10, selected: @line_item.quantity %>
+            <%#= f.input :quantity, collection: 1..10, selected: @line_item.quantity %>
           </div>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto">
-          <%= link_to 'Cancel',orders_path, class:"btn btn-outline-secondary h-25" %>
-          <%= f.button :submit, class:"btn btn-primary" %>
+          <%#= link_to 'Cancel',orders_path, class:"btn btn-outline-secondary h-25" %>
+          <%#= f.button :submit, class:"btn btn-primary" %>
         </div>
-      <% end %>
+      <%# end %>
     </div>
   </div>
 </div>
+ -->

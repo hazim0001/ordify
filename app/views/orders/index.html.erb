@@ -1,3 +1,5 @@
+<!-- yielded from application html mete tag turbolink -->
+<%= provide(:content,"reload") %>
 <div class="container-fluid">
   <div class="row">
     <%= render 'shared/side_bar' %>
@@ -27,19 +29,21 @@
                         <span class="mr-3">
                           <%= humanized_money_with_symbol(order.total_price) %>
                         </span>
-                        <button type="button" data-toggle="modal" data-target="#updateOrderModal">
+                        <button type="button" data-toggle="modal" data-target="#updateOrderModal<%= order.id %>" >
+                        <%#= link_to edit_order_path(order), remote: true do  %>
                           <i class="far fa-edit mx-3" style="color: gray;"></i>
+                        <%# end %>
                         </button>
+                        <%= render partial: 'update_order_modal', locals:{ order: order } %>
                         <% if order.dispatched == false %>
-                          <button type="button" data-toggle="modal" data-target="#deleteOrderModal">
+                          <button type="button" data-toggle="modal" data-target="#deleteOrderModal<%= order.id %>">
                             <i class="far fa-trash-alt" style="color: gray;"></i>
                           </button>
+                          <%= render partial: 'delete_order_modal', locals:{ order: order } %>
                         <% end %>
                       </div>
                     </div>
-                    <!-- delete order modal  -->
-                    <%= render partial: 'delete_order_modal', locals:{ order: order } %>
-                    <%= render partial: 'update_order_modal', locals:{ order: order } %>
+                    <!-- delete/ update order modal  -->
 
                     <div class="collapse trigger">
                       <div class="card-body">
@@ -68,10 +72,10 @@
                                       <td><span class="badge badge-warning">Not dispatched</span></td>
                                       <td class="d-flex flex-row-reverse">
                                         <p class="card-text">
-                                          <button type="button" data-toggle="modal" data-target="#updateLineModal">
+                                          <button type="button" data-toggle="modal" data-target="#updateLineModal<%= line.id %>">
                                             <i class="far fa-edit mx-3" style="color: gray;"></i>
                                           </button>
-                                          <button type="button" data-toggle="modal" data-target="#deleteLineModal">
+                                          <button type="button" data-toggle="modal" data-target="#deleteLineModal<%= line.id %>">
                                             <i class="far fa-trash-alt" style="color: gray;"></i>
                                           </button>
                                         </p>
@@ -79,6 +83,7 @@
                                       <% end %>
                                     </tr>
                               <% end %>
+                              <!-- delete / update line item -->
                               <%= render partial: 'delete_line_modal', locals:{ line: line } %>
                               <%= render partial: 'update_line_modal', locals:{ line: line } %>
                             <% end %>

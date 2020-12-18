@@ -1,4 +1,4 @@
-<div class="modal fade" id="updateLineModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+<div class="modal fade" id="updateLineModal<%= line.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
 
@@ -13,7 +13,7 @@
         <div class="container mt-3 bg-white">
           <div class="row">
             <div class="col-8 mx-auto">
-              <%= simple_form_for [line.order, line], url: order_line_item_path(line.order, line) do |f| %>
+              <%= simple_form_for [line.order, line], url: order_line_item_path(line.order, line), method: :patch, html: { id: "edit_line_item" } do |f| %>
                 <div class="row g-3 " style="margin: 2em -10em !important;">
                   <div class="col-6">
                     <%= f.input :comment %>

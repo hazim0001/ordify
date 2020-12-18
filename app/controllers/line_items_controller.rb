@@ -20,7 +20,7 @@ class LineItemsController < ApplicationController
     @order = Order.find(session[:order]["id"])
   end
 
-  def edit; end
+  # def edit; end
 
   def update
     if employee_is_manager?
