@@ -1,3 +1,5 @@
+<!-- yielded from application html mete tag turbolink -->
+<%= provide(:content,"reload") %>
 <div class="container-fluid">
   <div class="row">
     <%= render 'shared/side_bar' %>
@@ -39,7 +41,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                <% category.menu_items.each do |menu_item| %>
+                <% category.menu_items.order(created_at: :desc).each do |menu_item| %>
                   <tr>
                     <td><p class="card-text"><%= menu_item.title %></p></td>
                     <td><p class="card-text"><%= humanized_money_with_symbol(menu_item.item_price) %></p></td>

@@ -16,10 +16,10 @@
               <%= simple_form_for [menu_item.restaurant, menu_item], url: restaurant_menu_item_path(menu_item.restaurant, menu_item), method: :patch do |f| %>
                 <div class="row g-3">
                   <div class="col-6">
-                    <%= f.input :title %>
+                    <%= f.input :title, input_html: { id:"menu_item_title#{menu_item.id}" }, label_html: { for: "menu_item_title#{menu_item.id}"} %>
                   </div>
                   <div class="col-6 ">
-                    <%= f.input :item_price, hint: 'price in cents.' %>
+                    <%= f.input :item_price, hint: 'price in cents.', input_html: {id:"menu_item_price#{menu_item.id}" }, label_html: {for: "menu_item_price#{menu_item.id}"} %>
                   </div>
                 </div>
                 <%= f.input :description, as: :text %>
