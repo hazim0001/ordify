@@ -5,6 +5,7 @@
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4" style="margin-left: 13em !important;">
 
       <h2 class="mt-5"><%= current_employee.restaurant.name.capitalize %>'s Orders</h2>
+
       <hr>
 
       <table class="table table-hover">
@@ -46,9 +47,9 @@
             <!-- modaal -->
             <div class="modal fade" id="ModalOrder<%= order.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
+                <div class="modal-content" style="border-radius: 2rem;">
 
-                  <div class="modal-header d-flex justify-content-between">
+                  <div class="modal-header d-flex justify-content-between mx-3">
                     <h5 class="modal-title font-modal-footer" id="exampleModalLabel2"><strong>Order details</strong></h5>
                     <div class="ml-5">
                       <% if order.status == "not paid" %>
@@ -96,7 +97,7 @@
                     </div>
                   </div>
 
-                  <div class="modal-footer d-flex justify-content-between">
+                  <div class="modal-footer d-flex justify-content-between mx-3">
                     <div class="">
                       <p class="m-0 font-modal-footer">Order Items count <strong><%= order.line_items.count %></strong></p>
                       <p class="m-0 font-modal-footer">Order total <strong><%= humanized_money_with_symbol(order.total_price)%></strong></p>

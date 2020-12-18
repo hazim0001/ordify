@@ -1,8 +1,8 @@
 <div class="modal fade" id="editMenuItemModal<%= menu_item.id %>" tabindex="-1" role="dialog" aria-labelledby="<%=menu_item.id%>ModalLabel2" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="border-radius: 2rem;">
 
-      <div class="modal-header">
+      <div class="modal-header mx-3">
         <h5 class="modal-title" id="<%=menu_item.id%>ModalLabel2">Updating <%=menu_item.title%></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer mx-3">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
          <%= f.button :submit, class:"btn btn-primary" %>
          <% end %>

@@ -1,8 +1,8 @@
 <div class="modal fade" id="deleteLineModal<%= line.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="border-radius: 2rem;">
 
-      <div class="modal-header">
+      <div class="modal-header mx-3">
         <h5 class="modal-title" id="exampleModalLabel2">Deleting <%=line.menu_item.title%></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -14,13 +14,13 @@
           <div class="row">
             <div class="col-8 mx-auto">
               <%= simple_form_for line, url: shallow_delete_line_item_path(line), method: :patch , html: { id: "delete_line_item" } do |f| %>
-                <%= f.input :line_deletion_reason, as: :text, label: "#{line.menu_item.title} deletion reason" %>
+                <%= f.input :line_deletion_reason, as: :text, label: "#{line.menu_item.title} deletion reason", validate: true %>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer mx-3">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
          <%= f.button :submit,'Delete order', class:"btn btn-primary" %>
          <% end %>

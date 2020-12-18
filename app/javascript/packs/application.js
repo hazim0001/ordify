@@ -54,11 +54,11 @@ document.addEventListener('turbolinks:load', () => {
 
   if (phone) {
     intlTelInput(phone, {
-    initialCountry: 'mx',
+    initialCountry: 'eg',
     // ipinfoToken: "yolo",
     // numberType: "MOBILE",
     formatOnDisplay: true,
-    preferredCountries: ['mx', 'us', 'gb'],
+    preferredCountries: ['eg', 'us', 'gb'],
     utilsScript: "/utils.js"
     });
   }

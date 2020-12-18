@@ -34,10 +34,10 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col" class="col-md-auto">MenuItem</th>
-                    <th scope="col" class="col-md-auto">Price</th>
-                    <th scope="col" class="col-md-auto">Active</th>
-                    <th scope="col" class="col-md-auto"></th>
+                    <th scope="col" class="col-md-auto w-25">MenuItem</th>
+                    <th scope="col" class="col-md-auto w-25">Price</th>
+                    <th scope="col" class="col-md-auto w-25">Active</th>
+                    <th scope="col" class="col-md-auto w-25"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -76,9 +76,9 @@
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="border-radius: 2rem;">
 
-      <div class="modal-header">
+      <div class="modal-header mx-3">
         <h5 class="modal-title" id="exampleModalLabel">Creating new Menu item</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -114,7 +114,7 @@
         </div>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer mx-3">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
          <%= f.button :submit, class:"btn btn-primary" %>
          <% end %>
@@ -127,9 +127,9 @@
 
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="border-radius: 2rem;">
 
-      <div class="modal-header">
+      <div class="modal-header mx-3">
         <h5 class="modal-title" id="exampleModalLabel2">Creating new Category</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -147,7 +147,7 @@
         </div>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer mx-3">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
          <%= f.button :submit, class:"btn btn-primary" %>
          <% end %>

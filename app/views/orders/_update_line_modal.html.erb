@@ -1,25 +1,25 @@
 <div class="modal fade" id="updateLineModal<%= line.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="border-radius: 2rem;">
 
-      <div class="modal-header">
+      <div class="modal-header mx-3">
         <h5 class="modal-title" id="exampleModalLabel2">Updating <%=line.menu_item.title%></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body mx-5">
         <div class="container mt-3 bg-white">
           <div class="row">
             <div class="col-8 mx-auto">
               <%= simple_form_for [line.order, line], url: order_line_item_path(line.order, line), method: :patch, html: { id: "edit_line_item" } do |f| %>
                 <div class="row g-3 " style="margin: 2em -10em !important;">
+                  <div class="col-6 px-5">
+                    <%= f.input :quantity, collection: 1..10, selected: line.quantity %>
+                  </div>
                   <div class="col-6">
                     <%= f.input :comment %>
-                  </div>
-                  <div class="col-6 ">
-                    <%= f.input :quantity, collection: 1..10, selected: line.quantity %>
                   </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer mx-3">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
          <%= f.button :submit, class:"btn btn-primary" %>
          <% end %>
