@@ -66,8 +66,13 @@ class OrdersController < ApplicationController
 
   def shallow_delete
     @order = Order.find(params[:id])
-    @order.line_items.each { |line| line.update(deleted: true, deleted_at: Time.now, deleted_by: current_employee.name)}
-    @order.update(order_deleted: true, order_deleted_at: Time.now, order_deleted_by: current_employee.name)
+    @order.line_items.each { |line| line.update(deleted: true, deleted_at: Time.now, deleted_by: current_employee.name) }
+    @order.update(
+      order_deleted: true,
+      order_deleted_at: Time.now,
+      order_deleted_by: current_employee.name,
+      deletion_reason: order_params[:deletion_reason]
+    )
     return_inventory
     redirect_back fallback_location: proc { orders_path }
   end
@@ -132,6 +137,6 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:table, :user_number, :status)
+    params.require(:order).permit(:table, :user_number, :status, :deletion_reason)
   end
 end

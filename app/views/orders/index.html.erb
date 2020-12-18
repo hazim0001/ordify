@@ -31,12 +31,48 @@
                           <i class="far fa-edit mx-3" style="color: gray;"></i>
                         <% end %>
                         <% if order.dispatched == false %>
-                          <%= button_to shallow_delete_order_path(order), method: :patch, data: { confirm: "Are you sure you want to delete this order? ***ALERT THIS ACTION WILL DELETE ALL OF THE LINE ITEMS RELATED TO THAT ORDER***" }, remote: true do %>
+                          <%#= button_to shallow_delete_order_path(order), method: :patch, data: { confirm: "Are you sure you want to delete this order? ***ALERT THIS ACTION WILL DELETE ALL OF THE LINE ITEMS RELATED TO THAT ORDER***" }, remote: true do %>
+                          <button type="button" data-toggle="modal" data-target="#deleteOrderModal">
                             <i class="far fa-trash-alt" style="color: gray;"></i>
-                          <% end %>
+                          </button>
+                          <%# end %>
                         <% end %>
                       </div>
                     </div>
+                    <!-- modal  -->
+                    <div class="modal fade" id="deleteOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel2">Deleting order #<%=order.id%></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="container mt-3 bg-white">
+                              <div class="row">
+                                <div class="col-8 mx-auto">
+                                  <%= simple_form_for order, url: shallow_delete_order_path(order), method: :patch do |f| %>
+                                    <%= f.input :deletion_reason, as: :text %>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                             <%= f.button :submit,'Delete order', class:"btn btn-primary" %>
+                             <% end %>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end of modal -->
+
                     <div class="collapse trigger">
                       <div class="card-body">
                         <table class="table">
