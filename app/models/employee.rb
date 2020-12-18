@@ -4,4 +4,6 @@ class Employee < ApplicationRecord
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
 
   belongs_to :restaurant
+
+  scope :manager, -> { where(role: 'manager') }
 end

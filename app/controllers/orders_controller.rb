@@ -40,7 +40,7 @@ class OrdersController < ApplicationController
     else
       @order.line_items.each { |line| line.update(ordered: true, received_at: Time.now) }
       @order.update(sent: true, dispatched: false)
-      undispatched_line_items = @order.table.line_items.where("dispatched_from_kitchen= ?", false)
+      undispatched_line_items = @order.table.line_items.not_dispatched_from_kitchen # where("dispatched_from_kitchen= ?", false)
       KitchenOrderChannel.broadcast_to(
         @order.table, render_to_string(partial: "new_line_item", locals: { lines: undispatched_line_items })
       )

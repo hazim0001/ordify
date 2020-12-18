@@ -3,18 +3,18 @@ class CategoriesController < ApplicationController
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
 
   def index
-    if current_employee.present? && current_employee.role == "manager"
+    if manager_is_here?
       @target_restaurant = current_employee.restaurant
       # for the add menu item form
       @menu_item = MenuItem.new(restaurant: current_employee.restaurant)
       @restaurant = current_employee.restaurant
+      @category = Category.new
     else
       @target_restaurant = Restaurant.find(session[:restaurant]["id"])
       @order = Order.find(session[:order]["id"])
     end
     categories_ids = MenuItem.where(restaurant_id: @target_restaurant).pluck(:category_id).uniq
     @categories = Category.where(id: categories_ids).includes(:menu_items)
-    @category = Category.new
   end
 
   def create
@@ -35,6 +35,10 @@ class CategoriesController < ApplicationController
   end
 
   private
+
+  def manager_is_here?
+    current_employee.present? && (current_employee.role == "manager")
+  end
 
   def category_params
     params.require(:category).permit(:title)

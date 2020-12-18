@@ -12,7 +12,7 @@ class MenuItemsController < ApplicationController
       menu_items = MenuItem.where(sql_query, query: "%#{params[:query]}%")
       menu_items_zero(menu_items, restaurant)
     else
-      @menu_items = MenuItem.where(restaurant: restaurant).where(category: @category).where(active: true)
+      @menu_items = MenuItem.active_and_related(restaurant, @category) # where(restaurant: restaurant).where(category: @category).where(active: true)
     end
   end
 
@@ -65,10 +65,10 @@ class MenuItemsController < ApplicationController
     if menu_items.count.zero?
       menu_items = MenuItem.all
       notice_content = "Sorry, none of our dishes have '#{params[:query]}'."
-      @menu_items = menu_items.where(restaurant: restaurant).where(category: @category).where(active: true)
+      @menu_items = menu_items.active_and_related(restaurant, @category) # where(restaurant: restaurant).where(category: @category).where(active: true)
       redirect_back fallback_location: proc { category_menu_items_path(@category) }, notice: notice_content
     else
-      @menu_items = menu_items.where(restaurant: restaurant).where(active: true)
+      @menu_items = menu_items.where(restaurant: restaurant).active
     end
   end
 

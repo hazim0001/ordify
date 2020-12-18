@@ -16,7 +16,7 @@ class LineItemsController < ApplicationController
   end
 
   def index
-    @line_items = LineItem.where("order_id= ?", params[:order_id]).order(created_at: :desc)
+    @line_items = LineItem.inside_order_no(params[:order_id]) # where("order_id= ?", params[:order_id]).order(created_at: :desc)
     @order = Order.find(session[:order]["id"])
   end
 

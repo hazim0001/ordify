@@ -9,6 +9,8 @@ class Order < ApplicationRecord
 
   monetize :total_price_cents
 
-  default_scope { where(order_deleted: false) }
   # enum status: %i[paid]
+
+  default_scope { where(order_deleted: false) }
+  scope :not_paid, -> { where("status= ? AND total_price_cents> ?", "not paid", "0") }
 end

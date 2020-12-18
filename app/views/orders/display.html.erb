@@ -73,7 +73,7 @@
                             <span class="w-25 text-center"><strong>Status</strong></span>
                           </div>
                           <hr>
-                          <% order.line_items.where(deleted: false).each do |line| %>
+                          <% order.line_items.each do |line| %>
                             <% if line.ordered == false %>
                               <p class="badge rounded-pill bg-warning text-muted p-2 mx-auto"><%= line.menu_item.title %> has been selected by the customer but not yet sent to the kitchen</p>
                             <% else %>
