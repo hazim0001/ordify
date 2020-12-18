@@ -27,9 +27,9 @@
                         <span class="mr-3">
                           <%= humanized_money_with_symbol(order.total_price) %>
                         </span>
-                        <%= link_to edit_order_path(order) do %>
+                        <button type="button" data-toggle="modal" data-target="#updateOrderModal">
                           <i class="far fa-edit mx-3" style="color: gray;"></i>
-                        <% end %>
+                        </button>
                         <% if order.dispatched == false %>
                           <button type="button" data-toggle="modal" data-target="#deleteOrderModal">
                             <i class="far fa-trash-alt" style="color: gray;"></i>
@@ -38,8 +38,8 @@
                       </div>
                     </div>
                     <!-- delete order modal  -->
-                    <%= render partial: 'shared/delete_order_modal', locals:{ order: order } %>
-                    <!-- end of modal -->
+                    <%= render partial: 'delete_order_modal', locals:{ order: order } %>
+                    <%= render partial: 'update_order_modal', locals:{ order: order } %>
 
                     <div class="collapse trigger">
                       <div class="card-body">
@@ -53,7 +53,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <% order.line_items.where(deleted: false).each do |line| %>
+                            <% order.line_items.each do |line| %>
                               <% if line.ordered == false %>
                                 <p class="badge rounded-pill bg-warning text-muted p-2"><%= line.menu_item.title %> has been selected by the customer but not yet sent to the kitchen</p>
                               <% else %>

@@ -39,8 +39,14 @@ class LineItemsController < ApplicationController
   end
 
   def shallow_delete
+    raise
     @line_item.order.update(total_price_cents: (@line_item.order.total_price_cents - @line_item.total_cents))
-    @line_item.update(deleted: true, deleted_at: Time.now, deleted_by: current_employee.name)
+    @line_item.update(
+      deleted: true,
+      deleted_at: Time.now,
+      deleted_by: current_employee.name,
+      line_deletion_reason: line_item_params[:line_deletion_reason]
+    )
     return_inventory
     redirect_back fallback_location: proc { orders_path }
   end
@@ -91,6 +97,6 @@ class LineItemsController < ApplicationController
   end
 
   def line_item_params
-    params.require(:line_item).permit(:comment, :quantity)
+    params.require(:line_item).permit(:comment, :quantity, :line_deletion_reason)
   end
 end

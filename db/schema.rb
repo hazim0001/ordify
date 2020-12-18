@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_18_050454) do
+ActiveRecord::Schema.define(version: 2020_12_18_055220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -147,6 +147,7 @@ ActiveRecord::Schema.define(version: 2020_12_18_050454) do
     t.boolean "deleted", default: false
     t.string "deleted_by"
     t.datetime "deleted_at"
+    t.text "line_deletion_reason"
     t.index ["menu_item_id"], name: "index_line_items_on_menu_item_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
   end
