@@ -31,7 +31,6 @@ class OrdersController < ApplicationController
     authorize @orders
   end
 
-
   def update
     @order = Order.find(params[:id])
     if current_employee.present? && current_employee.role == "manager"

@@ -16,10 +16,10 @@
               <%= simple_form_for order, url: order_path(order), method: :patch, input_html: { id: "edit_order" } do |f| %>
                 <div class="row g-3 " style="margin: 2em -10em !important;">
                   <div class="col-6">
-                    <%= f.input :table, label: 'Change table for customer', collection: order.restaurant.tables  %>
+                    <%= f.input :table, label: 'Change table for customer', collection: order.restaurant.tables, selected: "#{order.table.id}", input_html: { id:"order_table_#{order.table.id}" }, label_html: { for: "order_table_#{order.table.id}"}  %>
                   </div>
                   <div class="col-6 ">
-                    <%= f.input :status, label: 'Payment Status', collection: ['not paid','paid'], selected: order.status %>
+                    <%= f.input :status, label: 'Payment Status', collection: ['not paid','paid'], selected: 'not paid' %>
                   </div>
                 </div>
             </div>
