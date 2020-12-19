@@ -23,8 +23,8 @@ class LineItemsController < ApplicationController
   # def edit; end
 
   def update
+    return_inventory
     if employee_is_manager?
-      return_inventory
       @line_item.update(line_item_params)
       update_totals_in_line_item_and_order
       update_inventory

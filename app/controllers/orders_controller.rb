@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
 
   def create
     @table = Table.find(params[:table_id])
-    @order = Order.new(order_params)
+    @order = Order.find_or_initialize_by(order_params) # Order.new(order_params)
     @order.table = @table
     if @order.save
       session[:order] = @order
