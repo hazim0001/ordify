@@ -25,6 +25,10 @@ class ApplicationController < ActionController::Base
     { host: ENV["DOMAIN"] || "localhost:3000" }
   end
 
+  def manager_is_here?
+    current_employee.present? && (current_employee.role == "manager")
+  end
+
   private
 
   def skip_pundit?

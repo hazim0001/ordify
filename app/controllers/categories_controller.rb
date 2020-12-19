@@ -36,10 +36,6 @@ class CategoriesController < ApplicationController
 
   private
 
-  def manager_is_here?
-    current_employee.present? && (current_employee.role == "manager")
-  end
-
   def category_params
     params.require(:category).permit(:title)
   end

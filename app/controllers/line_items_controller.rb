@@ -24,7 +24,7 @@ class LineItemsController < ApplicationController
 
   def update
     return_inventory
-    if employee_is_manager?
+    if manager_is_here?
       @line_item.update(line_item_params)
       update_totals_in_line_item_and_order
       update_inventory
@@ -64,10 +64,6 @@ class LineItemsController < ApplicationController
   end
 
   private
-
-  def employee_is_manager?
-    current_employee.present? && current_employee.role == "manager"
-  end
 
   def update_totals_in_line_item_and_order
     @line_item.update(total_cents: @line_item.menu_item.item_price_cents * @line_item.quantity)

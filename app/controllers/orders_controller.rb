@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
   end
 
   def index
-    if current_employee.present? && current_employee.role == "manager"
+    if manager_is_here?
       @orders = current_employee.restaurant.orders
       @tables = current_employee.restaurant.tables
     else
@@ -37,7 +37,7 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
-    if current_employee.present? && current_employee.role == "manager"
+    if manager_is_here?
       # raise
       @order.update(table_id: order_params[:table].to_i, status: order_params[:status])
       redirect_to orders_path
