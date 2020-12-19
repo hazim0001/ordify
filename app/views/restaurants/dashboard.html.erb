@@ -21,11 +21,16 @@
           <!-- </ul> -->
           <div class="my-5">
             <p><ins>Sales by day</ins></p>
-            <%= line_chart @restaurant.line_items.group_by_day(:created_at, series: false).count %>
+            <%= line_chart @restaurant.line_items.group_by_day(:created_at, series: false).count, download: true %>
           </div>
           <div class="my-5">
             <p><ins>Sales by hour</ins></p>
-            <%= line_chart @restaurant.line_items.group_by_hour(:created_at, series: false).count %>
+            <%= line_chart @restaurant.line_items.group_by_hour(:created_at, series: false).count, download: true, crosshair: true %>
+          </div>
+
+          <div class="my-5">
+            <p><ins>MenuItems sales distribution</ins></p>
+            <%= pie_chart LineItem.joins(:menu_item).group(:title).size, download: true %>
           </div>
 
 

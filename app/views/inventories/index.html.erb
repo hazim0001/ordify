@@ -18,7 +18,7 @@
  -->              </tr>
             </thead>
             <tbody>
-              <% @inventories.includes(:menu_item).each do |inventory| %>
+              <% @inventories.each do |inventory| %>
                 <% if inventory.trigger_limit >= inventory.stock_amount_grams %>
                   <tr class="table-warning">
                       <td><%= inventory.menu_item.title %></td>

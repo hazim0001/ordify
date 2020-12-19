@@ -130,6 +130,7 @@ GEM
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
+    human_duration (2.0.2)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.1)
@@ -363,6 +364,7 @@ DEPENDENCIES
   faker
   font-awesome-sass
   groupdate
+  human_duration
   jbuilder (~> 2.7)
   letter_opener
   listen (~> 3.2)

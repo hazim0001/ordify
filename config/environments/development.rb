@@ -8,7 +8,7 @@ Rails.application.configure do
     Bullet.add_footer    = true
   end
 
-
+  config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.svg *.ico *.eot *.ttf)
   # config.hosts << "9a7dd3447a16.ngrok.io"
   # Settings specified here will take precedence over those in config/application.rb.
   config.hosts << "bce96d8bc58e.ngrok.io"

@@ -52,7 +52,7 @@
                 <div class="modal-content" style="border-radius: 2rem;">
 
                   <div class="modal-header d-flex justify-content-between mx-3">
-                    <h5 class="modal-title font-modal-footer" id="exampleModalLabel2"><strong>Order details</strong></h5>
+                    <h5 class="modal-title font-modal-footer" id="exampleModalLabel2"><strong>Order# <%= order.id %></strong></h5>
                     <div class="ml-5">
                       <% if order.status == "not paid" %>
                         <span class="badge badge-warning font-modal-footer-paid">Not Paid</span><span class="font-modal-footer"><%= TimeDifference.between(Time.now , order.created_at).humanize %> since checkin</span>
@@ -71,7 +71,7 @@
                         <div class="col-12 mx-auto">
                           <div class="d-flex mb-3 justify-content-between">
                             <span class="w-25"><strong>Menu Item</strong></span>
-                            <span class="w-25 d-flex justify-content-between"><strong>Quantity</strong> <strong>Total price</strong></span>
+                            <span class="w-25 d-flex justify-content-between"><strong style="margin-left: -2rem;">Quantity</strong> <strong style="margin-right: 2rem;">Total price</strong></span>
                             <span class="w-25 text-center"><strong>Comment/Time in Kitchen</strong></span>
                             <span class="w-25 text-center"><strong>Status</strong></span>
                           </div>
@@ -82,9 +82,9 @@
                             <% else %>
                               <div class="d-flex mb-3 justify-content-between">
                                 <span class="w-25"><%= line.menu_item.title%></span>
-                                <span class="w-25 d-flex justify-content-between"><strong><%= line.quantity%></strong> <span><%= humanized_money_with_symbol(line.total)%></span></span>
-                                <% if line.dispatched_from_kitchen == true %>
-                                <span class="w-25 text-center"><%= (line.total_kitchen_time / 60).to_i%> mins</span>
+                                <span class="w-25 d-flex justify-content-between"><strong><%= line.quantity%></strong> <span class="mr-5"><%= humanized_money_with_symbol(line.total)%></span></span>
+                                <% if line.dispatched_from_kitchen %>
+                                <span class="w-25 text-cente pr-2"><%= line.total_kitchen_time.to_i.human_duration %> </span>
                                 <span class="w-25 badge badge-success h-50">Dispatched</span>
                                 <% else %>
                                 <span class="w-25 text-center"><%= line.comment%></span>

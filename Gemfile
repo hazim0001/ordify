@@ -41,6 +41,8 @@ gem 'data-confirm-modal'
 # to calculate time diffrence https://github.com/tmlee/time_difference
 gem 'time_difference'
 
+gem 'human_duration'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 gem 'money-rails', '~>1.12'
