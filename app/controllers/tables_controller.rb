@@ -12,7 +12,7 @@ class TablesController < ApplicationController
   end
 
   def index
-    @tables = current_employee.restaurant.tables.includes(:line_items)
+    @tables = current_employee.restaurant.tables
     authorize @tables
   end
 

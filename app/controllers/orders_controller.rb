@@ -24,11 +24,15 @@ class OrdersController < ApplicationController
   def index
     if current_employee.present? && current_employee.role == "manager"
       @orders = current_employee.restaurant.orders
-      @tables = current_employee.restaurant.tables.includes(:orders, :line_items)
+      @tables = current_employee.restaurant.tables
     else
       @orders = Order.where(table: session[:table]["id"])
     end
     authorize @orders
+  end
+
+  def display
+    @orders = Order.all.includes(:table, line_items: [:menu_item]).order("created_at DESC")
   end
 
   def update
@@ -54,10 +58,6 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.destroy
     redirect_to orders_path
-  end
-
-  def display
-    @orders = Order.all.includes(:line_items).order("created_at DESC")
   end
 
   def shallow_delete

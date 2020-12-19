@@ -20,7 +20,7 @@
                   </tr>
                 </thead>
                 <tbody id="order" data-kitchen-order-id="<%= table.id %>">
-                <% table.line_items.ordered_and_not_dispatched.order(:created_at).each do |line| %>
+                <% table.line_items.ordered_and_not_dispatched.includes(:menu_item).order(:created_at).each do |line| %>
                   <tr>
                     <td><p class="card-text"><strong><%= line.menu_item.title %></strong></p></td>
                     <td><p class="card-text"><%= line.comment %></p></td>

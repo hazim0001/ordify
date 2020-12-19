@@ -18,6 +18,7 @@
             <th scope="col">Order total</th>
             <th scope="col">Payment status</th>
             <th scope="col">Items count</th>
+            <th scope="col">Created</th>
           </tr>
         </thead>
         <tbody>
@@ -41,7 +42,8 @@
               <td><span class="badge badge-success">Paid</span></td>
             <% end %>
 
-            <td><%= order.line_items.count%></td>
+            <td><%= order.line_items.size%></td>
+            <td><%= TimeDifference.between(Time.now , order.created_at).humanize %> mins ago</td>
 
           </tr>
             <!-- modaal -->
@@ -53,7 +55,7 @@
                     <h5 class="modal-title font-modal-footer" id="exampleModalLabel2"><strong>Order details</strong></h5>
                     <div class="ml-5">
                       <% if order.status == "not paid" %>
-                        <span class="badge badge-warning font-modal-footer-paid">Not Paid</span><span class="font-modal-footer"> Time since checkin <%= TimeDifference.between(Time.now , order.created_at).in_hours %> hrs</span>
+                        <span class="badge badge-warning font-modal-footer-paid">Not Paid</span><span class="font-modal-footer"><%= TimeDifference.between(Time.now , order.created_at).humanize %> since checkin</span>
                       <% else %>
                         <span class="badge badge-success font-modal-footer-paid">Paid</span> <span class="font-modal-footer"> on <%= order.updated_at.strftime("%d %b %Y %l:%M %p") %></span>
                       <% end %>
@@ -99,7 +101,7 @@
 
                   <div class="modal-footer d-flex justify-content-between mx-3">
                     <div class="">
-                      <p class="m-0 font-modal-footer">Order Items count <strong><%= order.line_items.count %></strong></p>
+                      <p class="m-0 font-modal-footer">Order Items count <strong><%= order.line_items.size %></strong></p>
                       <p class="m-0 font-modal-footer">Order total <strong><%= humanized_money_with_symbol(order.total_price)%></strong></p>
                     </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

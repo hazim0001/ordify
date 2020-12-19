@@ -14,7 +14,7 @@
             <div class="card m-2" style="width: 45rem;">
               <div class="card-body">
                 <h5 class="card-title"><%= table.name %></h5>
-                <h6 class="card-subtitle mb-2 text-muted">total table till now: <%= humanized_money_with_symbol(table.orders.where(status: "not paid").sum(:total_price_cents)/ 100.0) %></h6>
+                <h6 class="card-subtitle mb-2 text-muted">total table till now: <%= humanized_money_with_symbol(table.orders.not_paid_only.total_sum/ 100.0) %></h6>
                 <!-- <p class="card-text">Some quick example text .</p> -->
                 <% table.orders.not_paid.each do |order| %>
                 <div class="accordion">
@@ -55,14 +55,14 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <% order.line_items.each do |line| %>
-                              <% if line.ordered == false %>
+                            <% order.line_items.includes(:menu_item).each do |line| %>
+                              <% unless line.ordered %>
                                 <p class="badge rounded-pill bg-warning text-muted p-2"><%= line.menu_item.title %> has been selected by the customer but not yet sent to the kitchen</p>
                               <% else %>
                                     <tr>
                                       <td><%= line.menu_item.title%> </td>
                                       <td><%= line.quantity%></td>
-                                      <% if line.dispatched_from_kitchen == true %>
+                                      <% if line.dispatched_from_kitchen %>
                                       <td><%= (line.total_kitchen_time / 60).to_i%> mins</td>
                                       <td><span class="badge badge-success">Dispatched</span></td>
                                       <% else %>
