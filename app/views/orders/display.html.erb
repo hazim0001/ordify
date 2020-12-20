@@ -18,7 +18,7 @@
             <th scope="col">Order total</th>
             <th scope="col">Payment status</th>
             <th scope="col">Items count</th>
-            <th scope="col">Created</th>
+            <th scope="col">Time spent in restaurant</th>
           </tr>
         </thead>
         <tbody>
@@ -43,7 +43,13 @@
             <% end %>
 
             <td><%= order.line_items.size%></td>
-            <td><%= TimeDifference.between(Time.now , order.created_at).humanize %> mins ago</td>
+            <% if order.from_order_to_checkout.nil? %>
+              <td><%= TimeDifference.between(Time.now , order.created_at).humanize %></td>
+            <% else %>
+              <td><%= order.from_order_to_checkout.human_duration %></td>
+            <% end %>
+            <%#= raise %>
+            <!-- <td><%#= TimeDifference.between(Time.now , order.created_at).humanize %> mins ago</td> -->
 
           </tr>
             <!-- modaal -->

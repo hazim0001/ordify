@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_18_055220) do
+ActiveRecord::Schema.define(version: 2020_12_20_045215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,6 +180,7 @@ ActiveRecord::Schema.define(version: 2020_12_18_055220) do
     t.string "order_deleted_by"
     t.datetime "order_deleted_at"
     t.text "deletion_reason"
+    t.integer "from_order_to_checkout"
     t.index ["table_id"], name: "index_orders_on_table_id"
   end
 

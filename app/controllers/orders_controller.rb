@@ -38,8 +38,8 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
     if manager_is_here?
-      # raise
       @order.update(table_id: order_params[:table].to_i, status: order_params[:status])
+      @order.update(from_order_to_checkout: Time.now - @order.created_at) if @order.status == "paid"
       redirect_to orders_path
     else
       @order.line_items.each { |line| line.update(ordered: true, received_at: Time.now) }
