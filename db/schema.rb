@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_20_045215) do
+ActiveRecord::Schema.define(version: 2020_12_20_121204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(version: 2020_12_20_045215) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "add_extras", force: :cascade do |t|
+    t.bigint "line_item_id", null: false
+    t.bigint "extra_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["extra_id"], name: "index_add_extras_on_extra_id"
+    t.index ["line_item_id"], name: "index_add_extras_on_line_item_id"
   end
 
   create_table "blazer_audits", force: :cascade do |t|
@@ -122,6 +131,15 @@ ActiveRecord::Schema.define(version: 2020_12_20_045215) do
     t.index ["restaurant_id"], name: "index_employees_on_restaurant_id"
   end
 
+  create_table "extras", force: :cascade do |t|
+    t.string "title"
+    t.integer "size_grams"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "extra_price_cents", default: 0, null: false
+    t.boolean "active_extra", default: true
+  end
+
   create_table "inventories", force: :cascade do |t|
     t.integer "stock_amount_grams"
     t.integer "trigger_limit"
@@ -202,6 +220,8 @@ ActiveRecord::Schema.define(version: 2020_12_20_045215) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "add_extras", "extras"
+  add_foreign_key "add_extras", "line_items"
   add_foreign_key "employees", "restaurants"
   add_foreign_key "inventories", "menu_items"
   add_foreign_key "line_items", "menu_items"
