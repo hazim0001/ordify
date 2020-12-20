@@ -25,17 +25,18 @@
   <h4>Comments:</h4>
   <%= simple_form_for [@order, @line_item], url: order_line_items_path(@order) do |f| %>
   <%= f.text_field :comment, class:"textarea-menu-item px-5 mt-3 focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:border-transparent", placeholder: "No onions, no tomatos, etc..." %>
+  <%= f.association :extras, as: :check_boxes, include_blank: false %>
   <div class="d-flex justify-content-between toggler-add-btn">
     <!--  here goes the toggler -->
     <div class="custom-number-input d-flex flex-row relative bg-transparent mt-5 toggler-border-show">
       <button type="button" data-action="decrement" class="left-side text-gray-600 h-full w-20 outline-none pl-5 counter-white">
         <span class="m-auto text-2xl ">−</span>
       </button>
-      <input type="number" class="focus:outline-none text-center w-full font-semibold text-md counter-white md:text-basecursor-default flex items-center text-gray-700" name="custom-input-number" value="1"></input>
+      <input type="number" class="focus:outline-none text-center w-full font-semibold text-md counter-white md:text-basecursor-default flex items-center text-gray-700" name="quantity" value="1"></input>
       <button  type="button" data-action="increment" class="right-side counter-white  text-gray-600 h-full w-20 pr-5">
         <span class="m-auto text-2xl">+</span>
       </button>
-      <input type="hidden" id="custId" name="menu_item" value="<%= @menu_item.id %>">
+      <input type="hidden" id="custId" name="menu_item_id" value="<%= @menu_item.id %>">
     </div>
     <%= f.button :submit, 'Add', class: "biggerbtn mt-5", style:"" %>
   </div>
