@@ -4,15 +4,13 @@ class LineItemsController < ApplicationController
   after_action :verify_authorized, only: :destroy, unless: :skip_pundit?
 
   def create
-    raise
     @line_item = LineItem.new(line_item_params)
     @line_item.quantity = params["quantity"]
     @line_item.menu_item = MenuItem.find(params["menu_item_id"])
     @line_item.order = Order.find(params[:order_id]) # session[:order]["id"]
     category = @line_item.menu_item.category
     @line_item.save
-    params[:line_item][:extra_ids].shift
-    params[:line_item][:extra_ids].each do |extra_id|
+    params[:extras_id].each do |extra_id|
       extra = Extra.find(extra_id)
       AddExtra.create(line_item: @line_item, extra: extra)
     end
