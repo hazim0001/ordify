@@ -51,6 +51,12 @@
                   <h2 class="px-2 w-50"><%= line_item.menu_item.title %></h2>
                   <h2><%= humanized_money_with_symbol(line_item.total) %></h2>
                 </div>
+                <% line_item.extras.each do |extra| %>
+                  <div class="d-flex justify-content-between h-50 w-100 pt-3 px-1">
+                    <p class="px-2 w-50 ml-5" style="font-size: 30px;">+ Extra <%= extra.title %></p>
+                    <h2 class="text-muted"><%= humanized_money_with_symbol(extra.extra_price) %></h2>
+                  </div>
+                <% end %>
                 <div class="d-flex justify-content-end h-50">
                   <%= simple_form_for [@order, line_item], url: order_line_item_path(@order.id, line_item.id), html: { id: :form } , method: :patch, remote: true do |f| %>
                     <div class="">

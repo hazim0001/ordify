@@ -10,9 +10,11 @@ class LineItemsController < ApplicationController
     @line_item.order = Order.find(params[:order_id]) # session[:order]["id"]
     category = @line_item.menu_item.category
     @line_item.save
-    params[:extras_id].each do |extra_id|
-      extra = Extra.find(extra_id)
-      AddExtra.create(line_item: @line_item, extra: extra)
+    if params[:extras_id].present?
+      params[:extras_id].each do |extra_id|
+        extra = Extra.find(extra_id)
+        AddExtra.create(line_item: @line_item, extra: extra)
+      end
     end
     update_totals_in_line_item_and_order
     update_inventory

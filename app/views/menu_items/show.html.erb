@@ -33,12 +33,12 @@
         <div class="form-check custom-checkbox ml-5">
           <input type="checkbox" class=" mt-5 custom-control-input" id="flexCheck<%= extra.id %>" value="<%= extra.id %>" name="extras_id[]">
           <label class=" custom-control-label" for="flexCheck<%= extra.id %>">
-            <p class="light-weight ml-5"><%= extra.title.capitalize %></p>
+            <p class="light-weight ml-5">Extra <%= extra.title.capitalize %></p>
           </label>
         </div>
 
         <span>
-          <h3><%= humanized_money_with_symbol(extra.extra_price_cents) %></h3>
+          <h3 style="font-size: 45px;"><%= humanized_money_with_symbol(extra.extra_price) %></h3>
         </span>
       </div>
     <% end %>
