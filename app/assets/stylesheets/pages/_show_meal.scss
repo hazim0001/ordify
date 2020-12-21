@@ -1,8 +1,9 @@
 .page{
   width: 100%;
-  // height: 55vh;
+  // height: 100vh;
   // border: 2px solid red;
   // background-color: rgba(244, 169, 101, 0.3);
+  // overflow: auto;
   img{
     width: 100%;
     height: 30vh;
@@ -68,6 +69,7 @@
 
 .cont{
   margin: 8% 8%;
+  overflow: auto;
 
   h4 {
     font-weight: bold;
@@ -114,6 +116,7 @@
   top: .45em;
   font-size: 1.3em;
   line-height: 0.8;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem #f4a965;
 
 }
 .custom-control-input:active~.custom-control-label::before{
