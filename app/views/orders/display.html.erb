@@ -28,7 +28,7 @@
             <td><%= order.user_number%></td>
             <td><%= order.table.name%></td>
 
-            <% if order.dispatched == true %>
+            <% if order.dispatched %>
               <td><span class="badge badge-success">Dispatched</span></td>
             <% else %>
               <td><span class="badge badge-warning">Not dispatched</span></td>
@@ -93,7 +93,17 @@
                                 <span class="w-25 text-cente pr-2"><%= line.total_kitchen_time.to_i.human_duration %> </span>
                                 <span class="w-25 badge badge-success h-50">Dispatched</span>
                                 <% else %>
-                                <span class="w-25 text-center"><%= line.comment%></span>
+                                  <% if line.extras.any? %>
+                                    <span class="w-25 text-center">
+                                      <%= line.comment%>/
+                                      <% line.extras.pluck(:title).each do |extra| %>
+                                        <strong>+</strong><%= extra %>
+                                      <% end %>
+                                    </span>
+                                  <% else %>
+                                  <span class="w-25 text-center"><%= line.comment%></span>
+                                  <% end %>
+
                                 <span class="w-25 badge badge-warning">Not dispatched</span>
                                 <% end %>
                               </div>
