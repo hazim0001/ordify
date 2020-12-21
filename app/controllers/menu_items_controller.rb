@@ -34,6 +34,14 @@ class MenuItemsController < ApplicationController
     @menu_item.restaurant = @restaurant
     authorize @menu_item
     if @menu_item.save
+      params[:ingredient_id].each_with_index do |id, index|
+        Ingredient.create(
+          menu_item: @menu_item,
+          ingredient_inventory: IngredientInventory.find(id),
+          ingredient_portion_size_grams: params[:ingredient_portion_size][index].to_i,
+          title: "#{IngredientInventory.find(id).name} for #{@menu_item.title}"
+        )
+      end
       redirect_to categories_path
     else
       render :new

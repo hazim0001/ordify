@@ -103,9 +103,54 @@
                     <%= f.association :category, prompt:" Choose a category " %>
                   </div>
                   <div class="col-6 ">
-                    <%= f.input :portion_size_grams,label: 'Portion', hint: 'protion in grams.' %>
+                    <%= f.input :portion_size_grams,label: 'Meal Portion', hint: 'protion in grams.' %>
                   </div>
                 </div>
+                <!-- for ingredients -->
+                <div class="row g-3">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="sel1">Ingredient</label>
+                      <select class="form-control" id="sel1" name="ingredient_id[]">
+                        <option>Choose an ingredient</option>
+                        <% IngredientInventory.all.each do |ing| %>
+                        <option value="<%= ing.id %>" ><%= ing.name %></option>
+                        <% end %>
+                      </select>
+                    </div>
+                    <%#= f.association :ingredient_inventories, prompt:" Choose an ingredient " %>
+                  </div>
+                  <div class="col-6 ">
+                    <div class="form-group">
+                      <label for="usr">Portion</label>
+                      <input type="text" class="form-control" name="ingredient_portion_size[]">
+                    </div>
+                    <%#= f.input :ingredient_portion_size_grams,label: 'Portion', hint: 'protion in grams.' %>
+                  </div>
+                </div>
+
+                <div class="row g-3">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="sel1">Ingredient</label>
+                      <select class="form-control" id="sel1" name="ingredient_id[]">
+                        <option>Choose an ingredient</option>
+                        <% IngredientInventory.all.each do |ing| %>
+                        <option value="<%= ing.id %>" ><%= ing.name %></option>
+                        <% end %>
+                      </select>
+                    </div>
+                    <%#= f.association :ingredient_inventories, prompt:" Choose an ingredient " %>
+                  </div>
+                  <div class="col-6 ">
+                    <div class="form-group">
+                      <label for="usr">Portion</label>
+                      <input type="text" class="form-control" name="ingredient_portion_size[]">
+                    </div>
+                    <%#= f.input :ingredient_portion_size_grams,label: 'Portion', hint: 'protion in grams.' %>
+                  </div>
+                </div>
+
                 <%= f.input :description, as: :text %>
                 <%= f.input :active, as: :boolean, hint: 'Inactive to hide.', input_html: { class: "toggle" }, label_html: { class: 'text-dark'}  %>
                 <%= f.input :photos, as: :file, input_html: { multiple: true }, class:"custom-file-input", wrapper_html: { class: "custom-file"} %>
