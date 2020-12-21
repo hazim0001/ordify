@@ -150,6 +150,11 @@
                     <%#= f.input :ingredient_portion_size_grams,label: 'Portion', hint: 'protion in grams.' %>
                   </div>
                 </div>
+                <input type="text">
+                <button class="add" type="button">Add</button>
+                <button class="remove" type="button">remove</button>
+                <div id="new_chq"></div>
+                <input type="hidden" value="1" id="total_chq">
 
                 <%= f.input :description, as: :text %>
                 <%= f.input :active, as: :boolean, hint: 'Inactive to hide.', input_html: { class: "toggle" }, label_html: { class: 'text-dark'}  %>
@@ -168,6 +173,33 @@
     </div>
   </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+<!-- https://www.sanwebe.com/2013/03/addremove-input-fields-dynamically-with-jquery -->
+<script>
+  $('.add').on('click', add);
+  $('.remove').on('click', remove);
+
+  function add() {
+    var new_chq_no = parseInt($('#total_chq').val()) + 1;
+    var new_input = "<input type='text' id='new_" + new_chq_no + "'>";
+
+    $('#new_chq').append(new_input);
+
+    $('#total_chq').val(new_chq_no);
+  }
+
+  function remove() {
+    var last_chq_no = $('#total_chq').val();
+
+    if (last_chq_no > 1) {
+      $('#new_' + last_chq_no).remove();
+      $('#total_chq').val(last_chq_no - 1);
+    }
+  }
+</script>
 
 
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
