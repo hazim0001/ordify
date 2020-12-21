@@ -23,9 +23,27 @@
 <!-- comments text area -->
 <div class="cont">
   <h4>Comments:</h4>
-  <%= simple_form_for [@order, @line_item], url: order_line_items_path(@order) do |f| %>
+  <%= form_for [@order, @line_item], url: order_line_items_path(@order) do |f| %>
   <%= f.text_field :comment, class:"textarea-menu-item px-5 mt-3 focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:border-transparent", placeholder: "No onions, no tomatos, etc..." %>
-  <%= f.association :extras, as: :check_boxes, include_blank: false %>
+  <%#= f.association :extras, as: :check_boxes, input_html: { class: "form-check-input pads" }, label_html: { class: "form-check-label" }, wrapper_html: { class: "form-check" } %>
+  <div class="mt-5">
+    <h4 class="mb-5">Choose Extra</h4>
+    <% @extras.each do |extra| %>
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="form-check custom-checkbox ml-5">
+          <input type="checkbox" class=" checkbox-extra mt-5 custom-control-input" id="flexCheck<%= extra.id %>" value="<%= extra.id %>" name="extras_id[]">
+          <label class=" custom-control-label" for="flexCheck<%= extra.id %>">
+            <p class="light-weight ml-5"><%= extra.title.capitalize %></p>
+          </label>
+        </div>
+
+        <span>
+          <h3><%= humanized_money_with_symbol(extra.extra_price_cents) %></h3>
+        </span>
+      </div>
+    <% end %>
+  </div>
+
   <div class="d-flex justify-content-between toggler-add-btn">
     <!--  here goes the toggler -->
     <div class="custom-number-input d-flex flex-row relative bg-transparent mt-5 toggler-border-show">
@@ -38,7 +56,55 @@
       </button>
       <input type="hidden" id="custId" name="menu_item_id" value="<%= @menu_item.id %>">
     </div>
-    <%= f.button :submit, 'Add', class: "biggerbtn mt-5", style:"" %>
+    <%= f.submit 'Add', class: "biggerbtn mt-5", style:"" %>
   </div>
   <% end %>
 </div>
+
+<style>
+.light-weight{
+  font-weight: lighter;
+  font-size: 45px;
+}
+/* .checkbox-extra{
+  width: 40px;
+  height: 40px;
+} */
+
+.custom-control-label::before{
+  width: 40px;
+  height: 40px;
+  border-color:#f4a965 ;
+  margin-top: 0.4rem;
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+  background-color:#f4a965;
+
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::after{
+  /* background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='white' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E"); */
+  width: 40px;
+  height: 40px;
+  border-color:#f4a965 ;
+  position: absolute;
+  top: .45em;
+  font-size: 1.3em;
+  line-height: 0.8;
+
+}
+.custom-control-input:active~.custom-control-label::before{
+  background-color:green;
+  width: 40px;
+  height: 40px;
+}
+
+/** focus shadow pinkish **/
+.custom-checkbox .custom-control-input:focus~.custom-control-label::before{
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem #f4a965;
+  border-color:#f4a965 ;
+  width: 40px;
+  height: 40px;
+}
+
+
+</style>

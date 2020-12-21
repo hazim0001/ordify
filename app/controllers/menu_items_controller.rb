@@ -19,6 +19,7 @@ class MenuItemsController < ApplicationController
   def show
     @order = Order.find(session[:order]["id"])
     @line_item = LineItem.new
+    @extras = Extra.all
   end
 
   def new
