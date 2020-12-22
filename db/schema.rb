@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_21_191932) do
+ActiveRecord::Schema.define(version: 2020_12_22_091119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,10 +172,10 @@ ActiveRecord::Schema.define(version: 2020_12_21_191932) do
 
   create_table "inventory_refills", force: :cascade do |t|
     t.integer "refill_amount", default: 0
-    t.bigint "ingredient_inventorie_id", null: false
+    t.bigint "ingredient_inventory_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["ingredient_inventorie_id"], name: "index_inventory_refills_on_ingredient_inventorie_id"
+    t.index ["ingredient_inventory_id"], name: "index_inventory_refills_on_ingredient_inventory_id"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -255,7 +255,7 @@ ActiveRecord::Schema.define(version: 2020_12_21_191932) do
   add_foreign_key "ingredients", "ingredient_inventories"
   add_foreign_key "ingredients", "menu_items"
   add_foreign_key "inventories", "menu_items"
-  add_foreign_key "inventory_refills", "ingredient_inventories", column: "ingredient_inventorie_id"
+  add_foreign_key "inventory_refills", "ingredient_inventories"
   add_foreign_key "line_items", "menu_items"
   add_foreign_key "line_items", "orders"
   add_foreign_key "menu_items", "categories"

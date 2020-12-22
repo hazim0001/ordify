@@ -29,18 +29,19 @@ class MenuItemsController < ApplicationController
   end
 
   def create
-    raise
     @menu_item = MenuItem.new(menu_item_params)
     @restaurant = Restaurant.find(params[:restaurant_id])
     @menu_item.restaurant = @restaurant
     authorize @menu_item
     if @menu_item.save
+      # creting the ingredients for the menu item
       params[:ingredient_id].each_with_index do |id, index|
+        ingredient = IngredientInventory.find(id)
         Ingredient.create(
           menu_item: @menu_item,
-          ingredient_inventory: IngredientInventory.find(id),
+          ingredient_inventory: ingredient,
           ingredient_portion_size_grams: params[:ingredient_portion_size][index].to_i,
-          title: "#{IngredientInventory.find(id).name} for #{@menu_item.title}"
+          title: "#{ingredient.name} for #{@menu_item.title}"
         )
       end
       redirect_to categories_path

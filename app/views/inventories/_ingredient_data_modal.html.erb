@@ -1,0 +1,47 @@
+
+<div class="modal fade" id="ModalIngredient<%= ingredient.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content" style="border-radius: 2rem;">
+
+      <div class="modal-header d-flex justify-content-between mx-3">
+        <h5 class="modal-title font-modal-footer" id="exampleModalLabel2"><strong><%= ingredient.name.capitalize %></strong></h5>
+        <div class="ml-5">
+
+            <span class="badge badge-success font-modal-footer-paid">Last Restock</span> <span class="font-modal-footer"> on <%= ingredient.inventory_refills.last.created_at.strftime("%d %b %Y %l:%M %p") %></span>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container mt-3 bg-white">
+          <div class="m-2">
+            <div class="col-12 mx-auto">
+              <div class="d-flex mb-3 justify-content-between mx-5">
+                <span class="w-25"><strong>Menu Item</strong></span>
+                <span class="w-25"><strong style="margin-left: -2rem;">Portion in grams</strong></span>
+              </div>
+              <hr>
+              <% ingredient.menu_items.each do |menu_item| %>
+                <div class="d-flex mb-3 justify-content-between mx-5">
+                  <span class="w-25"><%= menu_item.title%></span>
+                  <span class="w-25"><strong><%= ingredient.ingredients.find_by(menu_item_id: menu_item).ingredient_portion_size_grams %></strong>grams</span>
+                </div>
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer d-flex justify-content-between mx-3">
+        <div class="">
+          <p class="m-0 font-modal-footer">Menu Items count <strong><%= ingredient.menu_items.size %></strong></p>
+        </div>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

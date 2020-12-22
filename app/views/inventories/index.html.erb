@@ -11,33 +11,38 @@
           <table class="table">
             <thead>
               <tr>
-                <th scope="col" class="text-left">MenuItem</th>
+                <th scope="col" class="text-left">Ingredient</th>
                 <th scope="col" class="text-left">Current Stock</th>
                 <th scope="col" class="text-left">Alert Limit</th>
-<!--                 <th scope="col" class="text-center">Vendors</th>
- -->              </tr>
+                <th scope="col" class="text-left">Last Re-stock</th>
+
+              </tr>
             </thead>
             <tbody>
-              <% @inventories.each do |inventory| %>
-                <% if inventory.trigger_limit >= inventory.stock_amount_grams %>
+              <% IngredientInventory.all.order(:stock_amount_grams).each do |ingredient| %>
+                <% if ingredient.trigger_limit >= ingredient.stock_amount_grams %>
                   <tr class="table-warning">
-                      <td><%= inventory.menu_item.title %></td>
-                      <td><%= inventory.stock_amount_grams %> g</td>
-                      <td><%= inventory.trigger_limit %> g</td>
+                      <td><%= ingredient.name.capitalize %></td>
+                      <td><%= ingredient.stock_amount_grams %> g</td>
+                      <td><%= ingredient.trigger_limit %> g</td>
                       <td class="d-flex justify-content-around align-items-center">
                         <div>
-                          <p class= "m-0">Vendor's name </p>
-                          <p class= "m-0"> 01XXXXXXXXX </p>
+                          <p class= "m-0"><%= ingredient.vendor_name %> </p>
+                          <p class= "m-0"> <%= ingredient.vendor_phone_number %> </p>
                         </div>
                         <button type="button" class="btn btn-outline-success ">Re-order</button>
                       </td>
                     </tr>
                 <% else %>
-                  <tr>
-                    <td><%= inventory.menu_item.title %></td>
-                    <td><%= inventory.stock_amount_grams %> g</td>
-                    <td><%= inventory.trigger_limit %> g</td>
+                  <tr data-toggle="modal" data-target="#ModalIngredient<%= ingredient.id %>">
+                    <td><%= ingredient.name.capitalize %></td>
+                    <td><%= ingredient.stock_amount_grams %> g</td>
+                    <td><%= ingredient.trigger_limit %> g</td>
+                    <td><%= ingredient.inventory_refills.last.created_at.strftime("%d %b %Y %l:%M %p") %></td>
                   </tr>
+                  <!-- modal -->
+                  <%= render partial: 'ingredient_data_modal', locals: { ingredient: ingredient} %>
+                  <!-- end of modal -->
                 <% end %>
               <% end %>
             </tbody>
