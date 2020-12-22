@@ -15,8 +15,6 @@ class Order < ApplicationRecord
   scope :not_paid, -> { where("status= ? AND total_price_cents> ?", "not paid", "0") }
   scope :not_paid_only, -> { where(status: "not paid") }
 
-
-
   def self.total_sum
     sum :total_price_cents
   end

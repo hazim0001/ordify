@@ -18,7 +18,7 @@
     <!-- this is the card for summary -->
     <% @line_items.each do |line_item| %>
       <% if line_item.quantity >= 1 %>
-        <% if line_item.ordered == true %>
+        <% if line_item.ordered %>
           <div class="card-item">
             <div class="img-container-card">
               <%= cl_image_tag line_item.menu_item.photos.first.key  %>
@@ -34,7 +34,7 @@
                 </h2>
                 <h2><%= humanized_money_with_symbol(line_item.total) %></h2>
               </div>
-              <% if line_item.dispatched_from_kitchen == true %>
+              <% if line_item.dispatched_from_kitchen  %>
                 <h2 class="badge badge-pill badge-success mt-auto ml-2 w-50" style="font-size:30px;">Delivered</h2>
               <% else %>
                 <h2 class="badge badge-pill badge-primary mt-auto ml-2 animate-pulse w-50" style="font-size:30px;">Being prepared</h2>
@@ -46,27 +46,39 @@
             <div class="img-container-card">
               <%= cl_image_tag line_item.menu_item.photos.first.key  %>
             </div>
-             <div class="card-item-infos">
-                <div class="d-flex justify-content-between h-50 w-100 pt-3 px-1">
-                  <h2 class="px-2 w-50"><%= line_item.menu_item.title %></h2>
-                  <h2><%= humanized_money_with_symbol(line_item.total) %></h2>
+             <div class="card-item-infos mt-2">
+                <div class="mt-1">
+                  <div class="d-flex justify-content-between h-50 w-100 pt-1 px-1">
+                    <h2 class="px-2 w-50"><%= line_item.menu_item.title %></h2>
+                    <h2><%= humanized_money_with_symbol(line_item.total) %></h2>
+                  </div>
+                  <!-- <div class=""> -->
+                    <% line_item.extras.each do |extra| %>
+                      <div class="d-flex justify-content-between w-100 pt-1 px-1">
+                        <p class="px-2 w-50 ml-5" style="font-size: 30px;">+ Extra <%= extra.title %></p>
+                        <h2 class="text-muted"><%= humanized_money_with_symbol(extra.extra_price) %></h2>
+                      </div>
+                    <% end %>
+                  <!-- </div> -->
                 </div>
-                <div class="d-flex justify-content-end h-50">
-                  <%= simple_form_for [@order, line_item], url: order_line_item_path(@order.id, line_item.id), html: { id: :form } , method: :patch, remote: true do |f| %>
-                    <div class="">
-                      <div class="custom-number-input h-10 w-32 mt-5 toggler-div" >
+                <% if line_item.extras.size >= 2 %>
+                  <div class="d-flex justify-content-end ">
+                <% else %>
+                  <div class="d-flex justify-content-end margin-top-100">
+                <% end %>
+                  <%= form_for [@order, line_item], url: order_line_item_path(@order.id, line_item.id), html: { id: :form } , method: :patch, remote: true do |f| %>
+                      <div class="custom-number-input-summary w-32 toggler-div d-flex justify-content-end align-items-end " >
                         <div class="flex flex-row toggler relative bg-transparent toggler-border">
                           <button data-action="decrement" class=" text-gray-600 h-full w-20 outline-none pl-5 counter-white left-side height100" >
                             <span class="m-auto text-2xl ">−</span>
                           </button>
-                          <input type="number" class="outline-none focus:outline-none text-center w-full font-semibold text-md counter-white  md:text-basecursor-default flex items-center text-gray-700 height100 line-item-count" name="custom-input-number" value=<%= line_item.quantity %>></input>
+                          <input type="number" class="outline-none focus:outline-none text-center w-full font-semibold text-md counter-white  md:text-basecursor-default flex items-center text-gray-700 height100 line-item-count" name="quantity" value=<%= line_item.quantity %>></input>
                           <button data-action="increment" class=" counter-white  text-gray-600 h-full w-20 pr-5 right-side height100">
                             <span class="m-auto text-2xl" >+</span>
                           </button>
                           <input type="hidden" id="custId" name="line_item" value="<%= line_item.id %>">
                         </div>
                       </div>
-                    </div>
                   <% end %>
                 </div>
               </div>
@@ -99,4 +111,13 @@
     </div>
   </div>
 <% end %>
+<style>
+.card-item{
+  /* overflow-x:  visible !important; */
+  /* overflow: scroll; */
+}
+.flow{
+  /* overflow-x: visible !important; */
+}
 
+</style>

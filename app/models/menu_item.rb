@@ -5,6 +5,10 @@ class MenuItem < ApplicationRecord
   has_many :tables, through: :orders
   has_many_attached :photos
 
+  has_many :ingredients, dependent: :destroy
+  has_many :ingredient_inventories, through: :ingredients
+  has_many :inventory_refills, through: :ingredient_inventories
+
   belongs_to :restaurant
   belongs_to :category
 

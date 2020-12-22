@@ -5,11 +5,17 @@ class LineItemsController < ApplicationController
 
   def create
     @line_item = LineItem.new(line_item_params)
-    @line_item.quantity = params["custom-input-number"]
-    @line_item.menu_item = MenuItem.find(params["menu_item"])
-    @line_item.order = Order.find(session[:order]["id"])
+    @line_item.quantity = params["quantity"]
+    @line_item.menu_item = MenuItem.find(params["menu_item_id"])
+    @line_item.order = Order.find(params[:order_id]) # session[:order]["id"]
     category = @line_item.menu_item.category
     @line_item.save
+    if params[:extras_id].present?
+      params[:extras_id].each do |extra_id|
+        extra = Extra.find(extra_id)
+        AddExtra.create(line_item: @line_item, extra: extra)
+      end
+    end
     update_totals_in_line_item_and_order
     update_inventory
     redirect_to category_menu_items_path(category)
@@ -30,10 +36,11 @@ class LineItemsController < ApplicationController
       update_inventory
       redirect_to orders_path
     else
-      @line_item.update!(quantity: params["custom-input-number"].to_i)
+      @line_item.update!(quantity: params["quantity"].to_i)
       update_totals_in_line_item_and_order
       update_inventory
       @line_item.destroy if @line_item.quantity.zero?
+      # raise
       redirect_to order_line_items_path
     end
   end
@@ -68,7 +75,8 @@ class LineItemsController < ApplicationController
   def update_totals_in_line_item_and_order
     @line_item.update(total_cents: @line_item.menu_item.item_price_cents * @line_item.quantity)
     sub_total = LineItem.where(order: @line_item.order.id).sum(:total_cents)
-    @line_item.order.update(total_price_cents: sub_total, sent: false)
+    extra_total = @line_item.extras.sum(:extra_price_cents)
+    @line_item.order.update(total_price_cents: (sub_total + extra_total), sent: false)
   end
 
   def update_inventory
@@ -92,6 +100,6 @@ class LineItemsController < ApplicationController
   end
 
   def line_item_params
-    params.require(:line_item).permit(:comment, :quantity, :line_deletion_reason)
+    params.require(:line_item).permit(:comment, :quantity, :line_deletion_reason, :menu_item_id, :order_id)
   end
 end

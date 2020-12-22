@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
       @order = Order.find(session[:order]["id"])
     end
     categories_ids = MenuItem.where(restaurant_id: @target_restaurant).pluck(:category_id).uniq
-    @categories = Category.where(id: categories_ids).includes(menu_items: %i[photos_attachments restaurant])
+    @categories = Category.where(id: categories_ids).includes(menu_items: %i[photos_attachments])
   end
 
   def create

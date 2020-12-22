@@ -4,7 +4,13 @@
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 
-      <h2 class="mt-5"><%= @restaurant.name.capitalize %>'s Inventory</h2>
+      <div class="d-flex justify-content-between align-items-end">
+        <h2 class="mt-5"><%= @restaurant.name.capitalize %>'s Inventory</h2>
+        <button type="button" class="btn btn-outline-primary pb-2" style="margin-right: 1rem; "data-toggle="modal" data-target="#re-stockModal">
+          Re-Stock
+        </button>
+      </div>
+
       <hr>
       <div class="table-responsive">
         <div class="container">
@@ -51,3 +57,5 @@
     </main>
   </div>
 </div>
+<%= render partial: 're-stock_modal', locals: { inventory_refill: @inventory_refill} %>
+

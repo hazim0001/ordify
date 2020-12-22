@@ -21,23 +21,42 @@
   </div>
 </div>
 <!-- comments text area -->
-<div class="cont">
+<div class="cont" style="margin-bottom:10rem;">
   <h4>Comments:</h4>
-  <%= simple_form_for [@order, @line_item], url: order_line_items_path(@order) do |f| %>
+  <%= form_for [@order, @line_item], url: order_line_items_path(@order) do |f| %>
   <%= f.text_field :comment, class:"textarea-menu-item px-5 mt-3 focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:border-transparent", placeholder: "No onions, no tomatos, etc..." %>
+  <%#= f.association :extras, as: :check_boxes, input_html: { class: "form-check-input pads" }, label_html: { class: "form-check-label" }, wrapper_html: { class: "form-check" } %>
+  <div class="mt-5 mb-5">
+    <h4 class="mb-5">Choose Extra</h4>
+    <% @extras.each do |extra| %>
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="form-check custom-checkbox ml-5">
+          <input type="checkbox" class=" mt-5 custom-control-input" id="flexCheck<%= extra.id %>" value="<%= extra.id %>" name="extras_id[]">
+          <label class=" custom-control-label" for="flexCheck<%= extra.id %>">
+            <p class="light-weight ml-5">Extra <%= extra.title.capitalize %></p>
+          </label>
+        </div>
+
+        <span>
+          <h3 style="font-size: 45px;"><%= humanized_money_with_symbol(extra.extra_price) %></h3>
+        </span>
+      </div>
+    <% end %>
+  </div>
+
   <div class="d-flex justify-content-between toggler-add-btn">
     <!--  here goes the toggler -->
     <div class="custom-number-input d-flex flex-row relative bg-transparent mt-5 toggler-border-show">
       <button type="button" data-action="decrement" class="left-side text-gray-600 h-full w-20 outline-none pl-5 counter-white">
         <span class="m-auto text-2xl ">−</span>
       </button>
-      <input type="number" class="focus:outline-none text-center w-full font-semibold text-md counter-white md:text-basecursor-default flex items-center text-gray-700" name="custom-input-number" value="1"></input>
+      <input type="number" class="focus:outline-none text-center w-full font-semibold text-md counter-white md:text-basecursor-default flex items-center text-gray-700" name="quantity" value="1"></input>
       <button  type="button" data-action="increment" class="right-side counter-white  text-gray-600 h-full w-20 pr-5">
         <span class="m-auto text-2xl">+</span>
       </button>
-      <input type="hidden" id="custId" name="menu_item" value="<%= @menu_item.id %>">
+      <input type="hidden" id="custId" name="menu_item_id" value="<%= @menu_item.id %>">
     </div>
-    <%= f.button :submit, 'Add', class: "biggerbtn mt-5", style:"" %>
+    <%= f.submit 'Add', class: "biggerbtn mt-5", style:"" %>
   </div>
   <% end %>
 </div>

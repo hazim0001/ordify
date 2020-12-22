@@ -19,6 +19,7 @@ class MenuItemsController < ApplicationController
   def show
     @order = Order.find(session[:order]["id"])
     @line_item = LineItem.new
+    @extras = Extra.all
   end
 
   def new
@@ -33,6 +34,16 @@ class MenuItemsController < ApplicationController
     @menu_item.restaurant = @restaurant
     authorize @menu_item
     if @menu_item.save
+      # creting the ingredients for the menu item
+      params[:ingredient_id].each_with_index do |id, index|
+        ingredient = IngredientInventory.find(id)
+        Ingredient.create(
+          menu_item: @menu_item,
+          ingredient_inventory: ingredient,
+          ingredient_portion_size_grams: params[:ingredient_portion_size][index].to_i,
+          title: "#{ingredient.name} for #{@menu_item.title}"
+        )
+      end
       redirect_to categories_path
     else
       render :new

@@ -7,7 +7,7 @@
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 
       <div class="d-flex justify-content-between align-items-end" style="width: 75vw;">
-        <h2 class="mt-5"><%= current_employee.restaurant.name.capitalize %>'s Menu Items By Category</h2>
+        <h2 class="mt-5"><%= current_employee.restaurant.name.capitalize %>'s Menu Items</h2>
         <button type="button" class="btn btn-outline-primary pb-2" style="margin-left: 15rem; "data-toggle="modal" data-target="#exampleModal2">
           Add Category
         </button>
@@ -103,9 +103,14 @@
                     <%= f.association :category, prompt:" Choose a category " %>
                   </div>
                   <div class="col-6 ">
-                    <%= f.input :portion_size_grams,label: 'Portion', hint: 'protion in grams.' %>
+                    <%= f.input :portion_size_grams,label: 'Meal Portion', hint: 'protion in grams.' %>
                   </div>
                 </div>
+                <!-- for ingredients -->
+                <div class="input_fields_wrap">
+                    <h4 class="add_field_button mb-4" style="font-size: 16px; font-weight: bold;">Add Ingredients<i class="fas fa-plus-circle text-muted" style="font-size: 16px;margin-left: 0.6rem;"></i></h4>
+                </div>
+
                 <%= f.input :description, as: :text %>
                 <%= f.input :active, as: :boolean, hint: 'Inactive to hide.', input_html: { class: "toggle" }, label_html: { class: 'text-dark'}  %>
                 <%= f.input :photos, as: :file, input_html: { multiple: true }, class:"custom-file-input", wrapper_html: { class: "custom-file"} %>
@@ -157,3 +162,50 @@
   </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+<script>
+
+  $(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper       = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+      e.preventDefault();
+      if(x < max_fields){ //max input box allowed
+        x++; //text box increment
+        $(wrapper).append(
+        `<div>
+          <div class="row g-3">
+            <div class="col-6">
+              <div class="form-group">
+                <label for="sel1">Ingredient</label>
+                <select class="form-control" id="sel1" name="ingredient_id[]">
+                  <option>Choose an ingredient</option>
+                  <% IngredientInventory.all.each do |ing| %>
+                  <option value="<%= ing.id %>" ><%= ing.name %></option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+            <div class="col-5 ">
+              <div class="form-group">
+                <label for="usr">Portion</label>
+                <input type="text" class="form-control" name="ingredient_portion_size[]" placeholder="portion in grams">
+              </div>
+            </div>
+              <a href="#" class="remove_field" style="margin-top:2.5rem;"><i class="far fa-trash-alt" style="color: gray;"></i></a>
+          </div>
+        </div>`
+        ); //add input box
+      }
+    });
+
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+      e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+  });
+</script>
