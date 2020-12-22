@@ -1,6 +1,5 @@
 class RemoveTimeInRestaurantToOrders < ActiveRecord::Migration[6.0]
   def change
-    remove_column :orders, :from_order_to_checkout, :interval
     add_column :orders, :from_order_to_checkout, :integer
   end
 end
