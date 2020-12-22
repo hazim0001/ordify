@@ -19,15 +19,19 @@
           <div class="m-2">
             <div class="col-12 mx-auto">
               <div class="d-flex mb-3 justify-content-between mx-5">
-                <span class="w-25"><strong>Menu Item</strong></span>
-                <span class="w-25"><strong style="margin-left: -2rem;">Portion in grams</strong></span>
+                <span class="w-25"><strong>#</strong></span>
+                <span class="w-50"><strong>Menu Item</strong></span>
+                <span class="w-50"><strong style="margin-left: -2rem;">Portion in grams</strong></span>
               </div>
               <hr>
+              <% counter = 1 %>
               <% ingredient.menu_items.each do |menu_item| %>
                 <div class="d-flex mb-3 justify-content-between mx-5">
-                  <span class="w-25"><%= menu_item.title%></span>
-                  <span class="w-25"><strong><%= ingredient.ingredients.find_by(menu_item_id: menu_item).ingredient_portion_size_grams %></strong>grams</span>
+                  <span class="w-25"><%= counter %></span>
+                  <span class="w-50"><%= menu_item.title%></span>
+                  <span class="w-50"><strong><%= ingredient.ingredients.find_by(menu_item_id: menu_item).ingredient_portion_size_grams %></strong>grams</span>
                 </div>
+                <% counter += 1 %>
               <% end %>
 
             </div>

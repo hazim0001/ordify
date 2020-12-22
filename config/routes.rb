@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :tables, only: %i[create index show]
     resources :menu_items, only: %i[create edit update new]
     resources :inventories , only: :index
+    resources :ingredient_inventories, only: %i[index create ]
     member do
       get :dashboard
     end
@@ -45,6 +46,9 @@ Rails.application.routes.draw do
   resources :menu_items, only: %i[destroy show]
   resources :tables, only: :destroy
   resources :categories, only: :destroy
+  resources :ingredient_inventories, only: %i[update destroy] do
+    resources :inventory_refills, only: %i[create]
+  end
   resources :line_items, only: %i[destroy edit] do
     member do
       patch :shallow_delete
