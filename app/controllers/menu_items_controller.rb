@@ -29,6 +29,7 @@ class MenuItemsController < ApplicationController
   end
 
   def create
+    raise
     @menu_item = MenuItem.new(menu_item_params)
     @restaurant = Restaurant.find(params[:restaurant_id])
     @menu_item.restaurant = @restaurant
