@@ -1,11 +1,12 @@
 class Restaurant < ApplicationRecord
-  has_many :tables
   has_many :employees
   has_many :menu_items
+  has_many :tables
+  has_many :orders, through: :tables
   has_many :line_items, through: :menu_items
   has_many :categories, through: :menu_items
-  has_many :inventories, through: :menu_items
-  has_many :orders, through: :tables
+  has_many :ingredients, through: :menu_items
+  has_many :ingredient_inventories, through: :ingredients
 
   belongs_to :cusine
 

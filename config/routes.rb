@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'restaurants/dashboard'
   devise_for :employees
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -19,6 +18,7 @@ Rails.application.routes.draw do
     resources :menu_items, only: %i[create edit update new]
     resources :inventories , only: :index
     resources :ingredient_inventories, only: %i[index create ]
+    resources :inventory_refills, only: :index
     member do
       get :dashboard
     end
@@ -46,9 +46,9 @@ Rails.application.routes.draw do
   resources :menu_items, only: %i[destroy show]
   resources :tables, only: :destroy
   resources :categories, only: :destroy
-  resources :ingredient_inventories, only: %i[update destroy] do
-    resources :inventory_refills, only: %i[create]
-  end
+  resources :ingredient_inventories, only: %i[update destroy]
+  resources :inventory_refills, only: %i[create]
+
   resources :line_items, only: %i[destroy edit] do
     member do
       patch :shallow_delete
