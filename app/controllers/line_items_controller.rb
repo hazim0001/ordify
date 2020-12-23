@@ -85,6 +85,14 @@ class LineItemsController < ApplicationController
       current_stock = ingredient.ingredient_inventory.stock_amount_grams
       ingredient.ingredient_inventory.update(stock_amount_grams: current_stock - (portion * quantity))
     end
+    # raise
+    if @line_item.extras.any?
+      @line_item.extras.each do |extra|
+        portion = extra.size_grams
+        current_stock = extra.ingredient_inventory.stock_amount_grams
+        extra.ingredient_inventory.update(stock_amount_grams: current_stock - portion)
+      end
+    end
     # trigger_limit = @line_item.menu_item.inventory.trigger_limit
     # InventoryCheckJob.perform_later if trigger_limit >= current_stock && @line_item.ordered == true
   end
@@ -95,6 +103,14 @@ class LineItemsController < ApplicationController
       quantity = @line_item.quantity
       current_stock = ingredient.ingredient_inventory.stock_amount_grams
       ingredient.ingredient_inventory.update(stock_amount_grams: current_stock + (portion * quantity))
+    end
+
+    return unless @line_item.extras.any?
+
+    @line_item.extras.each do |extra|
+      portion = extra.size_grams
+      current_stock = extra.ingredient_inventory.stock_amount_grams
+      extra.ingredient_inventory.update(stock_amount_grams: current_stock + portion)
     end
   end
 
