@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
 
   def create
     @table = Table.find(params[:table_id])
-    @order = Order.find_or_initialize_by(order_params) # Order.new(order_params)
+    @order = Order.find_or_initialize_by(user_number: order_params[:user_number], status: "not paid") # Order.new(order_params)
     @order.table = @table
     if @order.save
       session[:order] = @order
@@ -95,10 +95,20 @@ class OrdersController < ApplicationController
 
   def return_inventory
     @order.line_items.each do |line_item|
-      portion = line_item.menu_item.portion_size_grams
-      quantity = line_item.quantity
-      current_stock = line_item.menu_item.inventory.stock_amount_grams
-      line_item.menu_item.inventory.update(stock_amount_grams: current_stock + (portion * quantity))
+      line_item.menu_item.ingredients.each do |ingredient|
+        portion = ingredient.ingredient_portion_size_grams
+        quantity = line_item.quantity
+        current_stock = ingredient.ingredient_inventory.stock_amount_grams
+        ingredient.ingredient_inventory.update(stock_amount_grams: current_stock + (portion * quantity))
+      end
+
+      next if line_item.extras.any?
+
+      line_item.extras.each do |extra|
+        portion = extra.size_grams
+        current_stock = extra.ingredient_inventory.stock_amount_grams
+        extra.ingredient_inventory.update(stock_amount_grams: current_stock - portion)
+      end
     end
   end
 

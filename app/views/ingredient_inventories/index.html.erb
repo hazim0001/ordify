@@ -24,7 +24,7 @@
               </tr>
             </thead>
             <tbody>
-              <% IngredientInventory.all.order(:stock_amount_grams).each do |ingredient| %>
+              <% @ingredient_inventories.order(:stock_amount_grams).each do |ingredient| %>
                 <% if ingredient.trigger_limit >= ingredient.stock_amount_grams %>
                   <tr class="table-warning">
                       <td><%= ingredient.name.capitalize %></td>
@@ -57,5 +57,5 @@
     </main>
   </div>
 </div>
-<%= render partial: 're-stock_modal', locals: { inventory_refill: @inventory_refill} %>
+<%= render partial: 're-stock_modal', locals: { inventory_refill: @inventory_refill, ingredient_inventories: @ingredient_inventories} %>
 

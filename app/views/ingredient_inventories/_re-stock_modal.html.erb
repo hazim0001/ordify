@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-8 mx-auto">
               <%= simple_form_for @inventory_refill, url: inventory_refills_path do |f| %>
-                <%= f.association :ingredient_inventory, label: 'Ingredient', prompt: 'Choose an ingredient' %>
+                <%= f.input :ingredient_inventory_id, label: 'Ingredient', collection: ingredient_inventories, include_blank: 'Choose an ingredient' %>
                 <%= f.input :refill_amount, hint: 'amount in grams' %>
             </div>
           </div>

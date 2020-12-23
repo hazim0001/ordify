@@ -20,7 +20,7 @@
             <div class="col-12 mx-auto">
               <div class="d-flex mb-3 justify-content-between mx-5">
                 <span class="w-25"><strong>#</strong></span>
-                <span class="w-50"><strong>Menu Item</strong></span>
+                <span class="w-50"><strong>Menu Item/Extra</strong></span>
                 <span class="w-50"><strong style="margin-left: -2rem;">Portion in grams</strong></span>
               </div>
               <hr>
@@ -29,9 +29,17 @@
                 <div class="d-flex mb-3 justify-content-between mx-5">
                   <span class="w-25"><%= counter %></span>
                   <span class="w-50"><%= menu_item.title%></span>
-                  <span class="w-50"><strong><%= ingredient.ingredients.find_by(menu_item_id: menu_item).ingredient_portion_size_grams %></strong>grams</span>
+                  <span class="w-50"><strong><%= ingredient.ingredients.find_by(menu_item_id: menu_item).ingredient_portion_size_grams %></strong> grams</span>
                 </div>
                 <% counter += 1 %>
+              <% end %>
+              <% ingredient.extras.each do |extra| %>
+              <div class="d-flex mb-3 justify-content-between mx-5">
+                <span class="w-25"><%= counter %></span>
+                <span class="w-50">Extra <%= extra.title %></span>
+                <span class="w-50"><strong><%= extra.size_grams %></strong> grams</span>
+              </div>
+              <% counter += 1 %>
               <% end %>
 
             </div>
@@ -41,7 +49,7 @@
 
       <div class="modal-footer d-flex justify-content-between mx-3">
         <div class="">
-          <p class="m-0 font-modal-footer">Menu Items count <strong><%= ingredient.menu_items.size %></strong></p>
+          <p class="m-0 font-modal-footer">Items count <strong><%= ingredient.menu_items.size + ingredient.extras.size %></strong></p>
         </div>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>

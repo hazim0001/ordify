@@ -25,7 +25,6 @@
                 <%= f.input :description, as: :text %>
                 <%= f.input :active, as: :boolean, hint: 'Inactive to hide.', input_html: { class: "toggle", id:"menu_item_active#{menu_item.id}" }, label_html: { class: 'text-dark', for: "menu_item_active#{menu_item.id}"} %>
                 <%= f.input :photos, as: :file, input_html: { multiple: true } %>
-
             </div>
           </div>
         </div>
@@ -40,8 +39,3 @@
     </div>
   </div>
 </div>
-
-
-<style>
-
-</style>
