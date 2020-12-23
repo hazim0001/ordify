@@ -161,6 +161,7 @@
             <div class="col-8 mx-auto">
               <%= simple_form_for @category, url: categories_path do |f| %>
                 <%= f.input :title %>
+                <%= f.input :restaurant_id, as: :hidden, input_html: { value: "#{current_employee.restaurant.id}" } %>
             </div>
           </div>
         </div>
