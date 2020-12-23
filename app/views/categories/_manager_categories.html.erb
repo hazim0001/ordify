@@ -22,44 +22,58 @@
       <div class="table-responsive">
         <div class="">
           <% @categories.each do |category| %>
-          <div class="card m-3" style="width: 75vw;">
+          <div class="card m-3 border-0" style="width: 50vw;">
             <div class="card-body">
               <div class="d-flex">
-                <h5 class="card-title mr-3"><strong><%= category.title %></strong></h5>
+                <h5 class="card-title mr-3"><strong><%= category.title.capitalize %></strong></h5>
                 <%= link_to category_path(category.id), method: :delete, data: { confirm: "Are you sure you want to delete #{category.title} from your categoty list?"} do %>
                   <i class="fas fa-trash-alt ml-1" style="color: gray;"></i>
                 <% end %>
               </div>
-              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+              <h6 class="card-subtitle mb-4 text-muted">Menu Items count: <%= category.menu_items.size %></h6>
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col" class="col-md-auto w-25">MenuItem</th>
-                    <th scope="col" class="col-md-auto w-25">Price</th>
-                    <th scope="col" class="col-md-auto w-25">Active</th>
-                    <th scope="col" class="col-md-auto w-25"></th>
+
                   </tr>
                 </thead>
                 <tbody>
                 <% category.menu_items.order(created_at: :desc).each do |menu_item| %>
                   <tr>
-                    <td><p class="card-text"><%= menu_item.title %></p></td>
-                    <td><p class="card-text"><%= humanized_money_with_symbol(menu_item.item_price) %></p></td>
-                    <% if menu_item.active == true%>
-                      <td><p class="card-text"><i class="fas fa-eye"></i></p></td>
-                    <% else %>
-                      <td><p class="card-text"><i class="far fa-eye-slash"></i></p></td>
-                    <% end %>
-                    <td class="d-flex flex-row-reverse pr-5">
-                      <p class="card-text">
-                        <button type="button" data-toggle="modal" data-target="#editMenuItemModal<%= menu_item.id %>" >
-                          <i class="far fa-edit mx-3" style="color: gray;"></i>
-                        </button>
-                        <%= link_to menu_item_path(menu_item.id), method: :delete, data: { confirm: "Are you sure you want to delete this menu item?", disable_with: "Processing..." } do %>
-                          <i class="far fa-trash-alt" style="color: gray;"></i>
-                        <% end %>
-                      </p>
-                    </td>
+                    <div class="card-product my-2">
+                      <% if menu_item.photos.attached? %>
+                        <%= cl_image_tag menu_item.photos.first.key  %>
+                      <% else %>
+                        <%= image_tag("https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid")%>
+                      <% end %>
+                      <div class="d-flex justify-content-between w-100">
+                        <div class="card-product-infos mt-2">
+                          <h2 class="mb-2"><%= menu_item.title %></h2>
+                          <p><%= menu_item.description %></p>
+                          <div class="d-flex">
+                            <% if menu_item.active == true%>
+                             <p class=""><i class="fas fa-eye" style="color: black;font-size: 1rem;"></i></p>
+                            <% else %>
+                             <p class=""><i class="far fa-eye-slash" style="color: black;font-size: 1rem; font-weight: bold;"></i></p>
+                            <% end %>
+                            <p class="ml-3">Ordered <%= pluralize(menu_item.orders.size, "time" ) %></p>
+                          </div>
+                        </div>
+                        <div>
+                          <!-- here goes the icons -->
+                          <div class="mr-2">
+                            <button type="button" data-toggle="modal" data-target="#editMenuItemModal<%= menu_item.id %>" class="mb-1">
+                              <i class="far fa-edit mx-3" style="color: #0278ae;"></i>
+                            </button>
+                          </div>
+                          <div class="ml-3 mt-4">
+                            <%= link_to menu_item_path(menu_item.id), method: :delete, data: { confirm: "Are you sure you want to delete this menu item?", disable_with: "Processing..." } do %>
+                              <i class="far fa-trash-alt" style="color: #ec524b;"></i>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </tr>
                   <%= render partial: 'edit_menu_item_modal', locals:{ menu_item: menu_item } %>
                 <% end %>
@@ -108,7 +122,7 @@
                 </div>
                 <!-- for ingredients -->
                 <div class="input_fields_wrap">
-                    <h4 class="add_field_button mb-4" style="font-size: 16px; font-weight: bold;">Add Ingredients<i class="fas fa-plus-circle text-muted" style="font-size: 16px;margin-left: 0.6rem;"></i></h4>
+                    <h4 class="add_field_button mb-4" style="font-size: 16px; font-weight: bold;">Add Ingredients<i class="fas fa-plus-circle text-primary" style="font-size: 16px;margin-left: 0.6rem;"></i></h4>
                 </div>
 
                 <%= f.input :description, as: :text %>
@@ -197,7 +211,7 @@
                 <input type="text" class="form-control" name="ingredient_portion_size[]" placeholder="portion in grams">
               </div>
             </div>
-              <a href="#" class="remove_field" style="margin-top:2.5rem;"><i class="far fa-trash-alt" style="color: gray;"></i></a>
+              <a href="#" class="remove_field" style="margin-top:2.5rem;"><i class="far fa-trash-alt" style="color: #ec524b;"></i></a>
           </div>
         </div>`
         ); //add input box

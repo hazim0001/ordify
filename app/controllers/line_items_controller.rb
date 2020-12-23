@@ -40,7 +40,6 @@ class LineItemsController < ApplicationController
       update_totals_in_line_item_and_order
       update_inventory
       @line_item.destroy if @line_item.quantity.zero?
-      # raise
       redirect_to order_line_items_path
     end
   end
