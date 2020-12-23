@@ -95,10 +95,12 @@ class OrdersController < ApplicationController
 
   def return_inventory
     @order.line_items.each do |line_item|
-      portion = line_item.menu_item.portion_size_grams
-      quantity = line_item.quantity
-      current_stock = line_item.menu_item.inventory.stock_amount_grams
-      line_item.menu_item.inventory.update(stock_amount_grams: current_stock + (portion * quantity))
+      line_item.menu_item.ingredients.each do |ingredient|
+        portion = ingredient.ingredient_portion_size_grams
+        quantity = line_item.quantity
+        current_stock = ingredient.ingredient_inventory.stock_amount_grams
+        ingredient.ingredient_inventory.update(stock_amount_grams: current_stock + (portion * quantity))
+      end
     end
   end
 
