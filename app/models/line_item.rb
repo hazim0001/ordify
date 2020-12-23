@@ -4,6 +4,7 @@ class LineItem < ApplicationRecord
 
   has_many :add_extras, dependent: :destroy
   has_many :extras, through: :add_extras
+  has_many :ingredients, through: :menu_item
 
   validates :quantity, presence: true, inclusion: { in: (0..10) }, numericality: { only_integer: true }
   validates :comment, length: { maximum: 30 }
