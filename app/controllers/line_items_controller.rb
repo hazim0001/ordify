@@ -80,19 +80,23 @@ class LineItemsController < ApplicationController
   end
 
   def update_inventory
-    portion = @line_item.menu_item.portion_size_grams
-    quantity = @line_item.quantity
-    current_stock = @line_item.menu_item.inventory.stock_amount_grams
-    trigger_limit = @line_item.menu_item.inventory.trigger_limit
-    @line_item.menu_item.inventory.update(stock_amount_grams: current_stock - (portion * quantity))
-    InventoryCheckJob.perform_later if trigger_limit >= current_stock && @line_item.ordered == true
+    @line_item.menu_item.ingredients.each do |ingredient|
+      portion = ingredient.ingredient_portion_size_grams
+      quantity = @line_item.quantity
+      current_stock = ingredient.ingredient_inventory.stock_amount_grams
+      ingredient.ingredient_inventory.update(stock_amount_grams: current_stock - (portion * quantity))
+    end
+    # trigger_limit = @line_item.menu_item.inventory.trigger_limit
+    # InventoryCheckJob.perform_later if trigger_limit >= current_stock && @line_item.ordered == true
   end
 
   def return_inventory
-    portion = @line_item.menu_item.portion_size_grams
-    quantity = @line_item.quantity
-    current_stock = @line_item.menu_item.inventory.stock_amount_grams
-    @line_item.menu_item.inventory.update(stock_amount_grams: current_stock + (portion * quantity))
+    @line_item.menu_item.ingredients.each do |ingredient|
+      portion = ingredient.ingredient_portion_size_grams
+      quantity = @line_item.quantity
+      current_stock = ingredient.ingredient_inventory.stock_amount_grams
+      ingredient.ingredient_inventory.update(stock_amount_grams: current_stock + (portion * quantity))
+    end
   end
 
   def set_line_item
