@@ -19,10 +19,6 @@ class Order < ApplicationRecord
     sum :total_price_cents
   end
 
-  # def dispatched
-  #   dispatched == true
-  # end
-
   # def paid?
   #   status == "paid"
   # end
