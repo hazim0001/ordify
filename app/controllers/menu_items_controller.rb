@@ -19,7 +19,9 @@ class MenuItemsController < ApplicationController
   def show
     @order = Order.find(session[:order]["id"])
     @line_item = LineItem.new
-    @extras = Extra.all
+    restaurant = Restaurant.find(session[:restaurant]["id"])
+    ingredient_inventories_ids = restaurant.ingredients.pluck(:ingredient_inventory_id).uniq
+    @extras = Extra.where(ingredient_inventory_id: ingredient_inventories_ids)
   end
 
   def new
