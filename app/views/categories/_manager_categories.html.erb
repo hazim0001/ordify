@@ -22,7 +22,7 @@
       <div class="table-responsive">
         <div class="">
           <% @categories.each do |category| %>
-          <div class="card m-3 border-0" style="width: 50vw;">
+          <div class="card m-3 border-0" style="width: 75vw;">
             <div class="card-body">
               <div class="d-flex">
                 <h5 class="card-title mr-3"><strong><%= category.title.capitalize %></strong></h5>
@@ -31,16 +31,9 @@
                 <% end %>
               </div>
               <h6 class="card-subtitle mb-4 text-muted">Menu Items count: <%= category.menu_items.size %></h6>
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-
-                  </tr>
-                </thead>
-                <tbody>
+                <div class="d-flex flex-wrap">
                 <% category.menu_items.order(created_at: :desc).each do |menu_item| %>
-                  <tr>
-                    <div class="card-product my-2">
+                    <div class="card-product my-2 mr-4">
                       <% if menu_item.photos.attached? %>
                         <%= cl_image_tag menu_item.photos.first.key  %>
                       <% else %>
@@ -59,8 +52,8 @@
                             <p class="ml-3">Ordered <%= pluralize(menu_item.orders.size, "time" ) %></p>
                           </div>
                         </div>
+                <!-- here goes the icons -->
                         <div>
-                          <!-- here goes the icons -->
                           <div class="mr-2">
                             <button type="button" data-toggle="modal" data-target="#editMenuItemModal<%= menu_item.id %>" class="mb-1">
                               <i class="far fa-edit mx-3" style="color: #0278ae;"></i>
@@ -74,11 +67,9 @@
                         </div>
                       </div>
                     </div>
-                  </tr>
                   <%= render partial: 'edit_menu_item_modal', locals:{ menu_item: menu_item } %>
                 <% end %>
-                </tbody>
-              </table>
+                </div>
             </div>
           </div>
           <% end %>
