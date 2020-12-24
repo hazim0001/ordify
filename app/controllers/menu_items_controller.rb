@@ -58,6 +58,7 @@ class MenuItemsController < ApplicationController
   end
 
   def update
+    raise
     authorize @menu_item
     if @menu_item.update(menu_item_params)
       redirect_to categories_path
@@ -90,6 +91,6 @@ class MenuItemsController < ApplicationController
   end
 
   def menu_item_params
-    params.require(:menu_item).permit(:title, :restaurant, :item_price, :description, :category_id, :active, photos: [])
+    params.require(:menu_item).permit(:title, :restaurant, :item_price, :description, :category_id, :active, :accepts_extra, photos: [])
   end
 end
