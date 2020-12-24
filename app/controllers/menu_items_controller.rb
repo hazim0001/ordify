@@ -58,7 +58,6 @@ class MenuItemsController < ApplicationController
   end
 
   def update
-    raise
     authorize @menu_item
     if @menu_item.update(menu_item_params)
       redirect_to categories_path

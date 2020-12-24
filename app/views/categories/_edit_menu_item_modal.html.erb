@@ -23,7 +23,14 @@
                   </div>
                 </div>
                 <%= f.input :description, as: :text %>
-                <%= f.input :active, as: :boolean, hint: 'Inactive to hide.', input_html: { class: "toggle", id:"menu_item_active#{menu_item.id}" }, label_html: { class: 'text-dark', for: "menu_item_active#{menu_item.id}"} %>
+                <div class="row g-3">
+                  <div class="col-6">
+                    <%= f.input :accepts_extra, as: :boolean, hint: 'Disable to hide.', input_html: { class: "toggle", id:"menu_item_accepts_extra#{menu_item.id}" }, label_html: { class: 'text-dark', for: "menu_item_accepts_extra#{menu_item.id}"}  %>
+                  </div>
+                  <div class="col-6">
+                    <%= f.input :active, as: :boolean, hint: 'Disable to hide Extras.', input_html: { class: "toggle", id:"menu_item_active#{menu_item.id}" }, label_html: { class: 'text-dark', for: "menu_item_active#{menu_item.id}"}  %>
+                  </div>
+                </div>
                 <%= f.input :photos, as: :file, input_html: { multiple: true } %>
             </div>
           </div>

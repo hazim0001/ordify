@@ -105,7 +105,7 @@
                 </div>
                 <div class="row g-3">
                   <div class="col-6">
-                    <%= f.association :category, prompt:" Choose a category " %>
+                    <%= f.input :category_id, collection: @categories , include_blank:" Choose a category " %>
                   </div>
                   <div class="col-6 ">
                     <%= f.input :portion_size_grams,label: 'Meal Portion', hint: 'protion in grams.' %>
