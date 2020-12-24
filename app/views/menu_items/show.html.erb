@@ -26,6 +26,7 @@
   <%= form_for [@order, @line_item], url: order_line_items_path(@order) do |f| %>
   <%= f.text_field :comment, class:"textarea-menu-item px-5 mt-3 focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:border-transparent", placeholder: "No onions, no tomatos, etc..." %>
   <%#= f.association :extras, as: :check_boxes, input_html: { class: "form-check-input pads" }, label_html: { class: "form-check-label" }, wrapper_html: { class: "form-check" } %>
+  <!-- Add extra section -->
   <% if @menu_item.accepts_extra %>
     <div class="mt-5 mb-5">
       <h4 class="mb-5">Choose Extra</h4>
