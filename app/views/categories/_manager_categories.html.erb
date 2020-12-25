@@ -119,10 +119,10 @@
                 <%= f.input :description, as: :text %>
                 <div class="row g-3">
                   <div class="col-6">
-                    <%= f.input :accepts_extra, as: :boolean, hint: 'Disable to hide.', input_html: { class: "toggle" }, label_html: { class: 'text-dark'}  %>
+                    <%= f.input :accepts_extra, as: :boolean, hint: 'Disable to hide Extras.', input_html: { class: "toggle" }, label_html: { class: 'text-dark'}  %>
                   </div>
                   <div class="col-6">
-                    <%= f.input :active, as: :boolean, hint: 'Disable to hide Extras.', input_html: { class: "toggle" }, label_html: { class: 'text-dark'}  %>
+                    <%= f.input :active, as: :boolean, hint: 'Disable to hide.', input_html: { class: "toggle" }, label_html: { class: 'text-dark'}  %>
                   </div>
                 </div>
                 <%= f.input :photos, as: :file, input_html: { multiple: true }, class:"custom-file-input", wrapper_html: { class: "custom-file"} %>
