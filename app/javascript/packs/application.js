@@ -363,9 +363,6 @@ document.addEventListener('turbolinks:load', () => {
     });
   }
 
-
-
-
 });
 
 
