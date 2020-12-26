@@ -1,4 +1,8 @@
 class LineItem < ApplicationRecord
+  before_create :set_time_stamps
+  before_update :set_time_stamps
+  before_save :set_time_stamps
+
   belongs_to :order
   belongs_to :menu_item
 
@@ -16,7 +20,10 @@ class LineItem < ApplicationRecord
   scope :not_dispatched_from_kitchen, -> { where(dispatched_from_kitchen: false) }
   scope :ordered_and_not_dispatched, -> { where("ordered= ? AND dispatched_from_kitchen= ?", true, false).order(:created_at) }
 
-  # def dispatched_from_kitchen
-  #   dispatched_from_kitchen == true
-  # end
+  private
+
+  def set_time_stamps
+    self.line_item_created_at = self.created_at
+    self.line_item_updated_at = self.updated_at
+  end
 end

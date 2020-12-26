@@ -6,6 +6,15 @@
 
       <h2 class="mt-5"><%= current_employee.restaurant.name.capitalize %></h2>
       <hr>
+      <%= form_for :@restaurant, url: dashboard_restaurant_path(@restaurant), method: :get do |f| %>
+        <div class="search-form-control form-group">
+          <label for="search_query"> Start Date</label>
+          <input class="" type="datetime-local" name="query_start" value="<%= params[:query_start] %>" id="search_query" />
+          <label for="search_quer_1"> End Date</label>
+          <input class="" type="datetime-local" name="query_end" value="<%= params[:query_end] %>" id="search_query_1" />
+          <input type="submit" class="btn btn-primary">
+        </div>
+      <% end %>
 
 
 
@@ -27,14 +36,14 @@
         <div class="tab-pane fade " id="sales-by-day" role="tabpanel" aria-labelledby="sales-by-day-tab">
           <div class="my-5">
             <p><ins>Sales by day</ins></p>
-            <%= line_chart @restaurant.line_items.group_by_day(:created_at, series: false).count, download: true %>
+            <%= line_chart @mano.group_by_day(:order_created_at, series: false).count, download: true %>
           </div>
         </div>
 
         <div class="tab-pane fade" id="sales-by-hour" role="tabpanel" aria-labelledby="sales-by-hour-tab">
           <div class="my-5">
             <p><ins>Sales by hour</ins></p>
-            <%= line_chart @restaurant.line_items.group_by_hour(:created_at, series: false).count, download: true, crosshair: true %>
+            <%= line_chart @restaurant.line_items.group_by_hour(:line_item_created_at, series: false).count, download: true, crosshair: true %>
           </div>
         </div>
 
@@ -46,11 +55,21 @@
         </div>
 
         <div class="tab-pane fade show active" id="revenue" role="tabpanel" aria-labelledby="revenue-tab">
-          <% if @restaurant.line_items.any? %>
+          <% if @restaurant.orders.any? %>
+
             <h6 class="my-5">
-              Total sales since <%= @restaurant.line_items.first.created_at.to_date %>
-              <span class="badge bg-success" style="font-size:0.9rem; color:white;font-weight: inherit;"><%= humanized_money_with_symbol(@restaurant.orders.sum(:total_price_cents)/ 100.0) %> </span>
+              Last week's orders total (<%= @restaurant.orders.last_week.first.order_created_at.to_date %>)
+              <span class="badge bg-success" style="font-size:0.9rem; color:white;font-weight: inherit;"><%= humanized_money_with_symbol(@restaurant.orders.last_week.sum(:total_price_cents) / 100) %> </span>
             </h6>
+            <h6 class="my-5">
+              Yesterday's orders total (<%= @restaurant.orders.yesterday.first.order_created_at.to_date %>)
+              <span class="badge bg-success" style="font-size:0.9rem; color:white;font-weight: inherit;"><%= humanized_money_with_symbol(@restaurant.orders.yesterday.sum(:total_price_cents) / 100) %> </span>
+            </h6>
+            <h6 class="my-5">
+              Orders total query (<%= @mano.first.order_created_at.to_date %>  - <%= @mano.last.order_created_at.to_date %>)
+              <span class="badge bg-success" style="font-size:0.9rem; color:white;font-weight: inherit;"><%= humanized_money_with_symbol(@mano.sum(:total_price_cents) / 100) %> </span>
+            </h6>
+
           <% end %>
         </div>
 

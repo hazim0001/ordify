@@ -36,7 +36,7 @@ class MenuItemsController < ApplicationController
     @menu_item.restaurant = @restaurant
     authorize @menu_item
     if @menu_item.save
-      # creting the ingredients for the menu item
+      # creating the ingredients for the menu item
       params[:ingredient_id].each_with_index do |id, index|
         ingredient = IngredientInventory.find(id)
         Ingredient.create(

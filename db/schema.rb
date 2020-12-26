@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_24_052538) do
+ActiveRecord::Schema.define(version: 2020_12_26_090254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,8 @@ ActiveRecord::Schema.define(version: 2020_12_24_052538) do
     t.bigint "extra_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "add_extra_created_at"
+    t.datetime "add_extra_updated_at"
     t.index ["extra_id"], name: "index_add_extras_on_extra_id"
     t.index ["line_item_id"], name: "index_add_extras_on_line_item_id"
   end
@@ -179,6 +181,8 @@ ActiveRecord::Schema.define(version: 2020_12_24_052538) do
     t.bigint "ingredient_inventory_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "inventory_refill_created_at"
+    t.datetime "inventory_refill_updated_at"
     t.index ["ingredient_inventory_id"], name: "index_inventory_refills_on_ingredient_inventory_id"
   end
 
@@ -199,6 +203,8 @@ ActiveRecord::Schema.define(version: 2020_12_24_052538) do
     t.string "deleted_by"
     t.datetime "deleted_at"
     t.text "line_deletion_reason"
+    t.datetime "line_item_created_at"
+    t.datetime "line_item_updated_at"
     t.index ["menu_item_id"], name: "index_line_items_on_menu_item_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
   end
@@ -233,6 +239,8 @@ ActiveRecord::Schema.define(version: 2020_12_24_052538) do
     t.datetime "order_deleted_at"
     t.text "deletion_reason"
     t.integer "from_order_to_checkout"
+    t.datetime "order_created_at"
+    t.datetime "order_updated_at"
     t.index ["table_id"], name: "index_orders_on_table_id"
   end
 

@@ -2,6 +2,11 @@ class RestaurantsController < ApplicationController
   # before_action :find_restaurant, only: :dashboard
   def dashboard
     @restaurant = current_employee.restaurant
+    if params[:query_start].present? && params[:query_end].present?
+      # raise
+      @mano = @restaurant.orders.order_query(params[:query_start], params[:query_end])
+    else
+    end
     # to get the past week
     # .where('created_at > ?', 1.week.ago)
 
