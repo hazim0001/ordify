@@ -8,11 +8,18 @@
       <hr>
       <%= form_for :@restaurant, url: dashboard_restaurant_path(@restaurant), method: :get do |f| %>
         <div class="search-form-control form-group">
-          <label for="search_query"> Start Date</label>
-          <input class="" type="datetime-local" name="query_start" value="<%= params[:query_start] %>" id="search_query" />
-          <label for="search_quer_1"> End Date</label>
-          <input class="" type="datetime-local" name="query_end" value="<%= params[:query_end] %>" id="search_query_1" />
-          <input type="submit" class="btn btn-primary">
+
+          <div class="d-flex align-items-end">
+            <div>
+              <h6><strong>Select Date range</strong></h6>
+              <i class="fa fa-calendar"></i>&nbsp;
+              <input type="text" name="datetimes" id="reportrange" class="pl-2" style="width:25rem;">
+                <span></span><i class="fa fa-caret-down"></i>
+              </input>
+            </div>
+            <input type="submit" class="btn btn-primary btn-sm h-50 ml-3">
+          </div>
+
         </div>
       <% end %>
 
@@ -36,14 +43,14 @@
         <div class="tab-pane fade " id="sales-by-day" role="tabpanel" aria-labelledby="sales-by-day-tab">
           <div class="my-5">
             <p><ins>Sales by day</ins></p>
-            <%= line_chart @mano.group_by_day(:order_created_at, series: false).count, download: true %>
+            <%= column_chart @restaurant_orders.group_by_day(:order_created_at, series: false).count, download: true, xtitle: "Date", ytitle: "Orders Count" %>
           </div>
         </div>
 
         <div class="tab-pane fade" id="sales-by-hour" role="tabpanel" aria-labelledby="sales-by-hour-tab">
           <div class="my-5">
             <p><ins>Sales by hour</ins></p>
-            <%= line_chart @restaurant.line_items.group_by_hour(:line_item_created_at, series: false).count, download: true, crosshair: true %>
+            <%= line_chart @restaurant_orders.group_by_hour(:order_created_at, series: false).count, download: true, crosshair: true %>
           </div>
         </div>
 
@@ -65,19 +72,60 @@
               Yesterday's orders total (<%= @restaurant.orders.yesterday.first.order_created_at.to_date %>)
               <span class="badge bg-success" style="font-size:0.9rem; color:white;font-weight: inherit;"><%= humanized_money_with_symbol(@restaurant.orders.yesterday.sum(:total_price_cents) / 100) %> </span>
             </h6>
+            <% if @restaurant_orders.any? %>
             <h6 class="my-5">
-              Orders total query (<%= @mano.first.order_created_at.to_date %>  - <%= @mano.last.order_created_at.to_date %>)
-              <span class="badge bg-success" style="font-size:0.9rem; color:white;font-weight: inherit;"><%= humanized_money_with_symbol(@mano.sum(:total_price_cents) / 100) %> </span>
+              Orders total query (<%= @restaurant_orders.first.order_created_at.to_date %>  - <%= @restaurant_orders.last.order_created_at.to_date %>)
+              <span class="badge bg-success" style="font-size:0.9rem; color:white;font-weight: inherit;"><%= humanized_money_with_symbol(@restaurant_orders.sum(:total_price_cents) / 100) %> </span>
             </h6>
+            <% end %>
 
           <% end %>
         </div>
 
       </div>
 
+
+
     </main>
   </div>
 </div>
 
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<!-- http://www.daterangepicker.com/ -->
+<script>
+$(function() {
+
+  var start = moment().subtract(29, 'days');
+  var end = moment();
+
+  function cb(start, end) {
+      $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+  }
+
+  $('input[name="datetimes"]').daterangepicker({
+    timePicker: true,
+    startDate: start,
+    endDate: end,
+    locale: {
+      format: 'YYYY-M-DD hh:mm A'
+    },
+    ranges: {
+       'Today': [moment(), moment()],
+       'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+       'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+       'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+       'This Month': [moment().startOf('month'), moment().endOf('month')],
+       'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+    }
+  }, cb);
+  cb(start, end);
+
+
+});
+</script>
 
