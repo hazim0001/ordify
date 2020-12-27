@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :inventories , only: :index
     resources :ingredient_inventories, only: %i[index create ]
     resources :inventory_refills, only: :index
+    resources :orders, only: %i[new create]
     member do
       get :dashboard
     end

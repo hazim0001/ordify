@@ -4,9 +4,14 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    session[:table] = Table.find(params[:table_id])
-    table = Table.find(session[:table]["id"])
-    session[:restaurant] = table.restaurant
+    if manager_is_here?
+      @tables = current_employee_restaurant.tables
+      @categories = current_employee_restaurant.categories.includes(:menu_items)
+    else
+      session[:table] = Table.find(params[:table_id])
+      table = Table.find(session[:table]["id"])
+      session[:restaurant] = table.restaurant
+    end
   end
 
   def create

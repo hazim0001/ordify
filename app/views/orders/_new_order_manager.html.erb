@@ -1,0 +1,31 @@
+<div class="d-flex">
+  <div class="col-2">
+    <div class="mt-5">
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+      <% @categories.each do |category| %>
+        <li class="nav-item w-100" role="presentation">
+          <a class="border border-primary nav-link mb-3 text-center" id="pills-<%= category.id %>-tab" data-toggle="pill" href="#pills-<%= category.id %>" role="tab" aria-controls="pills-home" aria-selected="true"><%= category.title %></a>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="col-7">
+    <div class="tab-content mt-5" id="pills-tabContent">
+      <% @categories.each do |category| %>
+        <div class="tab-pane fade show " id="pills-<%= category.id %>" role="tabpanel" aria-labelledby="pills-<%= category.id %>-tab">
+          <% category.menu_items.each do |menu_item| %>
+          <li><%= menu_item.title %></li>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="checkout mt-5" style="background-color: gray; height: 500px;">
+
+    </div>
+  </div>
+</div>
+    <!-- <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div> -->
