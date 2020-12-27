@@ -31,6 +31,7 @@
                 <% end %>
               </div>
               <h6 class="card-subtitle mb-4 text-muted">Menu Items count: <%= category.menu_items_count %></h6>
+              <%#= raise %>
                 <div class="d-flex flex-wrap">
                 <% category.menu_items.includes(:photos_attachments, :restaurant).order(created_at: :desc).each do |menu_item| %>
                     <div class="card-product my-2 mr-4" style="width:33vw;">
@@ -41,10 +42,16 @@
                       <% end %>
                       <div class="d-flex justify-content-between w-100">
                         <div class="card-product-infos mt-2">
-                          <h2 class="mb-2"><%= menu_item.title %></h2>
+                          <h2 class="mb-2">
+                            <% if menu_item.title.chars.count > 16 %>
+                              <%= menu_item.title.slice(0..16)%>...
+                            <% else %>
+                              <%= menu_item.title%>
+                            <% end %>
+                          </h2>
                           <p>
-                            <% if menu_item.description.chars.count > 60 %>
-                              <%= menu_item.description.slice(0..60)%>...
+                            <% if menu_item.description.chars.count > 55 %>
+                              <%= menu_item.description.slice(0..55)%>...
                             <% else %>
                               <%= menu_item.description%>
                             <% end %>
