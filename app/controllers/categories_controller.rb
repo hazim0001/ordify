@@ -6,15 +6,17 @@ class CategoriesController < ApplicationController
     if manager_is_here?
       @target_restaurant = current_employee.restaurant
       # for the add menu item form
-      @menu_item = MenuItem.new(restaurant: current_employee.restaurant)
-      @restaurant = current_employee.restaurant
+      @menu_item = MenuItem.new(restaurant: @target_restaurant)
+      @restaurant = @target_restaurant
       @category = Category.new
     else
       @target_restaurant = Restaurant.find(session[:restaurant]["id"])
       @order = Order.find(session[:order]["id"])
     end
-    categories_ids = MenuItem.where(restaurant_id: @target_restaurant).pluck(:category_id).uniq
-    @categories = Category.where(id: categories_ids).includes(menu_items: %i[photos_attachments])
+    # categories_ids = MenuItem.where(restaurant_id: @target_restaurant).pluck(:category_id).uniq
+    @categories = @target_restaurant.categories
+
+    # @categories = Category.where(id: categories_ids).includes(menu_items: %i[photos_attachments])
   end
 
   def create

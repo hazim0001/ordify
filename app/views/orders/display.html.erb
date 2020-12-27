@@ -61,7 +61,7 @@
                     <h5 class="modal-title font-modal-footer" id="exampleModalLabel2"><strong>Order# <%= order.id %></strong></h5>
                     <div class="ml-5">
                       <% if order.status == "not paid" %>
-                        <span class="badge badge-warning font-modal-footer-paid">Not Paid</span><span class="font-modal-footer"><%= TimeDifference.between(Time.now , order.created_at).humanize %> since checkin</span>
+                        <span class="badge badge-warning font-modal-footer-paid">Not Paid</span><span class="font-modal-footer ml-2"> Checked in <%= time_ago_in_words(order.created_at) %> ago</span>
                       <% else %>
                         <span class="badge badge-success font-modal-footer-paid">Paid</span> <span class="font-modal-footer"> on <%= order.updated_at.strftime("%d %b %Y %l:%M %p") %></span>
                       <% end %>

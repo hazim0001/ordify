@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
       @orders = current_employee.restaurant.orders
       @tables = current_employee.restaurant.tables
     else
-      @orders = Order.where(table: session[:table]["id"])
+      @orders = Order.where(table: session[:table]["id"]).includes(:restaurant)
     end
     authorize @orders
   end

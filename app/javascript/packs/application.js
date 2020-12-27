@@ -363,7 +363,6 @@ document.addEventListener('turbolinks:load', () => {
     });
   }
 
-
 });
 
 
