@@ -353,20 +353,20 @@ sleep(2)
 
 # file1 = URI.open('https://www.manusmenu.com/wp-content/uploads/2016/05/1-Salmon-Sashimi-with-Ponzu-3-1-of-1.jpg')
 # MenuItem.where(category_id: 1).photos.attach(io: file1, filename: 'menuitem1.jpg', content_type: 'image/jpg')
-ingredient_inventory_items = %w[salt pepper beef salmon chicken rice cheese]
+# ingredient_inventory_items = %w[salt pepper beef salmon chicken rice cheese]
 
-ingredient_inventory_items.each do |ingredient|
-  ing = IngredientInevntory.create(name: ingredient, vendor_name: "MR.#{ingredient}", vendor_phone_number: "01XXXXXXXXX", stock_amount_grams: rand(2500..6000), trigger_limit: rand(500..2500))
-  if ing.name == "salt" || "pepper"
-    Category.find_by(title: "Salads").menu_items.each do |menu_item|
-      Ingredient.create(menu_item: menu_item, ingredient_inventory: ing, ingredient_portion_size: 10, title:"#{ing.name} for #{menu_item.title}")
-    end
-  else
-    Category.find_by(title: "Salads").menu_items.each do |menu_item|
-      Ingredient.create(menu_item: menu_item, ingredient_inventory: ing, ingredient_portion_size: 200, title:"#{ing.name} for #{menu_item.title}")
-    end
-  end
-end
+# ingredient_inventory_items.each do |ingredient|
+#   ing = IngredientInventory.create(name: ingredient, vendor_name: "MR.#{ingredient}", vendor_phone_number: "01XXXXXXXXX", stock_amount_grams: rand(2500..6000), trigger_limit: rand(500..2500))
+#   if ing.name == "salt" || "pepper"
+#     Category.find_by(title: "Salads").menu_items.each do |menu_item|
+#       Ingredient.create(menu_item: menu_item, ingredient_inventory: ing, ingredient_portion_size_grams: 10, title:"#{ing.name} for #{menu_item.title}")
+#     end
+#   else
+#     Category.find_by(title: "Salads").menu_items.each do |menu_item|
+#       Ingredient.create(menu_item: menu_item, ingredient_inventory: ing, ingredient_portion_size_grams: 200, title:"#{ing.name} for #{menu_item.title}")
+#     end
+#   end
+# end
 
 puts "doneee !!"
 
