@@ -7,7 +7,7 @@
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 
       <div class="d-flex justify-content-between align-items-end" style="width: 80vw;">
-        <h2 class="mt-5"><%= current_employee.restaurant.name.capitalize %>'s Menu Items</h2>
+        <h2 class="mt-5"><%= @restaurant.name.capitalize %>'s Menu Items</h2>
         <button type="button" class="btn btn-outline-primary pb-2" style="margin-left: 15rem; "data-toggle="modal" data-target="#exampleModal2">
           Add Category
         </button>
@@ -32,7 +32,7 @@
               </div>
               <h6 class="card-subtitle mb-4 text-muted">Menu Items count: <%= category.menu_items.size %></h6>
                 <div class="d-flex flex-wrap">
-                <% category.menu_items.order(created_at: :desc).each do |menu_item| %>
+                <% category.menu_items.includes(:photos_attachments, :restaurant).order(created_at: :desc).each do |menu_item| %>
                     <div class="card-product my-2 mr-4">
                       <% if menu_item.photos.attached? %>
                         <%= cl_image_tag menu_item.photos.first.key  %>

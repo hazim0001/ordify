@@ -86,12 +86,12 @@
                                           </button>
                                         </p>
                                       </td>
+                                        <!-- delete / update line item -->
+                                        <%= render partial: 'delete_line_modal', locals:{ line: line } %>
+                                        <%= render partial: 'update_line_modal', locals:{ line: line } %>
                                       <% end %>
                                     </tr>
                               <% end %>
-                              <!-- delete / update line item -->
-                              <%= render partial: 'delete_line_modal', locals:{ line: line } %>
-                              <%= render partial: 'update_line_modal', locals:{ line: line } %>
                             <% end %>
                           </tbody>
                         </table>

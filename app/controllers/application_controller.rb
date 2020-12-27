@@ -29,6 +29,10 @@ class ApplicationController < ActionController::Base
     current_employee.present? && (current_employee.role == "manager")
   end
 
+  def current_employee_restaurant
+    current_employee.restaurant
+  end
+
   private
 
   def skip_pundit?
