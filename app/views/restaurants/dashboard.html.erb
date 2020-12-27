@@ -70,10 +70,13 @@
               Last week's orders total (<%= @restaurant.orders.last_week.first.order_created_at.to_date %>)
               <span class="badge bg-success" style="font-size:0.9rem; color:white;font-weight: inherit;"><%= humanized_money_with_symbol(@restaurant.orders.last_week.sum(:total_price_cents) / 100) %> </span>
             </h6>
-            <h6 class="my-5">
-              Yesterday's orders total (<%= @restaurant.orders.yesterday.first.order_created_at.to_date %>)
-              <span class="badge bg-success" style="font-size:0.9rem; color:white;font-weight: inherit;"><%= humanized_money_with_symbol(@restaurant.orders.yesterday.sum(:total_price_cents) / 100) %> </span>
-            </h6>
+            <% if @restaurant.orders.yesterday.any? %>
+
+              <h6 class="my-5">
+                Yesterday's orders total (<%= @restaurant.orders.yesterday.first.order_created_at.to_date %>)
+                <span class="badge bg-success" style="font-size:0.9rem; color:white;font-weight: inherit;"><%= humanized_money_with_symbol(@restaurant.orders.yesterday.sum(:total_price_cents) / 100) %> </span>
+              </h6>
+            <% end %>
             <% if @restaurant_orders.any? %>
             <h6 class="my-5">
               Orders total query (<%= @restaurant_orders.first.order_created_at.to_date %>  - <%= @restaurant_orders.last.order_created_at.to_date %>)

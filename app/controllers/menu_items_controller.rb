@@ -34,6 +34,7 @@ class MenuItemsController < ApplicationController
     @menu_item = MenuItem.new(menu_item_params)
     @restaurant = Restaurant.find(params[:restaurant_id])
     @menu_item.restaurant = @restaurant
+    @menu_item.category.menu_items_count += 1
     authorize @menu_item
     if @menu_item.save
       # creating the ingredients for the menu item

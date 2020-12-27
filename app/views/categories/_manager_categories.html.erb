@@ -22,7 +22,7 @@
       <div class="table-responsive">
         <div class="">
           <% @categories.each do |category| %>
-          <div class="card m-3 border-0" style="width: 75vw;">
+          <div class="card m-3 border-0" style="width: 90vw;">
             <div class="card-body">
               <div class="d-flex">
                 <h5 class="card-title mr-3"><strong><%= category.title.capitalize %></strong></h5>
@@ -30,10 +30,10 @@
                   <i class="fas fa-trash-alt ml-1" style="color: gray;"></i>
                 <% end %>
               </div>
-              <h6 class="card-subtitle mb-4 text-muted">Menu Items count: <%= category.menu_items.size %></h6>
+              <h6 class="card-subtitle mb-4 text-muted">Menu Items count: <%= category.menu_items_count %></h6>
                 <div class="d-flex flex-wrap">
                 <% category.menu_items.includes(:photos_attachments, :restaurant).order(created_at: :desc).each do |menu_item| %>
-                    <div class="card-product my-2 mr-4">
+                    <div class="card-product my-2 mr-4" style="width:33vw;">
                       <% if menu_item.photos.attached? %>
                         <%= cl_image_tag menu_item.photos.first.key  %>
                       <% else %>
@@ -42,7 +42,13 @@
                       <div class="d-flex justify-content-between w-100">
                         <div class="card-product-infos mt-2">
                           <h2 class="mb-2"><%= menu_item.title %></h2>
-                          <p><%= menu_item.description %></p>
+                          <p>
+                            <% if menu_item.description.chars.count > 60 %>
+                              <%= menu_item.description.slice(0..60)%>...
+                            <% else %>
+                              <%= menu_item.description%>
+                            <% end %>
+                          </p>
                           <div class="d-flex">
                             <% if menu_item.active == true%>
                              <p class=""><i class="fas fa-eye" style="color: black;font-size: 1rem;"></i></p>
