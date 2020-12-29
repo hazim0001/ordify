@@ -16,15 +16,35 @@ class OrdersController < ApplicationController
   end
 
   def create
-    raise
-    @table = Table.find(params[:table_id])
-    @order = Order.find_or_initialize_by(user_number: order_params[:user_number], status: "not paid") # Order.new(order_params)
-    @order.table = @table
-    if @order.save
-      session[:order] = @order
-      redirect_to categories_path
+    if manager_is_here?
+      # raise
+      @order = Order.create(table_id: order_params[:table].to_i, user_number: order_params[:user_number])
+      params[:menu_item_id].each_with_index do |id, index|
+        line_item = LineItem.create(menu_item_id: id.to_i, order: @order, quantity: params[:quantity][index], ordered: true)
+        # updating line item total and order total
+        line_item.update(total_cents: line_item.menu_item.item_price_cents * line_item.quantity)
+        # updating inventory
+        line_item.menu_item.ingredients.each do |ingredient|
+          portion = ingredient.ingredient_portion_size_grams
+          quantity = line_item.quantity
+          current_stock = ingredient.ingredient_inventory.stock_amount_grams
+          ingredient.ingredient_inventory.update(stock_amount_grams: current_stock - (portion * quantity))
+        end
+      end
+      sub_total = LineItem.where(order: @order).sum(:total_cents)
+      @order.update(total_price_cents: sub_total, sent: true)
+      flash[:notice] = "Order##{@order.id} has been created and sent to the kitchen"
+      redirect_to new_restaurant_order_path(current_employee_restaurant)
     else
-      render :new
+      @table = Table.find(params[:table_id])
+      @order = Order.find_or_initialize_by(user_number: order_params[:user_number], status: "not paid") # Order.new(order_params)
+      @order.table = @table
+      if @order.save
+        session[:order] = @order
+        redirect_to categories_path
+      else
+        render :new
+      end
     end
   end
 
