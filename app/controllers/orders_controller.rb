@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
     if manager_is_here?
       @tables = current_employee_restaurant.tables
       @categories = current_employee_restaurant.categories.includes(:menu_items)
+      @restaurant = current_employee_restaurant
     else
       session[:table] = Table.find(params[:table_id])
       table = Table.find(session[:table]["id"])
@@ -15,6 +16,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    raise
     @table = Table.find(params[:table_id])
     @order = Order.find_or_initialize_by(user_number: order_params[:user_number], status: "not paid") # Order.new(order_params)
     @order.table = @table
