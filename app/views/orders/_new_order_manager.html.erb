@@ -8,7 +8,7 @@
         <li class="nav-item w-75" role="presentation">
           <a class="nav-link mb-3 text-center category-pill py-2" id="pills-<%= category.id %>-tab" data-toggle="pill" href="#pills-<%= category.id %>" role="tab" aria-controls="pills-home" aria-selected="true">
             <div class="d-flex align-items-center">
-              <i class="<%= icons[counter] %> back-gray mr-3"></i><span style="font-weight: bold;letter-spacing: 0.25px;"><%= category.title.capitalize %></span>
+              <i class="<%= icons[counter] %> back-gray mr-3" ></i><span style="font-weight: bold;letter-spacing: 0.25px; color: gray;"><%= category.title.capitalize %></span>
             </div>
           </a>
         </li>
@@ -85,6 +85,10 @@
 
 
 <style>
+  .active-category-icon{
+    color: rgb(28,105,244) !important;
+    background-color: rgb(255,255,255) !important;
+  }
 
   .position-absolute-bottom{
     position: fixed;
@@ -95,10 +99,16 @@
   }
 
   .back-gray{
-    background-color: white;
-    color: gray;
+    /* background-color: white;
+    color: gray; */
+    color: rgb(159,160,160);
+    background-color: rgb(211,210,211);
     border-radius: 50%;
     padding: 0.6rem;
+  }
+  .back-gray:clicked::after{
+    color: rgb(28,105,244) !important;
+    background-color: rgb(255,255,255) !important;
   }
 
   .img-menu-item-size{
@@ -128,20 +138,18 @@
   }
 </style>
 <script>
-  // const inputs = document.querySelectorAll('.quantity') //parentElement.parentElement.parentElement
-  // inputs.forEach(input =>{
-  //   const price_per_one = input.parentElement.parentElement.nextElementSibling.lastElementChild.firstElementChild.lastElementChild.innerText
-  //   console.log(price_per_one)
-  //   input.addEventListener('input', (event) =>{
-  //     console.log(event.target.value)
-  //     const newQuantity = event.target.value
-  //     const newPrice = event.path[4].children[0].children[2].children[0].children[0]
-  //     let newValue = newQuantity * parseFloat(price_per_one)
-  //     newPrice.innerHTML = `<span><p class="text-white">${newValue}</p></span>`
-  //     // newPrice.appendChild = `<span><p class="text-white">${newValue}</p></span>`
 
-  //   })
+  // const categories = document.querySelectorAll('.category-pill');
+  // categories.forEach(category => {
+  //   category.addEventListener('mouseover', (event) =>{
+  //     // console.log(event)
+  //     event.path[2].children[0].children[0].classList.add('active-category-icon')
+  //     console.log()
+  //     console.log(event.path[2].children[0].children[1])
+
+  //   });
   // });
+
 
 
 
