@@ -8,7 +8,7 @@
         <li class="nav-item w-75" role="presentation">
           <a class="nav-link mb-3 text-center category-pill py-2" id="pills-<%= category.id %>-tab" data-toggle="pill" href="#pills-<%= category.id %>" role="tab" aria-controls="pills-home" aria-selected="true">
             <div class="d-flex align-items-center">
-              <i class="<%= icons[counter] %> back-gray mr-3" ></i><span style="font-weight: bold;letter-spacing: 0.25px; color: gray;"><%= category.title.capitalize %></span>
+              <i class="<%= icons[counter] %> back-gray mr-3" ></i><span style="font-weight: bold;letter-spacing: 0.25px; color: gray;" class="category-text"><%= category.title.capitalize %></span>
             </div>
           </a>
         </li>
@@ -42,7 +42,7 @@
   <div class="col-4">
     <div class="order-container mt-5 p-4 px-5" style="background-color: rgb(47,48,55); height: 55rem;position: relative; border-radius: 35px;">
 
-    <%= simple_form_for @order, url: restaurant_orders_path(@restaurant)  do |f| %>
+    <%= simple_form_for @order, url: restaurant_orders_path(@restaurant), html: { class: "needs-validation"}  do |f| %>
 
         <div class="row mb-4" id="order-header">
           <div class="col-4 px-0">
@@ -51,11 +51,11 @@
           </div>
           <div class="col-4 px-0">
             <h6 class="text-muted font-small">Name</h6>
-            <%= f.input :user_number, label: false, wrapper_html: {class:"mb-0 mr-2", style:"height: 2rem;"}, input_html: { class:"pl-2", style:"height: 2rem;padding: 0px;border-radius:30px;"}, placeholder:'User number'  %>
-          </div>
+            <%= f.input :user_number, label: false, required: true, wrapper_html: {class:"mb-0 mr-2", style:"height: 2rem;"}, input_html: { class:"pl-2 form-control", style:"height: 2rem;padding: 0px;border-radius:30px;"}, placeholder:'User number'  %>
+           </div>
           <div class="col-4 px-0">
             <h6 class="text-muted font-small">Table</h6>
-            <%= f.input :table, collection: @tables, prompt: 'Select Table', label: false, wrapper_html: {class:"mb-0", style:"height: 2rem;"}, input_html: { class:"pl-2",style:"height: 2rem;padding: 0px;border-radius:30px;"} %>
+            <%= f.input :table, collection: @tables, prompt: 'Select Table', label: false, required: true, wrapper_html: {class:"mb-0", style:"height: 2rem;"}, input_html: { class:"pl-2 form-control",style:"height: 2rem;padding: 0px;border-radius:30px;"} %>
           </div>
         </div>
           <hr class="text-white" style="border: 1px solid white !important;" class="mb-5">
@@ -73,7 +73,7 @@
               <h5 class="text-white" id="total">0</h5>
             </div>
             <div class="d-flex justify-content-center mb-4">
-              <%= f.button :submit, class: "btn btn-primary px-5 py-2" %>
+              <%= f.submit 'Create order', class: "btn btn-primary px-5 py-2" %>
             </div>
           </div>
         </div>
@@ -90,6 +90,9 @@
     color: rgb(28,105,244) !important;
     background-color: rgb(255,255,255) !important;
   }
+  .active-category-text{
+    color: white !important;
+  }
 
   .position-absolute-bottom{
     position: fixed;
@@ -100,20 +103,15 @@
   }
 
   .back-gray{
-    /* background-color: white;
-    color: gray; */
+
     color: rgb(159,160,160);
     background-color: rgb(211,210,211);
     border-radius: 50%;
     padding: 0.6rem;
   }
-  .back-gray:clicked::after{
-    color: rgb(28,105,244) !important;
-    background-color: rgb(255,255,255) !important;
-  }
 
   .img-menu-item-size{
-    width: 254px;
+    width: 100%;
     height: 169px;
     object-fit: cover;
     border-radius: 16px;
@@ -145,19 +143,50 @@
     color: white;
     border: 2px solid rgb(76,81,70);
   }
+
 </style>
 <script>
 
-  // const categories = document.querySelectorAll('.category-pill');
-  // categories.forEach(category => {
-  //   category.addEventListener('mouseover', (event) =>{
-  //     // console.log(event)
-  //     event.path[2].children[0].children[0].classList.add('active-category-icon')
-  //     console.log()
-  //     console.log(event.path[2].children[0].children[1])
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Get the forms we want to add validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
 
-  //   });
-  // });
+  const categories = document.querySelectorAll('.category-pill');
+  categories.forEach(category => {
+    category.addEventListener('click', (event) =>{
+      // reverting to normal
+      const categoryTabs = document.querySelectorAll('.active-category-icon')
+      categoryTabs.forEach(tab => {
+        tab.classList.remove('active-category-icon')
+      })
+      const categoryTexts = document.querySelectorAll('.active-category-text')
+      categoryTexts.forEach(text => {
+        text.classList.remove('active-category-text')
+      })
+        // adding classes
+      const text = category.querySelector('.category-text')
+      text.classList.add('active-category-text')
+
+
+      const icon = category.querySelector('.back-gray')
+      icon.classList.add('active-category-icon')
+
+    });
+  });
 
 
 
@@ -177,7 +206,7 @@
         const menuItemName = $(this)[0].children[1].firstElementChild.innerText
         // console.log(priceNum)// line item price
         const price = $(this)[0].children[1].lastElementChild.lastElementChild.innerText
-        const priceNum = parseFloat(price.match(/(\d+.?\d+)/)[0])
+        const priceNum = parseFloat(price.match(/(\d+.?\d+)/)[0]).toFixed(2)
         $('#line-item-input').append(
           `<div class="row my-3">
             <div class="col-5 p-0">
@@ -188,7 +217,7 @@
             <div class="col-4 pl-0">
               <!-- here goes the toggler-->
               <div>
-                <input type="number" name="quantity[]" class="text-center quantity line-item-quantity-pill" value="1">
+                <input type="number" name="quantity[]" class="text-center quantity line-item-quantity-pill" value="1"  min="0" max="10">
               </div>
 
             </div>
