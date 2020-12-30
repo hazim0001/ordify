@@ -40,24 +40,25 @@
     </div>
   </div>
   <div class="col-4">
-    <div class="order-container mt-5 p-4 px-5" style="background-color: black; height: 55rem;position: relative;">
+    <div class="order-container mt-5 p-4 px-5" style="background-color: rgb(47,48,55); height: 55rem;position: relative; border-radius: 35px;">
 
     <%= simple_form_for @order, url: restaurant_orders_path(@restaurant)  do |f| %>
 
         <div class="row mb-4" id="order-header">
           <div class="col-4 px-0">
             <h6 class="text-muted font-small">Order Number</h6>
-            <p class="text-white mb-0 font-small">Order #<%= @restaurant.orders.last.id + 1 %></p>
+            <p class="text-white mb-0 mt-3">Order #<%= @restaurant.orders.last.id + 1 %></p>
           </div>
           <div class="col-4 px-0">
             <h6 class="text-muted font-small">Name</h6>
-            <%= f.input :user_number, label: false, wrapper_html: {class:"mb-0 mr-2", style:"height: 2rem;"}, input_html: { class:"pl-2", style:"height: 2rem;padding: 0px;"}, placeholder:'User number'  %>
+            <%= f.input :user_number, label: false, wrapper_html: {class:"mb-0 mr-2", style:"height: 2rem;"}, input_html: { class:"pl-2", style:"height: 2rem;padding: 0px;border-radius:30px;"}, placeholder:'User number'  %>
           </div>
           <div class="col-4 px-0">
             <h6 class="text-muted font-small">Table</h6>
-            <%= f.input :table, collection: @tables, prompt: 'Select Table', label: false, wrapper_html: {class:"mb-0", style:"height: 2rem;"}, input_html: { style:"height: 2rem;padding: 0px;"} %>
+            <%= f.input :table, collection: @tables, prompt: 'Select Table', label: false, wrapper_html: {class:"mb-0", style:"height: 2rem;"}, input_html: { class:"pl-2",style:"height: 2rem;padding: 0px;border-radius:30px;"} %>
           </div>
         </div>
+          <hr class="text-white" style="border: 1px solid white !important;" class="mb-5">
 
         <div id="line-items">
           <div id="line-item-input">
@@ -136,6 +137,14 @@
   .w-3{
     width: 2rem;
   }
+
+  .line-item-quantity-pill{
+    width: 50%;
+    border-radius: 30px;
+    background-color: rgb(47,48,55);
+    color: white;
+    border: 2px solid rgb(76,81,70);
+  }
 </style>
 <script>
 
@@ -161,7 +170,7 @@
   $(document).ready(function(){
     $('.card').each(function(){
       $(this).click(function(){
-        $(this).toggleClass("green-shadow");
+        $(this).addClass("green-shadow");
         // menu_item_id
         const menuItemId = $(this).data('menuItem')
         // menu_item name
@@ -179,7 +188,7 @@
             <div class="col-4 pl-0">
               <!-- here goes the toggler-->
               <div>
-                <input type="number" name="quantity[]" style="width: 50%; border-radius: 30px;" class="text-center quantity" value="1">
+                <input type="number" name="quantity[]" class="text-center quantity line-item-quantity-pill" value="1">
               </div>
 
             </div>
@@ -220,9 +229,25 @@
           })
         });
 
+
+        function check(tag){
+          const text = tag.parentNode.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.innerText
+          var aTags = document.getElementsByTagName("h5");
+          var searchText = text;
+          var found;
+          for (var i = 0; i < aTags.length; i++) {
+            if (aTags[i].textContent == searchText) {
+              found = aTags[i];
+              break;
+            }
+          }
+          found.parentElement.parentElement.classList.remove('green-shadow')
+        }
+
         $('#line-item-input').on("click",".remove_field", function(e){ //user click on remove text
           $(this).parents(':eq(3)').remove();
           calc()
+          check(this)
         })
 
 
