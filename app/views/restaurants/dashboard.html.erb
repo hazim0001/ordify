@@ -64,7 +64,7 @@
         </div>
 
         <div class="tab-pane fade show active" id="revenue" role="tabpanel" aria-labelledby="revenue-tab">
-          <% if @restaurant.orders.any? %>
+          <% if @restaurant.orders.last_week.any? %>
 
             <h6 class="my-5">
               Last week's orders total (<%= @restaurant.orders.last_week.first.order_created_at.to_date %>)

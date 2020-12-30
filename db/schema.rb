@@ -159,11 +159,11 @@ ActiveRecord::Schema.define(version: 2020_12_27_090822) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string "title"
+    t.integer "ingredient_portion_size_grams", default: 0
     t.bigint "menu_item_id", null: false
     t.bigint "ingredient_inventory_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "ingredient_portion_size_grams"
     t.index ["ingredient_inventory_id"], name: "index_ingredients_on_ingredient_inventory_id"
     t.index ["menu_item_id"], name: "index_ingredients_on_menu_item_id"
   end

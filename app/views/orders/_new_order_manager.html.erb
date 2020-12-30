@@ -18,7 +18,7 @@
     </div>
   </div>
   <div class="col-6">
-    <div class="tab-content mt-5" id="pills-tabContent">
+    <div class="tab-content mt-3" id="pills-tabContent">
         <% @categories.each do |category| %>
         <div class="tab-pane fade show " id="pills-<%= category.id %>" role="tabpanel" aria-labelledby="pills-<%= category.id %>-tab">
           <div class="d-flex flex-wrap">
@@ -40,7 +40,7 @@
     </div>
   </div>
   <div class="col-4">
-    <div class="order-container mt-5 p-4 px-5" style="background-color: rgb(47,48,55); height: 55rem;position: relative; border-radius: 35px;">
+    <div class="order-container mt-3 p-4 px-5" style="background-color: rgb(47,48,55); height: 100vh;position: relative; border-radius: 35px;">
 
     <%= simple_form_for @order, url: restaurant_orders_path(@restaurant), html: { class: "needs-validation"}  do |f| %>
 
