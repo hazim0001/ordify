@@ -1,3 +1,5 @@
+<!-- yielded from application html mete tag viewport -->
+<%= provide(:responsive,"width=device-width, initial-scale=1.0") %>
 <div class="d-flex">
   <div class="col-2">
     <div class="mt-5">
@@ -5,7 +7,7 @@
         <% icons = ["fas fa-mug-hot", "fas fa-hamburger","fas fa-hotdog", "fas fa-beer", "fas fa-fish", "fas fa-wine-bottle", "fas fa-beer","fas fa-fish" ] %>
         <% counter = 0 %>
       <% @categories.each do |category| %>
-        <li class="nav-item w-75" role="presentation">
+        <li class="nav-item w-100" role="presentation">
           <a class="nav-link mb-3 text-center category-pill py-2" id="pills-<%= category.id %>-tab" data-toggle="pill" href="#pills-<%= category.id %>" role="tab" aria-controls="pills-home" aria-selected="true">
             <div class="d-flex align-items-center">
               <i class="<%= icons[counter] %> back-gray mr-3" ></i><span style="font-weight: bold;letter-spacing: 0.25px; color: gray;" class="category-text"><%= category.title.capitalize %></span>
@@ -23,7 +25,7 @@
         <div class="tab-pane fade show " id="pills-<%= category.id %>" role="tabpanel" aria-labelledby="pills-<%= category.id %>-tab">
           <div class="d-flex flex-wrap">
             <% category.menu_items.each do |menu_item| %>
-            <div class="card m-2 border-0 border-r-16 shadow-menu-item" style="width: 16rem;" data-menu-item="<%= menu_item.id %>">
+            <div class="card m-2 border-0 border-r-16 shadow-menu-item" style="width: 20vw;" data-menu-item="<%= menu_item.id %>">
               <%= cl_image_tag menu_item.photos.first.key,class:"card-img-top img-menu-item-size"  %>
               <div class="card-body p-3 mt-1">
                 <h5 class="text-muted"><%= menu_item.title %></h5>
