@@ -1,4 +1,4 @@
-<div class="modal fade" id="editMenuItemModal<%= menu_item.id %>" tabindex="-1" role="dialog" aria-labelledby="<%=menu_item.id%>ModalLabel2" aria-hidden="true">
+<div class="modal fade" id="editMenuItemModal<%= menu_item.id %>" tabindex="-1" role="dialog" aria-labelledby="<%=menu_item.id%>ModalLabel2" aria-hidden="true" data-backdrop="false" style="z-index: 100000 !important;">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content" style="border-radius: 2rem;">
 
@@ -25,10 +25,10 @@
                 <%= f.input :description, as: :text %>
                 <div class="row g-3">
                   <div class="col-6">
-                    <%= f.input :accepts_extra, as: :boolean, hint: 'Disable to hide.', input_html: { class: "toggle", id:"menu_item_accepts_extra#{menu_item.id}" }, label_html: { class: 'text-dark', for: "menu_item_accepts_extra#{menu_item.id}"}  %>
+                    <%= f.input :accepts_extra, as: :boolean, hint: 'Disable to hide Extras.', input_html: { class: "toggle", id:"menu_item_accepts_extra#{menu_item.id}" }, label_html: { class: 'text-dark', for: "menu_item_accepts_extra#{menu_item.id}"}  %>
                   </div>
                   <div class="col-6">
-                    <%= f.input :active, as: :boolean, hint: 'Disable to hide Extras.', input_html: { class: "toggle", id:"menu_item_active#{menu_item.id}" }, label_html: { class: 'text-dark', for: "menu_item_active#{menu_item.id}"}  %>
+                    <%= f.input :active, as: :boolean, hint: 'Disable to hide.', input_html: { class: "toggle", id:"menu_item_active#{menu_item.id}" }, label_html: { class: 'text-dark', for: "menu_item_active#{menu_item.id}"}  %>
                   </div>
                 </div>
                 <%= f.input :photos, as: :file, input_html: { multiple: true } %>
@@ -46,3 +46,13 @@
     </div>
   </div>
 </div>
+
+<style>
+  .modal-backdrop {
+    display: none;
+  }
+
+  .modal {
+    background: rgba(0,0,0,0.5);
+  }
+</style>

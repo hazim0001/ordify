@@ -350,18 +350,7 @@ document.addEventListener('turbolinks:load', () => {
     feather.replace()
   })()
 
-  // manager order show function //
 
-  const orders = document.querySelectorAll("#tableOrder");
-  if (orders) {
-    orders.forEach((order) => {
-      order.addEventListener('click', (event) => {
-        const accordion = event.path[4]
-        const orderTab = accordion.querySelector('.trigger')
-        orderTab.classList.toggle('collapse')
-      })
-    });
-  }
 
 });
 

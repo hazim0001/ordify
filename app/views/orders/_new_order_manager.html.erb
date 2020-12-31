@@ -6,6 +6,9 @@
       <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <% icons = ["fas fa-mug-hot", "fas fa-hamburger","fas fa-hotdog", "fas fa-beer", "fas fa-fish", "fas fa-wine-bottle", "fas fa-beer","fas fa-fish" ] %>
         <% counter = 0 %>
+        <%= link_to orders_path do %>
+          <button class="btn btn-primary mb-3"> Active Orders</button>
+        <% end %>
       <% @categories.each do |category| %>
         <li class="nav-item w-100" role="presentation">
           <a class="nav-link mb-3 text-center category-pill py-2" id="pills-<%= category.id %>-tab" data-toggle="pill" href="#pills-<%= category.id %>" role="tab" aria-controls="pills-home" aria-selected="true">
@@ -42,18 +45,18 @@
     </div>
   </div>
   <div class="col-4">
-    <div class="order-container mt-3 p-4 px-5" style="background-color: rgb(47,48,55); height: 100vh;position: relative; border-radius: 35px;">
+    <div class="order-container mt-3 p-4 px-5" style="background-color: rgb(47,48,55); min-height: 90vh;position: relative; border-radius: 35px;">
 
     <%= simple_form_for @order, url: restaurant_orders_path(@restaurant), html: { class: "needs-validation"}  do |f| %>
 
         <div class="row mb-4" id="order-header">
           <div class="col-4 px-0">
             <h6 class="text-muted font-small">Order Number</h6>
-            <p class="text-white mb-0 mt-3">Order #<%= @restaurant.orders.last.id + 1 %></p>
+            <p class="text-white mb-0" style="">Order #<%= @restaurant.orders.last.id + 1 %></p>
           </div>
           <div class="col-4 px-0">
             <h6 class="text-muted font-small">Name</h6>
-            <%= f.input :user_number, label: false, required: true, wrapper_html: {class:"mb-0 mr-2", style:"height: 2rem;"}, input_html: { class:"pl-2 form-control", style:"height: 2rem;padding: 0px;border-radius:30px;"}, placeholder:'User number'  %>
+            <%= f.input :user_number, label: false, required: true, wrapper_html: {class:"mb-0 mr-2", style:"height: 2vh;"}, input_html: { class:"pl-2 form-control", style:"height: 4vh;padding: 0px;border-radius:30px;"}, placeholder:'User number'  %>
            </div>
           <div class="col-4 px-0">
             <h6 class="text-muted font-small">Table</h6>
@@ -66,6 +69,9 @@
           <div id="line-item-input">
 
           </div>
+        </div>
+        <div style="height:13vh;">
+
         </div>
         <div id="order-footer" class="" style="position: absolute; bottom: 0;width: 80%;">
           <div class="">
@@ -227,7 +233,7 @@
               <!-- here goes the total price -->
               <div class="d-flex justify-content-around align-items-start">
                 <span><p class="text-white value">${priceNum}</p></span>
-                <span><a class="remove_field" ><i class="far fa-trash-alt" style="color: #ec524b;"></i></a></span>
+                <span><a class="remove_field" ><i class="far fa-trash-alt ml-2" style="color: #ec524b;"></i></a></span>
               </div>
             </div>
           </div>

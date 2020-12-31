@@ -1,25 +1,29 @@
 <!-- yielded from application html mete tag turbolink -->
 <%= provide(:content,"reload") %>
+<!-- yielded from application html mete tag viewport -->
+<%= provide(:responsive,"width=device-width, initial-scale=1.0") %>
 <div class="container-fluid">
   <div class="row">
     <%= render 'shared/side_bar' %>
 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <main role="main" class="col-md-9 px-md-4" style="margin-left: 17vw !important;">
 
       <div class="d-flex justify-content-between align-items-end" style="width: 80vw;">
         <h2 class="mt-5"><%= @restaurant.name.capitalize %>'s Menu Items</h2>
-        <button type="button" class="btn btn-outline-primary pb-2" style="margin-left: 15rem; "data-toggle="modal" data-target="#exampleModal2">
-          Add Category
-        </button>
-      <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-primary pb-2" data-toggle="modal" data-target="#exampleModal">
-          Add Menu item
-        </button>
+        <div>
+            <button type="button" class="btn btn-outline-primary pb-2" data-toggle="modal" data-target="#exampleModal2">
+              Add Category
+            </button>
+          <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-primary pb-2 ml-3" data-toggle="modal" data-target="#exampleModal">
+              Add Menu item
+            </button>
+        </div>
       </div>
 
 
       <hr>
-      <div class="table-responsive">
+      <div class="table-responsive" style="width: 90vw;">
         <div class="">
           <% @categories.each do |category| %>
           <div class="card m-3 border-0" style="width: 90vw;">
@@ -34,14 +38,14 @@
               <%#= raise %>
                 <div class="d-flex flex-wrap">
                 <% category.menu_items.includes(:photos_attachments, :restaurant).order(created_at: :desc).each do |menu_item| %>
-                    <div class="card-product my-2 mr-4" style="width:33vw;">
+                    <div class="card-product my-2 mr-4" style="width:33vw; align-items: end;">
                       <% if menu_item.photos.attached? %>
                         <%= cl_image_tag menu_item.photos.first.key  %>
                       <% else %>
                         <%= image_tag("https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid")%>
                       <% end %>
-                      <div class="d-flex justify-content-between w-100">
-                        <div class="card-product-infos mt-2">
+                      <div class="d-flex " style="width:187px; height:112px;">
+                        <div class="card-product-infos mt-2 pr-1" style="width: 151px; height: 110px !important;">
                           <h2 class="mb-2">
                             <% if menu_item.title.chars.count > 16 %>
                               <%= menu_item.title.slice(0..16)%>...
@@ -50,8 +54,8 @@
                             <% end %>
                           </h2>
                           <p>
-                            <% if menu_item.description.chars.count > 55 %>
-                              <%= menu_item.description.slice(0..55)%>...
+                            <% if menu_item.description.chars.count > 20 %>
+                              <%= menu_item.description.slice(0..20)%>...
                             <% else %>
                               <%= menu_item.description%>
                             <% end %>
@@ -62,20 +66,21 @@
                             <% else %>
                              <p class=""><i class="far fa-eye-slash" style="color: black;font-size: 1rem; font-weight: bold;"></i></p>
                             <% end %>
-                            <p class="ml-3">Ordered <%= pluralize(menu_item.orders.size, "time" ) %></p>
+                            <p class="ml-2">Ordered <%= pluralize(menu_item.orders.size, "time" ) %></p>
                           </div>
                         </div>
                 <!-- here goes the icons -->
-                        <div>
-                          <div class="mr-2">
-                            <button type="button" data-toggle="modal" data-target="#editMenuItemModal<%= menu_item.id %>" class="mb-1">
-                              <i class="far fa-edit mx-3" style="color: #0278ae;"></i>
-                            </button>
-                          </div>
-                          <div class="ml-3 mt-4">
+                        <div class="d-flex justify-content-between flex-col-reverse mt-3 w-10" style="width: 38px;height: 80px;">
+                          <div class=" ">
                             <%= link_to menu_item_path(menu_item.id), method: :delete, data: { confirm: "Are you sure you want to delete this menu item?", disable_with: "Processing..." } do %>
                               <i class="far fa-trash-alt" style="color: #ec524b;"></i>
                             <% end %>
+                          </div>
+                          <div class="">
+                            <button type="button" data-toggle="modal" data-target="#editMenuItemModal<%= menu_item.id %>" class="mb-1">
+                              <i class="far fa-edit" style="color: #0278ae;"></i>
+                            </button>
+                            <script>$('#editMenuItemModal<%= menu_item.id %>').appendTo("body")</script>
                           </div>
                         </div>
                       </div>
