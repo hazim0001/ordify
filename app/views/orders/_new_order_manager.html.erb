@@ -249,6 +249,7 @@
           values.forEach(value => {
             valuesArray.push(parseFloat(value.innerText))
           });
+
           let totalPrice = valuesArray.reduce((a, b) => a + b, 0)
           total.innerText = totalPrice.toFixed(2);
         };
@@ -259,7 +260,7 @@
           const price_per_one = input.parentElement.parentElement.nextElementSibling.lastElementChild.firstElementChild.lastElementChild.innerText
           input.addEventListener('input', (event) =>{
             const newQuantity = event.target.value
-            const newPrice = event.path[3].lastElementChild.lastElementChild.firstElementChild
+            let newPrice = input.parentElement.parentElement.nextElementSibling.lastElementChild.firstElementChild //event.path[3].lastElementChild.lastElementChild.firstElementChild
             let newValue = newQuantity * parseFloat(price_per_one)
             newPrice.innerHTML = `<span><p class="text-white value">${newValue}</p></span>`
             calc()
