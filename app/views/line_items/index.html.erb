@@ -16,7 +16,7 @@
     <div class="order-summary-text">Order Summary</div>
 
     <!-- this is the card for summary -->
-    <% @line_items.each do |line_item| %>
+    <% @line_items.includes(:add_extras).each do |line_item| %>
       <% if line_item.quantity >= 1 %>
         <% if line_item.ordered %>
           <div class="card-item">

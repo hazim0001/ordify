@@ -12,7 +12,7 @@ class MenuItemsController < ApplicationController
       menu_items = MenuItem.where(sql_query, query: "%#{params[:query]}%")
       menu_items_zero(menu_items, restaurant)
     else
-      @menu_items = MenuItem.active_and_related(restaurant, @category) # where(restaurant: restaurant).where(category: @category).where(active: true)
+      @menu_items = MenuItem.active_and_related(restaurant, @category).includes(:photos_attachments) # where(restaurant: restaurant).where(category: @category).where(active: true)
     end
   end
 

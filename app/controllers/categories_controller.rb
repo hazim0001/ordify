@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
       @order = Order.find(session[:order]["id"])
     end
     # categories_ids = MenuItem.where(restaurant_id: @target_restaurant).pluck(:category_id).uniq
-    @categories = @target_restaurant.categories.order(menu_items_count: :DESC)
+    @categories = @target_restaurant.categories.order(menu_items_count: :DESC).includes(menu_items: %i[photos_attachments])
 
     # @categories = Category.where(id: categories_ids).includes(menu_items: %i[photos_attachments])
   end
