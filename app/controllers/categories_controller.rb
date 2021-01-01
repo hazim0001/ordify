@@ -9,13 +9,13 @@ class CategoriesController < ApplicationController
       @menu_item = MenuItem.new(restaurant: @target_restaurant)
       @restaurant = @target_restaurant
       @category = Category.new
+      @categories = @target_restaurant.categories.order(menu_items_count: :DESC)
     else
       @target_restaurant = Restaurant.find(session[:restaurant]["id"])
       @order = Order.find(session[:order]["id"])
+      @categories = @target_restaurant.categories.order(menu_items_count: :DESC).includes(menu_items: %i[photos_attachments])
     end
     # categories_ids = MenuItem.where(restaurant_id: @target_restaurant).pluck(:category_id).uniq
-    @categories = @target_restaurant.categories.order(menu_items_count: :DESC).includes(menu_items: %i[photos_attachments])
-
     # @categories = Category.where(id: categories_ids).includes(menu_items: %i[photos_attachments])
   end
 
