@@ -9,7 +9,8 @@ class MenuItem < ApplicationRecord
   has_many :ingredient_inventories, through: :ingredients
   has_many :inventory_refills, through: :ingredient_inventories
 
-  belongs_to :restaurant
+  # belongs_to :restaurant
+  acts_as_tenant :restaurant
   belongs_to :category# , counter_cache: true
 
   validates :title, presence: true, length: { in: 3..150 } # , uniqueness: { scope: restaurant_id }

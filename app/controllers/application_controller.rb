@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_employee!
+  # set_current_tenant_by_subdomain_or_domain(:restaurant, :subdomain, :domian)
   include Pundit
 
   # after_action :verify_authorized, except: :index, unless: :skip_pundit?

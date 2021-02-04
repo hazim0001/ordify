@@ -59,7 +59,7 @@ class OrdersController < ApplicationController
   end
 
   def display
-    @orders = Order.all.includes(:table, line_items: [:menu_item]).order("created_at DESC")
+    @orders = current_employee.restaurant.orders.includes(:table, line_items: [:menu_item]).order("created_at DESC")
   end
 
   def update
