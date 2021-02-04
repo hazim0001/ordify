@@ -168,6 +168,7 @@ ActiveRecord::Schema.define(version: 2020_12_27_090822) do
     t.index ["menu_item_id"], name: "index_ingredients_on_menu_item_id"
   end
 
+  # to be removed
   create_table "inventories", force: :cascade do |t|
     t.integer "stock_amount_grams"
     t.integer "trigger_limit"
