@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_27_090822) do
+ActiveRecord::Schema.define(version: 2021_02_04_143101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,23 +159,13 @@ ActiveRecord::Schema.define(version: 2020_12_27_090822) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string "title"
-    t.integer "ingredient_portion_size_grams", default: 0
     t.bigint "menu_item_id", null: false
     t.bigint "ingredient_inventory_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "ingredient_portion_size_grams"
     t.index ["ingredient_inventory_id"], name: "index_ingredients_on_ingredient_inventory_id"
     t.index ["menu_item_id"], name: "index_ingredients_on_menu_item_id"
-  end
-
-  # to be removed
-  create_table "inventories", force: :cascade do |t|
-    t.integer "stock_amount_grams"
-    t.integer "trigger_limit"
-    t.bigint "menu_item_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["menu_item_id"], name: "index_inventories_on_menu_item_id"
   end
 
   create_table "inventory_refills", force: :cascade do |t|
@@ -271,7 +261,6 @@ ActiveRecord::Schema.define(version: 2020_12_27_090822) do
   add_foreign_key "extras", "ingredient_inventories"
   add_foreign_key "ingredients", "ingredient_inventories"
   add_foreign_key "ingredients", "menu_items"
-  add_foreign_key "inventories", "menu_items"
   add_foreign_key "inventory_refills", "ingredient_inventories"
   add_foreign_key "line_items", "menu_items"
   add_foreign_key "line_items", "orders"
