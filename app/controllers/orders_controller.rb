@@ -20,7 +20,9 @@ class OrdersController < ApplicationController
       # raise
       @order = Order.create(table_id: order_params[:table].to_i, user_number: order_params[:user_number])
       params[:menu_item_id].each_with_index do |id, index|
-        line_item = LineItem.create(menu_item_id: id.to_i, order: @order, quantity: params[:quantity][index], ordered: true)
+        line_item = LineItem.create(
+          menu_item_id: id.to_i, order: @order, quantity: params[:quantity][index], ordered: true, received_at: Time.now
+        )
         # updating line item total and order total
         line_item.update(total_cents: line_item.menu_item.item_price_cents * line_item.quantity)
         # updating inventory
@@ -31,6 +33,11 @@ class OrdersController < ApplicationController
           ingredient.ingredient_inventory.update(stock_amount_grams: current_stock - (portion * quantity))
         end
       end
+      # where("dispatched_from_kitchen= ?", false)
+      undispatched_line_items = @order.table.line_items.not_dispatched_from_kitchen
+      KitchenOrderChannel.broadcast_to(
+        @order.table, render_to_string(partial: "new_line_item", locals: { lines: undispatched_line_items })
+      )
       sub_total = LineItem.where(order: @order).sum(:total_cents)
       @order.update(total_price_cents: sub_total, sent: true)
       flash[:notice] = "Order##{@order.id} has been created and sent to the kitchen"
@@ -59,7 +66,7 @@ class OrdersController < ApplicationController
   end
 
   def display
-    @orders = Order.all.includes(:table, line_items: [:menu_item]).order("created_at DESC")
+    @orders = current_employee_restaurant.orders.includes(:table, line_items: [:menu_item]).order("created_at DESC")
   end
 
   def update

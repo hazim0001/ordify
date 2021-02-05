@@ -97,6 +97,8 @@
   </div>
 </div>
 
+<!-- Add menu item modal -->
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content" style="border-radius: 2rem;">
@@ -159,7 +161,7 @@
   </div>
 </div>
 
-
+<!-- Add category Modal -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content" style="border-radius: 2rem;">
@@ -215,9 +217,9 @@
               <div class="form-group">
                 <label for="sel1">Ingredient</label>
                 <select class="form-control" id="sel1" name="ingredient_id[]">
-                  <option>Choose an ingredient</option>
-                  <% IngredientInventory.all.each do |ing| %>
-                  <option value="<%= ing.id %>" ><%= ing.name %></option>
+                    <option>Choose an ingredient</option>
+                  <% IngredientInventory.all.each do |ingredient| %>
+                    <option value="<%= ingredient.id %>" ><%= ingredient.name %></option>
                   <% end %>
                 </select>
               </div>
