@@ -1,8 +1,17 @@
 Rails.application.configure do
+  config.after_initialize do
+    Bullet.enable        = true
+    # Bullet.alert         = true
+    Bullet.bullet_logger = true
+    Bullet.console       = true
+    Bullet.rails_logger  = true
+    Bullet.add_footer    = true
+  end
 
+  config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.svg *.ico *.eot *.ttf)
   # config.hosts << "9a7dd3447a16.ngrok.io"
   # Settings specified here will take precedence over those in config/application.rb.
-  config.hosts << "bce96d8bc58e.ngrok.io"
+  config.hosts << "016021ce043f.ngrok.io"
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
@@ -46,6 +55,8 @@ Rails.application.configure do
   config.active_record.migration_error = :page_load
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.action_mailer.delivery_method = :letter_opener
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true

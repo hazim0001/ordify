@@ -22,8 +22,27 @@ gem 'redis', '~> 4.0'
 # gem 'rails_admin_softwarebrothers_theme', :git => 'git@github.com:softwarebrothers/rails_admin_softwarebrothers_theme.git'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7
-gem 'pundit'
+
 # authorization
+gem 'pundit'
+
+# for charting
+gem "chartkick"
+
+# to group by day min sec etc...
+gem 'groupdate'
+
+# gem 'active_median'
+# percentile and median for rails
+
+# any data donfirmation will invoke bootstrap modal
+gem 'data-confirm-modal'
+
+# to calculate time diffrence https://github.com/tmlee/time_difference
+gem 'time_difference'
+
+gem 'human_duration'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 gem 'money-rails', '~>1.12'
@@ -58,6 +77,9 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'letter_opener'
+  # for n+1 queries detection
+  gem 'bullet'
 end
 
 group :test do

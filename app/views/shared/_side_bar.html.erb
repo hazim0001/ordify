@@ -1,0 +1,48 @@
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="sidebar-sticky pt-3 pl-3">
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2">
+            <%= link_to dashboard_restaurant_path(current_employee.restaurant), class:"nav-link" do %>
+                <span data-feather="home"></span>
+                Dashboard <span class="sr-only">(current)</span>
+            <% end %>
+          </li>
+          <li class="nav-item mb-2">
+              <%= link_to orders_path, class:"nav-link" do  %>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg></span>
+                Active Orders
+              <% end %>
+          </li>
+          <li class="nav-item mb-2">
+              <%= link_to display_orders_path, class:"nav-link" do  %>
+                <span data-feather="file"></span>
+                Orders
+              <% end %>
+          </li>
+          <li class="nav-item mb-2">
+            <%= link_to categories_path, class:"nav-link" do %>
+              <span data-feather="shopping-cart"></span>
+              Menu Items
+            <% end %>
+          </li>
+          <li class="nav-item mb-2">
+            <a class="nav-link" href="#">
+              <span data-feather="users"></span>
+              Customers
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <%= link_to restaurant_ingredient_inventories_path(current_employee.restaurant), class:"nav-link" do %>
+              <span data-feather="bar-chart-2"></span>
+              Inventory
+            <% end %>
+          </li>
+          <li class="nav-item mb-2">
+            <%= link_to restaurant_tables_path(current_employee.restaurant), class:"nav-link" do  %>
+              <span data-feather="layers"></span>
+              Kitchen View
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </nav>

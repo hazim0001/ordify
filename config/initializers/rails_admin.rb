@@ -8,7 +8,7 @@ RailsAdmin.config do |config|
   end
   config.current_user_method(&:current_employee)
 
-  config.included_models = [ "MenuItem", "LineItem", "Employee", "Category", "Table", "Order", "Restaurant", "ActiveStroge" ]
+  config.included_models = [ "MenuItem", "LineItem", "Employee", "Category", "Table", "Order", "Restaurant", "ActiveStroge", "Inventory" ]
 
   config.authorize_with do
     unless current_employee.admin?
@@ -40,7 +40,7 @@ RailsAdmin.config do |config|
     end                         # mandatory
 
     new do
-      except [Restaurant, Cusine, Order ]
+      except [Restaurant, Cusine, Order]
     end
     export
     # bulk_delete

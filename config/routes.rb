@@ -11,20 +11,18 @@ Rails.application.routes.draw do
 
   devise_scope :employee do
     root to: 'pages#home'
-    # get 'tables', to: 'tables#new'
   end
-    # CRUD -> GET/POST/(PUT)PATCH/DELETE
-    #           PATH     -> Controller action -> HTTP verb
-    # localhost:3000/restaurants -> index -> GET
-    # localhost:3000/restaurants/:id -> show -> GET
-    # localhost:3000/restaurants/new -> new -> GET
-    # localhost:3000/restaurants -> create -> POST
-    # localhost:3000/restaurants/:id/edit -> edit -> GET
-    # localhost:3000/restaurants/:id -> update -> PATCH
-    # localhost:3000/restaurants/:id -> destroy -> DELETE
+
   resources :restaurants, except: %i[new create index destroy show edit update] do
     resources :tables, only: %i[create index show]
     resources :menu_items, only: %i[create edit update new]
+    resources :inventories , only: :index
+    resources :ingredient_inventories, only: %i[index create ]
+    resources :inventory_refills, only: :index
+    resources :orders, only: %i[new create]
+    member do
+      get :dashboard
+    end
   end
 
   resources :categories, only: %i[create index] do
@@ -35,17 +33,29 @@ Rails.application.routes.draw do
     resources :orders, only: %i[new create]
   end
 
-  resources :orders, only: %i[index update] do
+  resources :orders, only: %i[index update edit destroy] do
     resources :line_items, only: %i[create index update]
     member do
       post :dispatch_notify
+      patch :shallow_delete
+    end
+    collection do
+      get :display
     end
   end
 
   resources :menu_items, only: %i[destroy show]
   resources :tables, only: :destroy
   resources :categories, only: :destroy
-  resources :line_items, only: :destroy
+  resources :ingredient_inventories, only: %i[update destroy]
+  resources :inventory_refills, only: %i[create]
+
+  resources :line_items, only: %i[destroy edit] do
+    member do
+      patch :shallow_delete
+    end
+  end
+
   get '/payment', to: 'pages#payment'
 
 end

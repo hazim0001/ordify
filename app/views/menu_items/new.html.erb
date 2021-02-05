@@ -1,2 +1,88 @@
-<h1>MenuItems#new</h1>
-<p>Find me in app/views/menu_items/new.html.erb</p>
+<div class="container mt-5 p-5 shadow bg-white" style="border-radius: 60px">
+  <div class="row">
+    <div class="col-8 mx-auto">
+      <%= simple_form_for [@restaurant, @menu_item], url: restaurant_menu_items_path(@restaurant) do |f| %>
+        <div class="row g-3">
+          <div class="col-6">
+            <%= f.input :title %>
+          </div>
+          <div class="col-6 ">
+            <%= f.input :item_price, hint: 'price in cents.' %>
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-6">
+            <%= f.association :category, prompt:" Choose a category " %>
+          </div>
+          <div class="col-6 ">
+            <%= f.input :portion_size_grams,label: 'Portion', hint: 'protion in grams.' %>
+          </div>
+        </div>
+        <%= f.input :description, as: :text %>
+        <%= f.input :active, as: :boolean, hint: 'Inactive to hide.', input_html: { class: "toggle" }, label_html: { class: 'text-dark'}  %>
+        <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <%= link_to 'Cancel',categories_path, class:"btn btn-outline-secondary h-25" %>
+          <%= f.button :submit, class:"btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  label{
+    font-weight: bold;
+  }
+
+  .toggle {
+    position: absolute;
+    transform: scale(0);
+  }
+
+  .toggle + label {
+    position: relative;
+    display: inline-block;
+    padding-left: 2.5em;
+  }
+
+  .toggle + label::before {
+    content: '';
+    display: block;
+    position: absolute;
+    cursor: pointer;
+    width: 36px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    background-color: #EAEAEA;
+    border-radius: 50rem;
+  }
+
+  .toggle:checked + label::before {
+    background-color: blue;
+  }
+
+  .toggle + label::after {
+    content: '';
+    display: block;
+    position: absolute;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    top: 2px;
+    left: 2px;
+    background-color: gray;
+    border-radius: 50%;
+    transition: left 0.2s ease;
+  }
+
+  .toggle:checked + label::after {
+    left: 18px;
+    background-color: white;
+  }
+  .form-check {
+    padding: 0px;
+  }
+</style>

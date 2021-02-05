@@ -3,10 +3,20 @@ class CategoriesController < ApplicationController
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
 
   def index
-    @target_restaurant = Restaurant.find(session[:restaurant]["id"])
-    @order = Order.find(session[:order]["id"])
-    categories_ids = MenuItem.where(restaurant_id: @target_restaurant).pluck(:category_id)
-    @categories = Category.where(id: categories_ids)
+    if manager_is_here?
+      @target_restaurant = current_employee.restaurant
+      # for the add menu item form
+      @menu_item = MenuItem.new(restaurant: @target_restaurant)
+      @restaurant = @target_restaurant
+      @category = Category.new
+      @categories = @target_restaurant.categories.order(menu_items_count: :DESC)
+    else
+      @target_restaurant = Restaurant.find(session[:restaurant]["id"])
+      @order = Order.find(session[:order]["id"])
+      @categories = @target_restaurant.categories.order(menu_items_count: :DESC).includes(menu_items: %i[photos_attachments])
+    end
+    # categories_ids = MenuItem.where(restaurant_id: @target_restaurant).pluck(:category_id).uniq
+    # @categories = Category.where(id: categories_ids).includes(menu_items: %i[photos_attachments])
   end
 
   def create
@@ -29,6 +39,6 @@ class CategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:category).permit(:title)
+    params.require(:category).permit(:title, :restaurant_id)
   end
 end

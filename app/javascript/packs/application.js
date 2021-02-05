@@ -4,11 +4,15 @@
 // that code so it'll be compiled.
 
 require("@rails/ujs").start()
+require('data-confirm-modal')
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+require("chartkick")
+require("chart.js")
+require('jquery')
 
-
+//= require data-confirm-modal
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -50,11 +54,11 @@ document.addEventListener('turbolinks:load', () => {
 
   if (phone) {
     intlTelInput(phone, {
-    initialCountry: 'mx',
+    initialCountry: 'eg',
     // ipinfoToken: "yolo",
     // numberType: "MOBILE",
     formatOnDisplay: true,
-    preferredCountries: ['mx', 'us', 'gb'],
+    preferredCountries: ['eg', 'us', 'gb'],
     utilsScript: "/utils.js"
     });
   }
@@ -316,7 +320,6 @@ document.addEventListener('turbolinks:load', () => {
   // }
 
   // ----------------------------------------------------------------
-
   /// Clock function showen in kitchen view
   var tday=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
   var tmonth=["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -337,14 +340,18 @@ document.addEventListener('turbolinks:load', () => {
   GetClock();
   setInterval(GetClock,1000);
 
+
+
+  /* dashboard icons */
+
+  (function () {
+    'use strict'
+
+    feather.replace()
+  })()
+
+
+
 });
-
-  // ----------------------------------------------------------------
-
-
-  // Page loader
-
-
-
 
 

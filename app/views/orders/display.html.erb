@@ -1,0 +1,146 @@
+<!-- yielded from application html mete tag viewport -->
+<%= provide(:responsive,"width=device-width, initial-scale=1.0") %>
+<div class="container-fluid">
+  <div class="row">
+    <%= render 'shared/side_bar' %>
+
+    <main role="main" class="col-md-9 px-md-4" style="margin-left: 17vw !important;">
+
+      <h2 class="mt-5"><%= current_employee.restaurant.name.capitalize %>'s Orders</h2>
+
+      <hr>
+
+      <table class="table table-hover w-100">
+        <thead>
+          <tr>
+            <th scope="col">Order#</th>
+            <th scope="col">Customer Number</th>
+            <th scope="col">Table</th>
+            <th scope="col">Order status</th>
+            <th scope="col">Order total</th>
+            <th scope="col">Payment status</th>
+            <th scope="col">Items count</th>
+            <th scope="col">Time spent in restaurant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+          <tr data-toggle="modal" data-target="#ModalOrder<%= order.id %>">
+            <th scope="row"><%= order.id %></th>
+            <td><%= order.user_number%></td>
+            <td><%= order.table.name%></td>
+
+            <% if order.dispatched %>
+              <td><span class="badge badge-success">Dispatched</span></td>
+            <% else %>
+              <td><span class="badge badge-warning">Not dispatched</span></td>
+            <% end %>
+
+            <td><%= humanized_money_with_symbol(order.total_price)%></td>
+
+            <% if order.status == "not paid" %>
+              <td><span class="badge badge-warning">Not Paid</span></td>
+            <% else %>
+              <td><span class="badge badge-success">Paid</span></td>
+            <% end %>
+
+            <td><%= order.line_items.size%></td>
+            <% if order.from_order_to_checkout.nil? %>
+              <td><%= TimeDifference.between(Time.now , order.created_at).humanize %></td>
+            <% else %>
+              <td><%= order.from_order_to_checkout.human_duration %></td>
+            <% end %>
+            <%#= raise %>
+            <!-- <td><%#= TimeDifference.between(Time.now , order.created_at).humanize %> mins ago</td> -->
+
+          </tr>
+            <!-- modaal -->
+            <div class="modal fade" id="ModalOrder<%= order.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content" style="border-radius: 2rem;">
+
+                  <div class="modal-header d-flex justify-content-between mx-3">
+                    <h5 class="modal-title font-modal-footer" id="exampleModalLabel2"><strong>Order# <%= order.id %></strong></h5>
+                    <div class="ml-5">
+                      <% if order.status == "not paid" %>
+                        <span class="badge badge-warning font-modal-footer-paid">Not Paid</span><span class="font-modal-footer ml-2"> Checked in <%= time_ago_in_words(order.created_at) %> ago</span>
+                      <% else %>
+                        <span class="badge badge-success font-modal-footer-paid">Paid</span> <span class="font-modal-footer"> on <%= order.updated_at.strftime("%d %b %Y %l:%M %p") %></span>
+                      <% end %>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <div class="modal-body">
+                    <div class="container mt-3 bg-white">
+                      <div class="m-2">
+                        <div class="col-12 mx-auto">
+                          <div class="d-flex mb-3 justify-content-between">
+                            <span class="w-25"><strong>Menu Item</strong></span>
+                            <span class="w-25 d-flex justify-content-between"><strong style="margin-left: -2rem;">Quantity</strong> <strong style="margin-right: 2rem;">Total price</strong></span>
+                            <span class="w-25 text-center"><strong>Comment/Time in Kitchen</strong></span>
+                            <span class="w-25 text-center"><strong>Status</strong></span>
+                          </div>
+                          <hr>
+                          <% order.line_items.each do |line| %>
+                            <% if line.ordered == false %>
+                              <p class="badge rounded-pill bg-warning text-muted p-2 mx-auto"><%= line.menu_item.title %> has been selected by the customer but not yet sent to the kitchen</p>
+                            <% else %>
+                              <div class="d-flex mb-3 justify-content-between">
+                                <span class="w-25"><%= line.menu_item.title%></span>
+                                <span class="w-25 d-flex justify-content-between"><strong><%= line.quantity%></strong> <span class="mr-5"><%= humanized_money_with_symbol(line.total)%></span></span>
+                                <% if line.dispatched_from_kitchen %>
+                                <span class="w-25 text-cente pr-2"><%= line.total_kitchen_time.to_i.human_duration %> </span>
+                                <span class="w-25 badge badge-success h-50">Dispatched</span>
+                                <% else %>
+                                  <% if line.extras.any? %>
+                                    <span class="w-25 text-center">
+                                      <%= line.comment%>/
+                                      <% line.extras.pluck(:title).each do |extra| %>
+                                        <strong>+</strong><%= extra %>
+                                      <% end %>
+                                    </span>
+                                  <% else %>
+                                  <span class="w-25 text-center"><%= line.comment%></span>
+                                  <% end %>
+
+                                <span class="w-25 badge badge-warning">Not dispatched</span>
+                                <% end %>
+                              </div>
+                            <% end %>
+                          <% end %>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer d-flex justify-content-between mx-3">
+                    <div class="">
+                      <p class="m-0 font-modal-footer">Order Items count <strong><%= order.line_items.size %></strong></p>
+                      <p class="m-0 font-modal-footer">Order total <strong><%= humanized_money_with_symbol(order.total_price)%></strong></p>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!-- end of order iteration -->
+          <% end %>
+        </tbody>
+      </table>
+    </main>
+  </div>
+</div>
+
+<style>
+  .font-modal-footer{
+    font-size: 1.2rem;
+  }
+  .font-modal-footer-paid{
+    font-size: 1.0rem;
+  }
+</style>

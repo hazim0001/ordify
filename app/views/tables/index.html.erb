@@ -1,3 +1,6 @@
+<% if  current_employee.present? && current_employee.role == "manager" %>
+  <%= render 'manager_kitchen_view' %>
+<% else %>
 <nav class="navbar nav-c">
   <div class="w-100 d-flex justify-content-between align-items-center">
       <!--logo -->
@@ -9,35 +12,37 @@
   </div>
 </nav>
 <div class="mx-5 d-flex flex-wrap justify-content-between">
-     <% @tables.each do |table| %>
-      <div class="card border-dark mt-5 card-width">
-        <div class="card-body">
-          <h3 class="card-title card-txt-r2"><%= table.name %></h3>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">Plate</th>
-                <th scope="col">comments</th>
-                <th scope="col">Quantity</th>
-              </tr>
-            </thead>
-            <tbody id="order" data-kitchen-order-id="<%= table.id %>">
-            <% table.line_items.where("ordered= ? AND dispatched_from_kitchen= ?", true, false).order(:created_at).each do |line| %>
-              <tr>
-                <td><p class="card-text"><strong><%= line.menu_item.title %></strong></p></td>
-                <td><p class="card-text"><%= line.comment %></p></td>
-                <td><p class="card-text"><strong><%= line.quantity %></strong></td>
-              </tr>
-            <% end %>
+   <% @tables.each do |table| %>
+    <div class="card border-dark mt-5 card-width">
+      <div class="card-body">
+        <h3 class="card-title card-txt-r2"><%= table.name %></h3>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Plate</th>
+              <th scope="col">comments</th>
+              <th scope="col">Quantity</th>
+            </tr>
+          </thead>
+          <tbody id="order" data-kitchen-order-id="<%= table.id %>">
+          <% table.line_items.ordered_and_not_dispatched.each do |line| %>
+            <tr>
+              <td><p class="card-text"><strong><%= line.menu_item.title %></strong></p></td>
+              <td><p class="card-text"><%= line.comment %></p></td>
+              <td><p class="card-text"><strong><%= line.quantity %></strong></td>
+            </tr>
+          <% end %>
           </tbody>
         </table>
-        </div>
-          <% if table.orders.count >= 1 %>
-            <%= button_to 'Dispatch', dispatch_notify_order_path(table.orders.first.id), method: :post,remote: true, class:"btn btn-primary btn-lg btn-block"  %>
-           <% end %>
-        </div>
-    <% end %>
+      </div>
+        <% if table.orders.any? %>
+          <%= button_to 'Dispatch', dispatch_notify_order_path(table.orders.first.id), method: :post,remote: true, class:"btn btn-primary btn-lg btn-block"  %>
+        <% else %>
+          <button class="btn btn-primary btn-lg btn-block">Dispatch</button>
+        <% end %>
+    </div>
+  <% end %>
 </div>
-
+<% end %>
 
 

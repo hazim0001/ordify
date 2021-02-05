@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_30_053935) do
+ActiveRecord::Schema.define(version: 2020_12_27_090822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(version: 2020_11_30_053935) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "add_extras", force: :cascade do |t|
+    t.bigint "line_item_id", null: false
+    t.bigint "extra_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "add_extra_created_at"
+    t.datetime "add_extra_updated_at"
+    t.index ["extra_id"], name: "index_add_extras_on_extra_id"
+    t.index ["line_item_id"], name: "index_add_extras_on_line_item_id"
   end
 
   create_table "blazer_audits", force: :cascade do |t|
@@ -96,6 +107,9 @@ ActiveRecord::Schema.define(version: 2020_11_30_053935) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "restaurant_id"
+    t.integer "menu_items_count", default: 0
+    t.index ["restaurant_id"], name: "index_categories_on_restaurant_id"
   end
 
   create_table "cusines", force: :cascade do |t|
@@ -116,9 +130,62 @@ ActiveRecord::Schema.define(version: 2020_11_30_053935) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "admin", default: false
+    t.integer "salary"
     t.index ["email"], name: "index_employees_on_email", unique: true
     t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
     t.index ["restaurant_id"], name: "index_employees_on_restaurant_id"
+  end
+
+  create_table "extras", force: :cascade do |t|
+    t.string "title"
+    t.integer "size_grams"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "extra_price_cents", default: 0, null: false
+    t.boolean "active_extra", default: true
+    t.bigint "ingredient_inventory_id"
+    t.index ["ingredient_inventory_id"], name: "index_extras_on_ingredient_inventory_id"
+  end
+
+  create_table "ingredient_inventories", force: :cascade do |t|
+    t.integer "stock_amount_grams", default: 0
+    t.integer "trigger_limit", default: 0
+    t.string "name"
+    t.string "vendor_name"
+    t.string "vendor_phone_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.string "title"
+    t.integer "ingredient_portion_size_grams", default: 0
+    t.bigint "menu_item_id", null: false
+    t.bigint "ingredient_inventory_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ingredient_inventory_id"], name: "index_ingredients_on_ingredient_inventory_id"
+    t.index ["menu_item_id"], name: "index_ingredients_on_menu_item_id"
+  end
+
+  # to be removed
+  create_table "inventories", force: :cascade do |t|
+    t.integer "stock_amount_grams"
+    t.integer "trigger_limit"
+    t.bigint "menu_item_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["menu_item_id"], name: "index_inventories_on_menu_item_id"
+  end
+
+  create_table "inventory_refills", force: :cascade do |t|
+    t.integer "refill_amount", default: 0
+    t.bigint "ingredient_inventory_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "inventory_refill_created_at"
+    t.datetime "inventory_refill_updated_at"
+    t.index ["ingredient_inventory_id"], name: "index_inventory_refills_on_ingredient_inventory_id"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -131,6 +198,15 @@ ActiveRecord::Schema.define(version: 2020_11_30_053935) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "total_cents", default: 0, null: false
+    t.datetime "received_at"
+    t.datetime "dispatched_at"
+    t.float "total_kitchen_time", default: 0.0
+    t.boolean "deleted", default: false
+    t.string "deleted_by"
+    t.datetime "deleted_at"
+    t.text "line_deletion_reason"
+    t.datetime "line_item_created_at"
+    t.datetime "line_item_updated_at"
     t.index ["menu_item_id"], name: "index_line_items_on_menu_item_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
   end
@@ -144,6 +220,8 @@ ActiveRecord::Schema.define(version: 2020_11_30_053935) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "item_price_cents", default: 0, null: false
+    t.integer "portion_size_grams", default: 0
+    t.boolean "accepts_extra", default: true
     t.index ["category_id"], name: "index_menu_items_on_category_id"
     t.index ["restaurant_id"], name: "index_menu_items_on_restaurant_id"
   end
@@ -158,6 +236,13 @@ ActiveRecord::Schema.define(version: 2020_11_30_053935) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "total_price_cents", default: 0, null: false
+    t.boolean "order_deleted", default: false
+    t.string "order_deleted_by"
+    t.datetime "order_deleted_at"
+    t.text "deletion_reason"
+    t.integer "from_order_to_checkout"
+    t.datetime "order_created_at"
+    t.datetime "order_updated_at"
     t.index ["table_id"], name: "index_orders_on_table_id"
   end
 
@@ -179,7 +264,15 @@ ActiveRecord::Schema.define(version: 2020_11_30_053935) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "add_extras", "extras"
+  add_foreign_key "add_extras", "line_items"
+  add_foreign_key "categories", "restaurants"
   add_foreign_key "employees", "restaurants"
+  add_foreign_key "extras", "ingredient_inventories"
+  add_foreign_key "ingredients", "ingredient_inventories"
+  add_foreign_key "ingredients", "menu_items"
+  add_foreign_key "inventories", "menu_items"
+  add_foreign_key "inventory_refills", "ingredient_inventories"
   add_foreign_key "line_items", "menu_items"
   add_foreign_key "line_items", "orders"
   add_foreign_key "menu_items", "categories"

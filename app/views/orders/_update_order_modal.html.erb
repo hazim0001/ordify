@@ -1,0 +1,38 @@
+<div class="modal fade" id="updateOrderModal<%= order.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content" style="border-radius: 2rem;">
+
+      <div class="modal-header mx-3">
+        <h5 class="modal-title" id="exampleModalLabel2">Updating order #<%=order.id%></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body mx-5">
+        <div class="container mt-3 bg-white">
+          <div class="row">
+            <div class="col-8 mx-auto">
+              <%= simple_form_for order, url: order_path(order), method: :patch, input_html: { id: "edit_order" } do |f| %>
+                <div class="row g-3 " style="margin: 2em -10em !important;">
+                  <div class="col-6">
+                    <%= f.input :table, label: 'Change table for customer', collection: @tables, selected: "#{order.table.id}", input_html: { id:"order_table_#{order.table.id}" }, label_html: { for: "order_table_#{order.table.id}"}  %>
+                  </div>
+                  <div class="col-6 ">
+                    <%= f.input :status, label: 'Payment Status', collection: ['not paid','paid'], selected: 'not paid' %>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer mx-3">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <%= f.button :submit, class:"btn btn-primary" %>
+         <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

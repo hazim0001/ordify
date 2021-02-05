@@ -1,0 +1,303 @@
+<!-- yielded from application html mete tag viewport -->
+<%= provide(:responsive,"width=device-width, initial-scale=1.0") %>
+<div class="d-flex">
+  <div class="col-2">
+    <div class="mt-4">
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <% icons = ["fas fa-mug-hot", "fas fa-hamburger","fas fa-hotdog", "fas fa-beer", "fas fa-fish", "fas fa-wine-bottle", "fas fa-beer","fas fa-fish" ] %>
+        <% counter = 0 %>
+        <%= link_to orders_path do %>
+          <button class="btn btn-outline-primary mb-4"> Active Orders</button>
+        <% end %>
+      <% @categories.each do |category| %>
+        <li class="nav-item w-100 " role="presentation">
+          <a class="nav-link mb-3 text-center category-pill py-2" id="pills-<%= category.id %>-tab" data-toggle="pill" href="#pills-<%= category.id %>" role="tab" aria-controls="pills-home" aria-selected="true">
+            <div class="d-flex align-items-center">
+              <i class="<%= icons[counter] %> back-gray mr-3" ></i><span style="font-weight: bold;letter-spacing: 0.25px; color: gray;" class="category-text"><%= category.title.capitalize %></span>
+            </div>
+          </a>
+        </li>
+        <% counter += 1 %>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="tab-content mt-3" id="pills-tabContent">
+        <% @categories.each do |category| %>
+        <div class="tab-pane fade show " id="pills-<%= category.id %>" role="tabpanel" aria-labelledby="pills-<%= category.id %>-tab">
+          <div class="d-flex flex-wrap">
+            <% category.menu_items.each do |menu_item| %>
+            <div class="card m-2 border-0 border-r-16 shadow-menu-item" style="width: 20vw;" data-menu-item="<%= menu_item.id %>">
+              <%= cl_image_tag menu_item.photos.first.key,class:"card-img-top img-menu-item-size"  %>
+              <div class="card-body p-3 mt-1">
+                <h5 class="text-muted"><%= menu_item.title %></h5>
+                <div class="d-flex justify-content-between align-items-end mt-3">
+                  <p class="mb-0 text-muted">Ordered <%= pluralize(menu_item.orders.size, "time" ) %></p>
+                  <h5 class="mb-0"><%= humanized_money_with_symbol(menu_item.item_price) %></h5>
+                </div>
+              </div>
+            </div>
+            <% end %>
+          </div>
+        </div>
+        <% end %>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="order-container mt-3 p-4 px-5" style="background-color: rgb(47,48,55); min-height: 90vh;position: relative; border-radius: 35px;">
+
+    <%= simple_form_for @order, url: restaurant_orders_path(@restaurant), html: { class: "needs-validation"}  do |f| %>
+
+        <div class="row mb-4" id="order-header">
+          <div class="col-4 px-0">
+            <h6 class="text-muted font-small">Order Number</h6>
+            <p class="text-white mb-0" style="">Order #<%= @restaurant.orders.last.id + 1 %></p>
+          </div>
+          <div class="col-4 px-0">
+            <h6 class="text-muted font-small">Name</h6>
+            <%= f.input :user_number, label: false, required: true, wrapper_html: {class:"mb-0 mr-2", style:"height: 2vh;"}, input_html: { class:"pl-2 form-control", style:"height: 4vh;padding: 0px;border-radius:30px;font-size: 0.9vw;"}, placeholder:'User number'  %>
+           </div>
+          <div class="col-4 px-0">
+            <h6 class="text-muted font-small">Table</h6>
+            <%= f.input :table, collection: @tables, prompt: 'Select Table', label: false, required: true, wrapper_html: {class:"mb-0", style:"height: 2rem;"}, input_html: { class:"pl-2 form-control",style:"height: 2rem;padding: 0px;border-radius:30px !important;font-size: 0.9vw;"} %>
+          </div>
+        </div>
+          <hr class="text-white" style="border: 1px solid white !important;" class="mb-5">
+
+        <div id="line-items">
+          <div id="line-item-input">
+
+          </div>
+        </div>
+        <div style="height:13vh;">
+
+        </div>
+        <div class="row">
+          <div class="col-12" style="position: absolute; bottom: 0;width: 24vw;">
+          <hr class="text-white" style="border: 1px solid white !important;">
+            <div id="order-footer" class="" >
+
+                <div class="d-flex justify-content-between mb-3 px-5">
+                  <h5 class="text-white">Total</h5>
+                  <h5 class="text-white" id="total">0</h5>
+                </div>
+                <div class="d-flex justify-content-center mb-4">
+                  <%= f.submit 'Create order', class: "btn btn-primary px-5 py-2" %>
+                </div>
+
+            </div>
+          </div>
+        </div>
+
+
+    <% end %>
+
+  </div>
+</div>
+
+
+<style>
+  .active-category-icon{
+    color: rgb(28,105,244) !important;
+    background-color: rgb(255,255,255) !important;
+  }
+  .active-category-text{
+    color: white !important;
+  }
+
+  .position-absolute-bottom{
+    position: fixed;
+
+  }
+  .category-pill{
+    border-radius: 3rem !important;
+  }
+
+  .back-gray{
+
+    color: rgb(159,160,160);
+    background-color: rgb(211,210,211);
+    border-radius: 50%;
+    padding: 0.6rem;
+  }
+
+  .img-menu-item-size{
+    width: 100%;
+    height: 169px;
+    object-fit: cover;
+    border-radius: 16px;
+  }
+  .border-r-16{
+    border-radius: 16px;
+  }
+  .shadow-menu-item{
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.15);
+  }
+  .green-shadow{
+    box-shadow: 0rem 0rem 3px 2px rgba(46, 204, 113, 1) !important;
+  }
+  .text-white{
+    color: white;
+  }
+
+  .font-small{
+    font-size: 14px;
+  }
+  .w-3{
+    width: 2rem;
+  }
+
+  .line-item-quantity-pill{
+    width: 50%;
+    border-radius: 30px;
+    background-color: rgb(47,48,55);
+    color: white;
+    border: 2px solid rgb(76,81,70);
+  }
+
+</style>
+<script>
+
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Get the forms we want to add validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+
+  const categories = document.querySelectorAll('.category-pill');
+  categories.forEach(category => {
+    category.addEventListener('click', (event) =>{
+      // reverting to normal
+      const categoryTabs = document.querySelectorAll('.active-category-icon')
+      categoryTabs.forEach(tab => {
+        tab.classList.remove('active-category-icon')
+      })
+      const categoryTexts = document.querySelectorAll('.active-category-text')
+      categoryTexts.forEach(text => {
+        text.classList.remove('active-category-text')
+      })
+        // adding classes
+      const text = category.querySelector('.category-text')
+      text.classList.add('active-category-text')
+
+
+      const icon = category.querySelector('.back-gray')
+      icon.classList.add('active-category-icon')
+
+    });
+  });
+
+
+
+
+
+
+ const total = document.getElementById('total')
+
+  $(document).ready(function(){
+    $('.card').each(function(){
+      $(this).click(function(){
+        $(this).addClass("green-shadow");
+        // menu_item_id
+        const menuItemId = $(this).data('menuItem')
+        // menu_item name
+        const menuItemName = $(this)[0].children[1].firstElementChild.innerText
+        // console.log(priceNum)// line item price
+        const price = $(this)[0].children[1].lastElementChild.lastElementChild.innerText
+        const priceNum = parseFloat(price.match(/(\d+.?\d+)/)[0]).toFixed(2)
+        $('#line-item-input').append(
+          `<div class="row my-3">
+            <div class="col-5 p-0">
+              <!-- here goes the  menu item name-->
+              <p class="text-white" >${menuItemName}</p>
+              <input type="hidden" name="menu_item_id[]" value="${menuItemId}">
+            </div>
+            <div class="col-4 pl-0">
+              <!-- here goes the toggler-->
+              <div>
+                <input type="number" name="quantity[]" class="text-center quantity line-item-quantity-pill" value="1"  min="0" max="10">
+              </div>
+
+            </div>
+            <div class="col-3 px-0 text-left">
+              <!-- here goes the total price -->
+              <div class="d-flex justify-content-around align-items-start">
+                <span><p class="text-white value">${priceNum}</p></span>
+                <span><a class="remove_field" ><i class="far fa-trash-alt ml-2" style="color: #ec524b;"></i></a></span>
+              </div>
+            </div>
+          </div>
+          `
+        )
+
+        let inputs = document.querySelectorAll('.quantity')
+        const lastItem = inputs[inputs.length - 1]
+
+        function calc(){
+          let values = document.querySelectorAll('.value');
+          let valuesArray = [];
+          values.forEach(value => {
+            valuesArray.push(parseFloat(value.innerText))
+          });
+
+          let totalPrice = valuesArray.reduce((a, b) => a + b, 0)
+          total.innerText = totalPrice.toFixed(2);
+        };
+
+        calc();
+
+        inputs.forEach(input =>{
+          const price_per_one = input.parentElement.parentElement.nextElementSibling.lastElementChild.firstElementChild.lastElementChild.innerText
+          input.addEventListener('input', (event) =>{
+            const newQuantity = event.target.value
+            let newPrice = input.parentElement.parentElement.nextElementSibling.lastElementChild.firstElementChild //event.path[3].lastElementChild.lastElementChild.firstElementChild
+            let newValue = newQuantity * parseFloat(price_per_one)
+            newPrice.innerHTML = `<span><p class="text-white value">${newValue}</p></span>`
+            calc()
+          })
+        });
+
+
+        function check(tag){
+          const text = tag.parentNode.parentNode.parentNode.parentNode.firstElementChild.firstElementChild.innerText
+          var aTags = document.getElementsByTagName("h5");
+          var searchText = text;
+          var found;
+          for (var i = 0; i < aTags.length; i++) {
+            if (aTags[i].textContent == searchText) {
+              found = aTags[i];
+              break;
+            }
+          }
+          found.parentElement.parentElement.classList.remove('green-shadow')
+        }
+
+        $('#line-item-input').on("click",".remove_field", function(e){ //user click on remove text
+          $(this).parents(':eq(3)').remove();
+          calc()
+          check(this)
+        })
+
+
+      });
+
+    })
+
+
+  });
+
+
+</script>

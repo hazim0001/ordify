@@ -1,0 +1,58 @@
+<div class="modal fade" id="editMenuItemModal<%= menu_item.id %>" tabindex="-1" role="dialog" aria-labelledby="<%=menu_item.id%>ModalLabel2" aria-hidden="true" data-backdrop="false" style="z-index: 100000 !important;">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content" style="border-radius: 2rem;">
+
+      <div class="modal-header mx-3">
+        <h5 class="modal-title" id="<%=menu_item.id%>ModalLabel2">Updating <%=menu_item.title%></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container mt-3 bg-white">
+          <div class="row">
+            <div class="col-8 mx-auto">
+              <%= simple_form_for [menu_item.restaurant, menu_item], url: restaurant_menu_item_path(menu_item.restaurant, menu_item), method: :patch do |f| %>
+                <div class="row g-3">
+                  <div class="col-6">
+                    <%= f.input :title, input_html: { id:"menu_item_title#{menu_item.id}" }, label_html: { for: "menu_item_title#{menu_item.id}"} %>
+                  </div>
+                  <div class="col-6 ">
+                    <%= f.input :item_price, hint: 'price in cents.', input_html: {id:"menu_item_price#{menu_item.id}" }, label_html: {for: "menu_item_price#{menu_item.id}"} %>
+                  </div>
+                </div>
+                <%= f.input :description, as: :text %>
+                <div class="row g-3">
+                  <div class="col-6">
+                    <%= f.input :accepts_extra, as: :boolean, hint: 'Disable to hide Extras.', input_html: { class: "toggle", id:"menu_item_accepts_extra#{menu_item.id}" }, label_html: { class: 'text-dark', for: "menu_item_accepts_extra#{menu_item.id}"}  %>
+                  </div>
+                  <div class="col-6">
+                    <%= f.input :active, as: :boolean, hint: 'Disable to hide.', input_html: { class: "toggle", id:"menu_item_active#{menu_item.id}" }, label_html: { class: 'text-dark', for: "menu_item_active#{menu_item.id}"}  %>
+                  </div>
+                </div>
+                <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer mx-3">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <%= f.button :submit, class:"btn btn-primary" %>
+         <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal-backdrop {
+    display: none;
+  }
+
+  .modal {
+    background: rgba(0,0,0,0.5);
+  }
+</style>

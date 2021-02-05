@@ -1,26 +1,34 @@
-<div class="main-container-categories">
-  <div class="menu-background">
-    <h1><%= @target_restaurant.name %></h1>
-  </div>
-  <div class="d-flex flex-wrap categories-cards">
-    <% @categories.each do |category|  %>
-      <%= link_to category_menu_items_path(category) do %>
-        <div class="d-flex justify-content-center align-items-center category-card" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path category.menu_items.sample.photos.first.key %>');">
-          <p class="text-center"> <%= category.title.capitalize %></p>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-</div>
-<% if @order.line_items.count >= 1 %>
-  <%= link_to order_line_items_path(@order) , class:"btn-call2-action btn-sticky" do %>
-    <span class="notification-btn badge-primary animate-pulse"><%= @order.line_items.count %></span>
-    <span>Go to order</span>
-  <% end %>
+
+<% if  current_employee.present? && current_employee.role == "manager" %>
+  <%= render 'manager_categories' %>
 <% else %>
+  <div class="main-container-categories">
+    <div class="menu-background">
+      <h1><%= @target_restaurant.name %></h1>
+    </div>
+    <div class="d-flex flex-wrap categories-cards">
+      <% @categories.each do |category|  %>
+        <%= link_to category_menu_items_path(category) do %>
+          <% if category.menu_items.last.photos.present? %>
+            <div class="d-flex justify-content-center align-items-center category-card" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<%= cl_image_path category.menu_items.sample.photos.first.key %>');">
+          <% else %>
+          <div class="d-flex justify-content-center align-items-center category-card" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid');">
+          <% end %>
+            <p class="text-center"> <%= category.title.capitalize %></p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <% if @order.line_items.any? %>
+    <%= link_to order_line_items_path(@order) , class:"btn-call2-action btn-sticky" do %>
+      <span class="notification-btn badge-primary animate-pulse"><%= @order.line_items.size %></span>
+      <span>Go to order</span>
+    <% end %>
+  <% else %>
   <!-- button/input trigger modal -->
-  <button type="button" id="modal-0line-items-trigger" class="btn-call2-action btn-sticky">Go to order</button>
-<% end %>
+    <button type="button" id="modal-0line-items-trigger" class="btn-call2-action btn-sticky">Go to order</button>
+  <% end %>
 
  <!-- Custom Modal -->
   <div id="noItemsNotification" class="modal2">
@@ -30,3 +38,4 @@
       <div class="mt-0 mb-5 modal-subtitle text-center">You have not added any items yet</div>
     </div>
   </div>
+<% end %>
