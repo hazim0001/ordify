@@ -37,18 +37,7 @@ class MenuItemsController < ApplicationController
     @menu_item.category.menu_items_count += 1
     authorize @menu_item
     if @menu_item.save
-      # creating the ingredients for the menu item
-      if params[:ingredient_id]
-        &.each_with_index do |id, index|
-          ingredient = IngredientInventory.find(id)
-          Ingredient.create(
-            menu_item: @menu_item,
-            ingredient_inventory: ingredient,
-            ingredient_portion_size_grams: params[:ingredient_portion_size][index].to_i,
-            title: "#{ingredient.name} for #{@menu_item.title}"
-          )
-        end
-      end
+      create_ingredients if params[:ingredient_id]
       redirect_to categories_path
     else
       render :new
@@ -76,6 +65,18 @@ class MenuItemsController < ApplicationController
   end
 
   private
+
+  def create_ingredients
+    params[:ingredient_id].each_with_index do |id, index|
+      ingredient = IngredientInventory.find(id)
+      Ingredient.create(
+        menu_item: @menu_item,
+        ingredient_inventory: ingredient,
+        ingredient_portion_size_grams: params[:ingredient_portion_size][index].to_i,
+        title: "#{ingredient.name} for #{@menu_item.title}"
+      )
+    end
+  end
 
   def menu_items_zero(menu_items, restaurant)
     if menu_items.count.zero?
