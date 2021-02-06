@@ -4,7 +4,6 @@ class LineItemsController < ApplicationController
   after_action :verify_authorized, only: :destroy, unless: :skip_pundit?
 
   def create
-    # raise
     @line_item = LineItem.new(line_item_params)
     @line_item.quantity = params["quantity"]
     @line_item.menu_item = MenuItem.find(params["menu_item_id"])

@@ -70,29 +70,24 @@
 
           </div>
         </div>
-        <div style="height:13vh;">
+        <!-- <div style="height:13vh;">
 
-        </div>
+        </div> -->
+          <hr class="text-white mb-2" style="border: 1px solid white !important;">
         <div class="row">
           <div class="col-12" style="position: absolute; bottom: 0;width: 24vw;">
-          <hr class="text-white" style="border: 1px solid white !important;">
             <div id="order-footer" class="" >
-
-                <div class="d-flex justify-content-between mb-3 px-5">
-                  <h5 class="text-white">Total</h5>
-                  <h5 class="text-white" id="total">0</h5>
-                </div>
-                <div class="d-flex justify-content-center mb-4">
-                  <%= f.submit 'Create order', class: "btn btn-primary px-5 py-2" %>
-                </div>
-
+              <div class="d-flex justify-content-between mb-3 px-5">
+                <h5 class="text-white">Total</h5>
+                <h5 class="text-white" id="total">0</h5>
+              </div>
+              <div class="d-flex justify-content-center mb-4">
+                <%= f.submit 'Create order', class: "btn btn-primary px-5 py-2" %>
+              </div>
             </div>
           </div>
         </div>
-
-
     <% end %>
-
   </div>
 </div>
 
@@ -215,7 +210,7 @@
         const menuItemId = $(this).data('menuItem')
         // menu_item name
         const menuItemName = $(this)[0].children[1].firstElementChild.innerText
-        // console.log(priceNum)// line item price
+       // line item price
         const price = $(this)[0].children[1].lastElementChild.lastElementChild.innerText
         const priceNum = parseFloat(price.match(/(\d+.?\d+)/)[0]).toFixed(2)
         $('#line-item-input').append(
