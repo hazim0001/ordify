@@ -1,5 +1,4 @@
 class MenuItem < ApplicationRecord
-  has_one :inventory, dependent: :destroy
   has_many :line_items, dependent: :destroy
   has_many :orders, through: :line_items
   has_many :tables, through: :orders
@@ -11,9 +10,9 @@ class MenuItem < ApplicationRecord
 
   # belongs_to :restaurant
   acts_as_tenant :restaurant
-  belongs_to :category# , counter_cache: true
+  belongs_to :category # , counter_cache: true
 
-  validates :title, presence: true, length: { in: 3..150 } # , uniqueness: { scope: restaurant_id }
+  validates :title, presence: true, length: { in: 3..150 }, uniqueness: { scope: restaurant_id }
   validates :description, presence: true, length: { in: 10..150 } # max to be checked when we have the menu_item card
 
   monetize :item_price_cents

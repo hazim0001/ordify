@@ -38,14 +38,16 @@ class MenuItemsController < ApplicationController
     authorize @menu_item
     if @menu_item.save
       # creating the ingredients for the menu item
-      params[:ingredient_id].each_with_index do |id, index|
-        ingredient = IngredientInventory.find(id)
-        Ingredient.create(
-          menu_item: @menu_item,
-          ingredient_inventory: ingredient,
-          ingredient_portion_size_grams: params[:ingredient_portion_size][index].to_i,
-          title: "#{ingredient.name} for #{@menu_item.title}"
-        )
+      if params[:ingredient_id]
+        &.each_with_index do |id, index|
+          ingredient = IngredientInventory.find(id)
+          Ingredient.create(
+            menu_item: @menu_item,
+            ingredient_inventory: ingredient,
+            ingredient_portion_size_grams: params[:ingredient_portion_size][index].to_i,
+            title: "#{ingredient.name} for #{@menu_item.title}"
+          )
+        end
       end
       redirect_to categories_path
     else

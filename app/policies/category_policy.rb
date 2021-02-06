@@ -15,6 +15,6 @@ class CategoryPolicy < ApplicationPolicy
   end
 
   def destroy?
-    record.menu_items.last.restaurant == user.restaurant && user.role == "manager"
+    record.restaurant == user.restaurant && user.role == "manager"
   end
 end

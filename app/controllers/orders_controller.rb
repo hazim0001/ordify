@@ -8,6 +8,7 @@ class OrdersController < ApplicationController
       @tables = current_employee_restaurant.tables
       @categories = current_employee_restaurant.categories.includes(:menu_items)
       @restaurant = current_employee_restaurant
+      @restaurant.orders.any? ? @new_order_id = @restaurant.orders.last.id + 1 : @new_order_id = 1
     else
       session[:table] = Table.find(params[:table_id])
       table = Table.find(session[:table]["id"])
@@ -17,7 +18,6 @@ class OrdersController < ApplicationController
 
   def create
     if manager_is_here?
-      # raise
       @order = Order.create(table_id: order_params[:table].to_i, user_number: order_params[:user_number])
       params[:menu_item_id].each_with_index do |id, index|
         line_item = LineItem.create(menu_item_id: id.to_i, order: @order, quantity: params[:quantity][index], ordered: true)
