@@ -6,8 +6,7 @@ class ApplicationController < ActionController::Base
   # after_action :verify_authorized, except: :index, unless: :skip_pundit?
   # after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
-
- # devise routing after sign in
+  # devise routing after sign in
   def after_sign_in_path_for(resource)
     if resource.role == "cook"
       restaurant_tables_path(resource.restaurant)
@@ -34,8 +33,7 @@ class ApplicationController < ActionController::Base
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
 
-
- # the defualt pundit user instead of current user
+  # the defualt pundit user instead of current user
   def pundit_user
     current_employee
   end
