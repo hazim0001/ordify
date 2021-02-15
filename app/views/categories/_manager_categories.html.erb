@@ -38,14 +38,14 @@
               <%#= raise %>
                 <div class="d-flex flex-wrap">
                 <% category.menu_items.includes(:photos_attachments, :restaurant).order(created_at: :desc).each do |menu_item| %>
-                    <div class="card-product my-2 mr-4" style="width:33vw; align-items: end;">
+                    <div class="card-product my-2 mr-4" style="width:33vw;">
                       <% if menu_item.photos.attached? %>
                         <%= cl_image_tag menu_item.photos.first.key  %>
                       <% else %>
                         <%= image_tag("https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid")%>
                       <% end %>
-                      <div class="d-flex " style="width:187px; height:112px;">
-                        <div class="card-product-infos mt-2 pr-1" style="width: 151px; height: 110px !important;">
+                      <div class="d-flex justify-content-between" style="width:75%; height:112px;">
+                        <div class="card-product-infos mt-2 pr-1" style="width: 151px; height: 110px !important; display: flex; flex-direction: column; justify-content: space-around; padding-bottom: 0.5rem;">
                           <h2 class="mb-2">
                             <% if menu_item.title.chars.count > 16 %>
                               <%= menu_item.title.slice(0..16)%>...
