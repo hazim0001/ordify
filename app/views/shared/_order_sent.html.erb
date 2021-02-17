@@ -39,23 +39,29 @@
     <% end %>
   <% end %>
 </div>
+<%#= raise %>
 
-<button id="checkout-button" class="btn-call2-action btn-sticky d-flex justify-content-between px-5">
+<%= button_to pay_order_path(@order), method: :post, class:"btn-call2-action btn-sticky d-flex justify-content-between px-5" do %>
+<h3>Pay Now </h3>
+<h3><%= humanized_money_with_symbol(@order.total_price) %></h3>
+<% end %>
+
+<!-- <button id="checkout-button" class="btn-call2-action btn-sticky d-flex justify-content-between px-5">
   <h3>Pay Now </h3>
-  <h3><%= humanized_money_with_symbol(@order.total_price) %></h3>
+  <h3><%#= humanized_money_with_symbol(@order.total_price) %></h3>
 </button>
+ -->
 
-
-
+<!--
 <script src="https://js.stripe.com/v3/"></script>
 
 <script>
   const payment = document.getElementById('checkout-button');
   payment.addEventListener('click', () => {
-    const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
+    const stripe = Stripe('<%#= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
     stripe.redirectToCheckout({
-      sessionId: '<%= @order.checkout_session_id %>'
+      sessionId: '<%#= @order.checkout_session_id %>'
     });
   });
-</script>
+</script> -->
 

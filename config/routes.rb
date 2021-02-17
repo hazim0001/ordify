@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     member do
       post :dispatch_notify
       patch :shallow_delete
+      post :pay
     end
     collection do
       get :display

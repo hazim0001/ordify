@@ -36,3 +36,37 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
+
+if ENV["RACK_ENV"] == "development"
+  begin
+    options = {
+      addr: ENV.fetch("PORT") { 3000 },
+      config: File.join(ENV["HOME"], ".ngrok2", "ngrok.yml"),
+    }
+
+    # If you have a paid plan you can create tunnels with custom subdomains
+    options[:subdomain] = ENV.fetch("NGROK_SUBDOMAIN") { nil }
+    options[:region] = ENV.fetch("NGROK_REGION") { "us" }
+
+    # Create tunnel
+    Ngrok::Tunnel.start(options)
+
+    box = TTY::Box.frame(width: 50, height: 10, padding: 2,
+      title: {top_left: "<NGROK>", bottom_right: "</NGROK>"},
+      style: {fg: :green, bg: :black, border: {fg: :green, bg: :black}}) do
+      [
+        "STATUS: #{Ngrok::Tunnel.status}",
+        "PORT:   #{Ngrok::Tunnel.port}",
+        "HTTP:   #{Ngrok::Tunnel.ngrok_url}",
+        "HTTPS:  #{Ngrok::Tunnel.ngrok_url_https}"
+      ].join("\n")
+    end
+  rescue => error
+    box = TTY::Box.frame(width: 50, height: 5, align: :center, padding: 1,
+      title: {top_left: "<NGROK>", bottom_right: "</NGROK>"},
+      style: {fg: :red, bg: :black, border: {fg: :red, bg: :black}}) do
+      "ERROR: could not create a tunnel ;("
+    end
+  end
+  puts "\n#{box}\n"
+end

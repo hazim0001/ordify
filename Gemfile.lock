@@ -189,10 +189,13 @@ GEM
     multipart-post (2.1.1)
     nested_form (0.3.2)
     netrc (0.11.0)
+    ngrok-tunnel (2.1.1)
     nio4r (2.5.4)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
+    pastel (0.8.0)
+      tty-color (~> 0.5)
     pg (1.2.3)
     pry (0.13.1)
       coderay (~> 1.1)
@@ -299,6 +302,11 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    strings (0.2.0)
+      strings-ansi (~> 0.2)
+      unicode-display_width (~> 1.5)
+      unicode_utils (~> 1.4)
+    strings-ansi (0.2.0)
     stripe (5.28.0)
     stripe_event (2.3.1)
       activesupport (>= 3.1)
@@ -309,6 +317,12 @@ GEM
     tilt (2.0.10)
     time_difference (0.5.0)
       activesupport
+    tty-box (0.7.0)
+      pastel (~> 0.8)
+      strings (~> 0.2.0)
+      tty-cursor (~> 0.7)
+    tty-color (0.6.0)
+    tty-cursor (0.7.1)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -321,6 +335,8 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
+    unicode-display_width (1.7.0)
+    unicode_utils (1.4.0)
     uniform_notifier (1.13.0)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -369,6 +385,7 @@ DEPENDENCIES
   letter_opener
   listen (~> 3.2)
   money-rails (~> 1.12)
+  ngrok-tunnel
   pg (>= 0.18, < 2.0)
   pry-byebug
   pry-rails
@@ -385,6 +402,7 @@ DEPENDENCIES
   stripe
   stripe_event
   time_difference
+  tty-box
   turbolinks (~> 5)
   twilio-ruby (~> 5.43)
   tzinfo-data

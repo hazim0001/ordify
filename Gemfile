@@ -78,6 +78,8 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'letter_opener'
+  gem 'ngrok-tunnel'
+  gem 'tty-box'
   # for n+1 queries detection
   gem 'bullet'
 end

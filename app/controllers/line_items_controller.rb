@@ -85,7 +85,6 @@ class LineItemsController < ApplicationController
       current_stock = ingredient.ingredient_inventory.stock_amount_grams
       ingredient.ingredient_inventory.update(stock_amount_grams: current_stock - (portion * quantity))
     end
-    # raise
     if @line_item.extras.any?
       @line_item.extras.each do |extra|
         portion = extra.size_grams

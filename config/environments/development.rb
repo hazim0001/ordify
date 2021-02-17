@@ -11,7 +11,8 @@ Rails.application.configure do
   config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.svg *.ico *.eot *.ttf)
   # config.hosts << "9a7dd3447a16.ngrok.io"
   # Settings specified here will take precedence over those in config/application.rb.
-  config.hosts << "016021ce043f.ngrok.io"
+  # config.hosts << "016021ce043f.ngrok.io"
+  config.hosts << /[a-z0-9]+\.ngrok\.io/
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development

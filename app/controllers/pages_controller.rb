@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   end
 
   def payment
+    raise
     @table = Restaurant.first.tables.first
   end
 end
