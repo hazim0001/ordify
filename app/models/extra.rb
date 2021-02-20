@@ -1,5 +1,5 @@
-class Extra < ApplicationRecord
-  monetize :extra_price_cents
+# class Extra < ApplicationRecord
+#   monetize :extra_price_cents
 
-  belongs_to :ingredient_inventory
-end
+#   belongs_to :ingredient_inventory
+# end

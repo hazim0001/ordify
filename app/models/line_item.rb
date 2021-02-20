@@ -5,10 +5,10 @@ class LineItem < ApplicationRecord
 
   belongs_to :order
   belongs_to :menu_item
-
-  has_many :add_extras, dependent: :destroy
-  has_many :extras, through: :add_extras
-  has_many :ingredients, through: :menu_item
+#
+  # has_many :add_extras, dependent: :destroy
+  # has_many :extras, through: :add_extras
+  # has_many :ingredients, through: :menu_item
 
   validates :quantity, presence: true, inclusion: { in: (0..10) }, numericality: { only_integer: true }
   validates :comment, length: { maximum: 30 }
@@ -17,8 +17,8 @@ class LineItem < ApplicationRecord
 
   default_scope { where(deleted: false) } # self.unscoped(codee \hereee)
   scope :inside_order_no, ->(id) { where("order_id= ?", id).order(created_at: :desc) }
-  scope :not_dispatched_from_kitchen, -> { where(dispatched_from_kitchen: false) }
-  scope :ordered_and_not_dispatched, -> { where("ordered= ? AND dispatched_from_kitchen= ?", true, false).order(:created_at) }
+  # scope :not_dispatched_from_kitchen, -> { where(dispatched_from_kitchen: false) }
+  # scope :ordered_and_not_dispatched, -> { where("ordered= ? AND dispatched_from_kitchen= ?", true, false).order(:created_at) }
 
   private
 
