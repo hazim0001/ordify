@@ -19,9 +19,9 @@ class MenuItemsController < ApplicationController
   def show
     @order = Order.find(session[:order]["id"])
     @line_item = LineItem.new
-    restaurant = Restaurant.find(session[:restaurant]["id"])
-    ingredient_inventories_ids = restaurant.ingredients.pluck(:ingredient_inventory_id).uniq
-    @extras = Extra.where(ingredient_inventory_id: ingredient_inventories_ids)
+    # restaurant = Restaurant.find(session[:restaurant]["id"])
+    # ingredient_inventories_ids = restaurant.ingredients.pluck(:ingredient_inventory_id).uniq
+    # @extras = Extra.where(ingredient_inventory_id: ingredient_inventories_ids)
   end
 
   def new
@@ -37,16 +37,16 @@ class MenuItemsController < ApplicationController
     @menu_item.category.menu_items_count += 1
     authorize @menu_item
     if @menu_item.save
-      # creating the ingredients for the menu item
-      params[:ingredient_id].each_with_index do |id, index|
-        ingredient = IngredientInventory.find(id)
-        Ingredient.create(
-          menu_item: @menu_item,
-          ingredient_inventory: ingredient,
-          ingredient_portion_size_grams: params[:ingredient_portion_size][index].to_i,
-          title: "#{ingredient.name} for #{@menu_item.title}"
-        )
-      end
+      # # creating the ingredients for the menu item
+      # params[:ingredient_id].each_with_index do |id, index|
+      #   ingredient = IngredientInventory.find(id)
+      #   Ingredient.create(
+      #     menu_item: @menu_item,
+      #     ingredient_inventory: ingredient,
+      #     ingredient_portion_size_grams: params[:ingredient_portion_size][index].to_i,
+      #     title: "#{ingredient.name} for #{@menu_item.title}"
+      #   )
+      # end
       redirect_to categories_path
     else
       render :new
