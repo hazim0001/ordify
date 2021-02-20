@@ -16,7 +16,7 @@
     <div class="order-summary-text">Order Summary</div>
 
     <!-- this is the card for summary -->
-    <% @line_items.includes(:add_extras).each do |line_item| %>
+    <% @line_items.each do |line_item| %>
       <% if line_item.quantity >= 1 %>
         <% if line_item.ordered %>
           <div class="card-item">
@@ -53,19 +53,19 @@
                     <h2><%= humanized_money_with_symbol(line_item.total) %></h2>
                   </div>
                   <!-- <div class=""> -->
-                    <% line_item.extras.each do |extra| %>
-                      <div class="d-flex justify-content-between w-100 pt-1 px-1">
-                        <p class="px-2 w-50 ml-5" style="font-size: 30px;">+ Extra <%= extra.title %></p>
-                        <h2 class="text-muted"><%= humanized_money_with_symbol(extra.extra_price) %></h2>
-                      </div>
-                    <% end %>
+                    <%# line_item.extras.each do |extra| %>
+                     <!--  <div class="d-flex justify-content-between w-100 pt-1 px-1">
+                        <p class="px-2 w-50 ml-5" style="font-size: 30px;">+ Extra <%#= extra.title %></p>
+                        <h2 class="text-muted"><%#= humanized_money_with_symbol(extra.extra_price) %></h2>
+                      </div> -->
+                    <%# end %>
                   <!-- </div> -->
                 </div>
-                <% if line_item.extras.size >= 2 %>
-                  <div class="d-flex justify-content-end ">
-                <% else %>
+                <%# if line_item.extras.size >= 2 %>
+                  <!-- <div class="d-flex justify-content-end "> -->
+                <%# else %>
                   <div class="d-flex justify-content-end margin-top-100">
-                <% end %>
+                <%# end %>
                   <%= form_for [@order, line_item], url: order_line_item_path(@order.id, line_item.id), html: { id: :form } , method: :patch, remote: true do |f| %>
                       <div class="custom-number-input-summary w-32 toggler-div d-flex justify-content-end align-items-end " >
                         <div class="flex flex-row toggler relative bg-transparent toggler-border">

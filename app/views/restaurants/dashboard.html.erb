@@ -47,21 +47,21 @@
         <div class="tab-pane fade " id="sales-by-day" role="tabpanel" aria-labelledby="sales-by-day-tab">
           <div class="my-5">
             <p><ins>Sales by day</ins></p>
-            <%= column_chart @restaurant_orders.group_by_day(:order_created_at, series: false).count, download: true, xtitle: "Date", ytitle: "Orders Count" %>
+            <%#= column_chart @restaurant_orders.group_by_day(:order_created_at, series: false).count, download: true, xtitle: "Date", ytitle: "Orders Count" %>
           </div>
         </div>
 
         <div class="tab-pane fade" id="sales-by-hour" role="tabpanel" aria-labelledby="sales-by-hour-tab">
           <div class="my-5">
             <p><ins>Sales by hour</ins></p>
-            <%= line_chart @restaurant_orders.group_by_hour(:order_created_at, series: false).count, download: true, crosshair: true %>
+            <%#= line_chart @restaurant_orders.group_by_hour(:order_created_at, series: false).count, download: true, crosshair: true %>
           </div>
         </div>
 
         <div class="tab-pane fade" id="menuitem-sales" role="tabpanel" aria-labelledby="menuitem-sales-tab">
           <div class="my-5">
             <p><ins>MenuItems sales distribution</ins></p>
-            <%= pie_chart LineItem.joins(:menu_item).group(:title).size, download: true %>
+            <%#= pie_chart LineItem.joins(:menu_item).group(:title).size, download: true %>
           </div>
         </div>
 

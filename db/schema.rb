@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_20_041946) do
+ActiveRecord::Schema.define(version: 2021_02_20_050703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2021_02_20_041946) do
     t.text "line_deletion_reason"
     t.datetime "line_item_created_at"
     t.datetime "line_item_updated_at"
+    t.boolean "dispatched_from_kitchen", default: false
     t.index ["menu_item_id"], name: "index_line_items_on_menu_item_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
   end

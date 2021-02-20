@@ -17,8 +17,8 @@ class LineItem < ApplicationRecord
 
   default_scope { where(deleted: false) } # self.unscoped(codee \hereee)
   scope :inside_order_no, ->(id) { where("order_id= ?", id).order(created_at: :desc) }
-  # scope :not_dispatched_from_kitchen, -> { where(dispatched_from_kitchen: false) }
-  # scope :ordered_and_not_dispatched, -> { where("ordered= ? AND dispatched_from_kitchen= ?", true, false).order(:created_at) }
+  scope :not_dispatched_from_kitchen, -> { where(dispatched_from_kitchen: false) }
+  scope :ordered_and_not_dispatched, -> { where("ordered= ? ", true).order(:created_at) }
 
   private
 
