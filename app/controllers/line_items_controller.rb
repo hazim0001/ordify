@@ -10,14 +10,14 @@ class LineItemsController < ApplicationController
     @line_item.order = Order.find(params[:order_id]) # session[:order]["id"]
     category = @line_item.menu_item.category
     @line_item.save
-    if params[:extras_id].present?
-      params[:extras_id].each do |extra_id|
-        extra = Extra.find(extra_id)
-        AddExtra.create(line_item: @line_item, extra: extra)
-      end
-    end
+    # if params[:extras_id].present?
+    #   params[:extras_id].each do |extra_id|
+    #     extra = Extra.find(extra_id)
+    #     AddExtra.create(line_item: @line_item, extra: extra)
+    #   end
+    # end
     update_totals_in_line_item_and_order
-    update_inventory
+    # update_inventory
     redirect_to category_menu_items_path(category)
   end
 
@@ -78,40 +78,40 @@ class LineItemsController < ApplicationController
     @line_item.order.update(total_price_cents: (sub_total + extra_total), sent: false)
   end
 
-  def update_inventory
-    @line_item.menu_item.ingredients.each do |ingredient|
-      portion = ingredient.ingredient_portion_size_grams
-      quantity = @line_item.quantity
-      current_stock = ingredient.ingredient_inventory.stock_amount_grams
-      ingredient.ingredient_inventory.update(stock_amount_grams: current_stock - (portion * quantity))
-    end
-    if @line_item.extras.any?
-      @line_item.extras.each do |extra|
-        portion = extra.size_grams
-        current_stock = extra.ingredient_inventory.stock_amount_grams
-        extra.ingredient_inventory.update(stock_amount_grams: current_stock - portion)
-      end
-    end
+  # def update_inventory
+  #   @line_item.menu_item.ingredients.each do |ingredient|
+  #     portion = ingredient.ingredient_portion_size_grams
+  #     quantity = @line_item.quantity
+  #     current_stock = ingredient.ingredient_inventory.stock_amount_grams
+  #     ingredient.ingredient_inventory.update(stock_amount_grams: current_stock - (portion * quantity))
+  #   end
+  #   if @line_item.extras.any?
+  #     @line_item.extras.each do |extra|
+  #       portion = extra.size_grams
+  #       current_stock = extra.ingredient_inventory.stock_amount_grams
+  #       extra.ingredient_inventory.update(stock_amount_grams: current_stock - portion)
+  #     end
+  #   end
     # trigger_limit = @line_item.menu_item.inventory.trigger_limit
     # InventoryCheckJob.perform_later if trigger_limit >= current_stock && @line_item.ordered == true
-  end
+  # end
 
-  def return_inventory
-    @line_item.menu_item.ingredients.each do |ingredient|
-      portion = ingredient.ingredient_portion_size_grams
-      quantity = @line_item.quantity
-      current_stock = ingredient.ingredient_inventory.stock_amount_grams
-      ingredient.ingredient_inventory.update(stock_amount_grams: current_stock + (portion * quantity))
-    end
+  # def return_inventory
+  #   @line_item.menu_item.ingredients.each do |ingredient|
+  #     portion = ingredient.ingredient_portion_size_grams
+  #     quantity = @line_item.quantity
+  #     current_stock = ingredient.ingredient_inventory.stock_amount_grams
+  #     ingredient.ingredient_inventory.update(stock_amount_grams: current_stock + (portion * quantity))
+  #   end
 
-    return unless @line_item.extras.any?
+  #   return unless @line_item.extras.any?
 
-    @line_item.extras.each do |extra|
-      portion = extra.size_grams
-      current_stock = extra.ingredient_inventory.stock_amount_grams
-      extra.ingredient_inventory.update(stock_amount_grams: current_stock + portion)
-    end
-  end
+  #   @line_item.extras.each do |extra|
+  #     portion = extra.size_grams
+  #     current_stock = extra.ingredient_inventory.stock_amount_grams
+  #     extra.ingredient_inventory.update(stock_amount_grams: current_stock + portion)
+  #   end
+  # end
 
   def set_line_item
     @line_item = LineItem.find(params[:id])
