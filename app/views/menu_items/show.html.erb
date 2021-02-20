@@ -27,25 +27,25 @@
   <%= f.text_field :comment, class:"textarea-menu-item px-5 mt-3 focus:outline-none focus:ring-4 focus:ring-yellow-500 focus:border-transparent", placeholder: "No onions, no tomatos, etc..." %>
   <%#= f.association :extras, as: :check_boxes, input_html: { class: "form-check-input pads" }, label_html: { class: "form-check-label" }, wrapper_html: { class: "form-check" } %>
   <!-- Add extra section -->
-  <% if @menu_item.accepts_extra %>
+<!--   <%# if @menu_item.accepts_extra %>
     <div class="mt-5 mb-5">
       <h4 class="mb-5">Choose Extra</h4>
-      <% @extras.each do |extra| %>
+      <%# @extras.each do |extra| %>
         <div class="d-flex justify-content-between align-items-center mt-3">
           <div class="form-check custom-checkbox ml-5">
-            <input type="checkbox" class=" mt-5 custom-control-input" id="flexCheck<%= extra.id %>" value="<%= extra.id %>" name="extras_id[]">
-            <label class=" custom-control-label" for="flexCheck<%= extra.id %>">
-              <p class="light-weight ml-5">Extra <%= extra.title.capitalize %></p>
+            <input type="checkbox" class=" mt-5 custom-control-input" id="flexCheck<%#= extra.id %>" value="<%#= extra.id %>" name="extras_id[]">
+            <label class=" custom-control-label" for="flexCheck<%#= extra.id %>">
+              <p class="light-weight ml-5">Extra <%#= extra.title.capitalize %></p>
             </label>
           </div>
 
           <span>
-            <h3 style="font-size: 45px;"><%= humanized_money_with_symbol(extra.extra_price) %></h3>
+            <h3 style="font-size: 45px;"><%#= humanized_money_with_symbol(extra.extra_price) %></h3>
           </span>
         </div>
-      <% end %>
+      <%# end %>
     </div>
-  <% end %>
+  <% end %> -->
 
   <div class="d-flex justify-content-between toggler-add-btn">
     <!--  here goes the toggler -->

@@ -16,9 +16,6 @@ Rails.application.routes.draw do
   resources :restaurants, except: %i[new create index destroy show edit update] do
     resources :tables, only: %i[create index show]
     resources :menu_items, only: %i[create edit update new]
-    resources :inventories , only: :index
-    resources :ingredient_inventories, only: %i[index create ]
-    resources :inventory_refills, only: :index
     resources :orders, only: %i[new create]
     member do
       get :dashboard
@@ -48,8 +45,7 @@ Rails.application.routes.draw do
   resources :menu_items, only: %i[destroy show]
   resources :tables, only: :destroy
   resources :categories, only: :destroy
-  resources :ingredient_inventories, only: %i[update destroy]
-  resources :inventory_refills, only: %i[create]
+
 
   resources :line_items, only: %i[destroy edit] do
     member do
