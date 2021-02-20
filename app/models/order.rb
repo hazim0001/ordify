@@ -16,6 +16,7 @@ class Order < ApplicationRecord
   # enum status: %i[paid]
 
   default_scope { where(order_deleted: false) }
+
   scope :not_paid, -> { where("status= ? AND total_price_cents> ?", "not paid", "0") }
   scope :not_paid_only, -> { where(status: "not paid") }
   scope :last_week, -> { where("order_created_at > ?", 1.week.ago) }
