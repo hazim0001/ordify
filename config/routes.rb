@@ -3,11 +3,11 @@ Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
-  mount StripeEvent::Engine, at: '/stripe-webhooks'
+  # mount StripeEvent::Engine, at: '/stripe-webhooks'
 
-  authenticate :employee, ->(employee) { employee.admin? } do
-    mount Blazer::Engine, at: "blazer"
-  end
+  # authenticate :employee, ->(employee) { employee.admin? } do
+  #   mount Blazer::Engine, at: "blazer"
+  # end
 
   devise_scope :employee do
     root to: 'pages#home'

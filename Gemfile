@@ -27,10 +27,10 @@ gem 'redis', '~> 4.0'
 gem 'pundit'
 
 # for charting
-gem "chartkick"
+# gem "chartkick"
 
 # to group by day min sec etc...
-gem 'groupdate'
+# gem 'groupdate'
 
 # gem 'active_median'
 # percentile and median for rails
@@ -39,17 +39,17 @@ gem 'groupdate'
 gem 'data-confirm-modal'
 
 # to calculate time diffrence https://github.com/tmlee/time_difference
-gem 'time_difference'
+# gem 'time_difference'
 
-gem 'human_duration'
+# gem 'human_duration'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 gem 'money-rails', '~>1.12'
-gem 'stripe'
-gem 'stripe_event'
+# gem 'stripe'
+# gem 'stripe_event'
 gem 'rails_admin', '~> 2.0'
-gem 'blazer', '~> 2.3', '>= 2.3.1'
+# gem 'blazer', '~> 2.3', '>= 2.3.1'
 gem 'twilio-ruby', '~> 5.43'
 
 gem 'cloudinary', '~>1.16.0'
