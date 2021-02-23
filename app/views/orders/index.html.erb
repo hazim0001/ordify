@@ -69,17 +69,7 @@
                                       <td><%= (line.total_kitchen_time / 60).to_i%> mins</td>
                                       <td><span class="badge badge-success">Dispatched</span></td>
                                       <% else %>
-                                        <% if line.extras.any? %>
-                                        <td>
-                                          <%= line.comment%>/
-                                          <% line.extras.pluck(:title).each do |extra| %>
-                                            <strong>+</strong><%= extra %>
-                                          <% end %>
-                                        </td>
-                                        <% else %>
-                                        <td><%= line.comment%></td>
-                                        <% end %>
-
+                                      <td><%= line.comment%></td>
                                       <td><span class="badge badge-warning">Not dispatched</span></td>
                                       <td class=" pb-0">
                                         <p class="card-text d-flex flex-row-reverse justify-content-between">
